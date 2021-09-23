@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/battery_buttons_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/battery_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/battery_blank"/>
+        <ProgressBar
+            android:id="@+id/battery_level_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/battery_image"
+            android:layout_alignBottom="@+id/battery_image"
+            android:layout_alignEnd="@+id/battery_image"
+            android:layout_alignStart="@+id/battery_image"
+            android:layout_marginTop="18dp"
+            android:padding="15dp"
+            android:progress="0"
+            android:progressDrawable="@drawable/battery_progress_bar"/>
+    </RelativeLayout>
+
+        <TextView
+            android:id="@+id/battery_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/batter_result"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/battery_level_textsize"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/battery_buttons_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/battery_level_read"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="05dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:text="@string/battery_read"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_very_small"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/battery_level_notify"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="05dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:text="@string/battery_start_notify"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_very_small"
+            android:visibility="gone" />
+    </LinearLayout>
+</RelativeLayout>

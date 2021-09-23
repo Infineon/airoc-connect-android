@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <RelativeLayout
+        android:id="@+id/relativetop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/broder"
+        android:focusableInTouchMode="true"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/txtheading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/gatt_details_ascii_popup_heading"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/ascii_edittext_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtheading"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/broder"
+            android:minHeight="35dp"
+            android:padding="2dp"
+            android:singleLine="true">
+            <requestFocus/>
+
+        </EditText>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ascii_edittext_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp">
+
+            <Button
+                android:id="@+id/txtcancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/gatt_details_popup_cancel"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/txtok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/gatt_details_popup_ok"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

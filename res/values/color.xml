@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/dark_blue</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/light_blue</color>
+
+    <color name="main_bg_color">#0c377b</color>
+
+    <color name="list_item_title_notactivated">#000</color>
+    <color name="list_item_title_activated">#007aff</color>
+    <color name="list_background">#FFF</color>
+
+    <color name="actionbar_bg_color">#0c377b</color>
+    <color name="actionbar_bg_color_light">#900c377b</color>
+    <color name="slider_bg_color">#0a2b61</color>
+    <color name="sensor_hub_segment_color">#e5e5e5</color>
+
+    <!-- Action bar pull to refresh colors -->
+    <color name="dark_blue">#0c377b</color>
+    <color name="medium_blue">#11479c</color>
+    <color name="light_blue">#2a67c8</color>
+    <color name="faint_blue">#9ec2fb</color>
+
+    <!-- Action bar pull to refresh colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!--File Read/Write progress colors-->
+    <color name="file_read_progress">#751abb00</color>
+    <color name="grey">#EFEFF4</color>
+    <color name="green">#701ABB00</color>
+
+    <color name="red">#FF0000</color>
+</resources>

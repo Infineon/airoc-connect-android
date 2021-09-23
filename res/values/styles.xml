@@ -1,0 +1,42 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomProgressBar" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/custom_progress_bar_horizontal</item>
+    </style>
+
+    <style name="SpinnerItem_DualAppBtldrActiveApplication" parent="@style/Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">marquee</item>
+        <!--custom settings -->
+        <item name="android:textAlignment">inherit</item>
+        <item name="android:textColor">@color/main_bg_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SpinnerDropDownItem_DualAppBtldrActiveApplication" parent="@style/Widget.AppCompat.Light.DropDownItem.Spinner">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dip</item>
+        <item name="android:ellipsize">marquee</item>
+        <!--custom settings -->
+        <item name="android:textColor">@color/main_bg_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+</resources>

@@ -1,0 +1,50 @@
+CySmart Android App Open Source Libraries
+-----------------------------------------
+
+CySmart Android app uses few open source libraries to implement some of its features. 
+The details of these open source libraries are documented below:
+
+1. AChartEngine
+AChartEngine is a charting library for Android applications
+https://code.google.com/p/achartengine/
+
+License: Apache License2.0
+https://github.com/ddanny/achartengine/blob/master/LICENSE-2.0.txt
+
+2. Android-WebRequest
+Fluent interface for easy HTTP requests to web servers (GET, POST, PUT or DELETE)
+https://github.com/delight-im/Android-WebRequest
+
+License: Apache License 2.0
+https://github.com/delight-im/Android-WebRequest/blob/master/LICENSE
+
+3. Layout files (layout_menu_paircache.xml, listitem_device.xml, listitem_firmware.xml, listitem_glucose_spinner.xml, simple_spinner_dropdown_item.xml, simple_spinner_item.xml)
+Represent the XML based views.
+
+License: Apache License 2.0
+http://www.apache.org/licenses/LICENSE-2.0
+
+4. GlucoseContextRecord.java, LineGraphView.java
+GlucoseContextRecord.java represents a Glucose BLE profile data package.
+LineGraphView is a line graph chart control.
+
+License:
+Copyright (c) 2015, Nordic Semiconductor
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this
+software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

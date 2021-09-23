@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_ota_files"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    android:weightSum="1.0">
+
+    <LinearLayout
+        android:id="@+id/security_key_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/security_key_required"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="@string/ota_security_key_required"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/main_bg_color"
+                android:textSize="@dimen/find_textsize"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/security_key"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:digits="0123456789ABCDEF"
+                android:inputType="textCapCharacters"
+                android:maxLength="12" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/main_bg_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/active_app_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:text="@string/ota_active_application"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/main_bg_color"
+                android:textSize="@dimen/find_textsize"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/active_app"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/main_bg_color" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/heading_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="15dp"
+        android:text="@string/ota_file_list"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/main_bg_color"
+        android:textSize="@dimen/find_textsize"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/main_bg_color" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.0"
+        android:divider="@color/main_bg_color"
+        android:dividerHeight="2dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/upgrade_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:text="@string/ota_upgrade"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_very_small"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"
+            android:text="@string/ota_next"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/textsize_very_small"
+            android:visibility="gone" />
+    </LinearLayout>
+</LinearLayout>

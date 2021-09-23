@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <RelativeLayout
+        android:id="@+id/relativetop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/broder"
+        android:focusableInTouchMode="true"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/txtheading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/gatt_details_popup_heading"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edittext_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtheading"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/broder"
+            android:minHeight="35dp"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:windowSoftInputMode="stateHidden">
+
+        </EditText>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edittext_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp">
+
+            <Button
+                android:id="@+id/txtcancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/gatt_details_popup_cancel"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/txtok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/gatt_details_popup_ok"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativetop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btntwo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="2"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnthree"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="3"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnfour"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="4"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnfive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="5"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnsix"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="6"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnseven"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="7"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btneight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="8"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnnine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="9"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btna"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="A"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnb"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="B"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnc"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="C"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="D"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btne"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="E"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnf"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="F"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnhex"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="0x"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <Button
+                android:id="@+id/btnzero"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/border_button_text_selecter" />
+
+            <ImageButton
+                android:id="@+id/btnback"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_button_selector"
+                android:contentDescription="@string/app_name"
+                android:gravity="center"
+                android:src="@drawable/back_icon"
+                android:textColor="@drawable/border_button_text_selecter" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@android:color/white" />
+    <!--64001D  -->
+    <stroke
+        android:width="1dip"
+        android:color="@color/actionbar_bg_color" />
+    <corners
+        android:bottomLeftRadius="1dip"
+        android:bottomRightRadius="1dip"
+        android:topLeftRadius="1dip"
+        android:topRightRadius="1dip" />
+
+</shape>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/parent"
+    android:clickable="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/linkloss_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="05dp"
+        android:paddingRight="05dp"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/find_linkloss"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/find_textsize" />
+
+        <com.cypress.cysmart.CommonUtils.CustomSpinner
+            android:id="@+id/linkloss_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:prompt="@string/find_spinner_prompt"
+            android:layout_weight="2" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/actionbar_bg_color" />
+
+    <LinearLayout
+        android:id="@+id/immalert_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="05dp"
+        android:paddingRight="05dp"
+        android:paddingTop="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/find_immediate_alert"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/find_textsize" />
+
+        <com.cypress.cysmart.CommonUtils.CustomSpinner
+            android:id="@+id/immediate_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:prompt="@string/find_spinner_prompt"
+            android:layout_weight="2" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/actionbar_bg_color" />
+
+    <LinearLayout
+        android:id="@+id/transmission_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:contentDescription="@string/image_bluetooth_logo"
+            android:src="@drawable/blutooth_icon" />
+
+        <TextView
+            android:id="@+id/findme_tx_power_txt"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="@dimen/textsize_small"
+            android:textColor="@color/main_bg_color"
+            android:textStyle="bold"
+            android:gravity="end" />
+
+        <TextView
+            android:id="@+id/findme_tx_power_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="@dimen/textsize_very_small"
+            android:textColor="@color/main_bg_color"
+            android:text="@string/device_signal_strength_unit"
+            android:gravity="start" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/transmission_rel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/image_transmission_background_circle_logo"
+            android:src="@drawable/find_me_blue_circle" />
+
+        <ImageView
+            android:id="@+id/findme_tx_power_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/image_transmission_foreground_circle_logo"
+            android:src="@drawable/white_circle2" />
+    </RelativeLayout>
+
+</LinearLayout>

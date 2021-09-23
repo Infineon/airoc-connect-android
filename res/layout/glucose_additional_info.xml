@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/parent_add_gls_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_carb_id"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_carb_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_carb_unit"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_carb_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_meal"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_tester"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_tester"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_health"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_health"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_exc_duration"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_exercise_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_exc_intensity"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_exercise_intensity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_med_id"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_medication_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_med"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_medication_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/gls_hba1c"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gls_hba1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/actionbar_bg_color"
+            android:textSize="@dimen/textsize_very_small" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/actionbar_bg_color" />
+
+    </LinearLayout>
+
+</ScrollView>

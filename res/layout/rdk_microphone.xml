@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/parent_mic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="@string/rdk_microphone"
+            android:textColor="@color/main_bg_color"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/voicerecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/border_button_selector"
+            android:text="@string/record"
+            android:textColor="@drawable/border_button_text_selecter" />
+        <TextView
+            android:id="@+id/pcm_filepath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_square"
+            android:gravity="center|center_vertical"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:textColor="@color/main_bg_color" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/voiceplayback"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:background="@drawable/border_button_selector"
+            android:text="@string/play_back"
+            android:textColor="@drawable/border_button_text_selecter" />
+
+        <Button
+            android:id="@+id/voiceconversion"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:background="@drawable/border_button_selector"
+            android:text="@string/convert"
+            android:textColor="@drawable/border_button_text_selecter" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/values"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/border_blue_fill"
+                    android:gravity="center|center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/format"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/border_blue_fill"
+                    android:gravity="center|center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/value"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/hex"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/border_square"
+                    android:gravity="center|center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/hex"
+                    android:textColor="@color/main_bg_color" />
+
+                <TextView
+                    android:id="@+id/hex_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/border_square"
+                    android:gravity="center|center_vertical"
+                    android:padding="10dp"
+                    android:textColor="@color/main_bg_color" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/converted_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/border_square"
+                    android:gravity="center|center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/speech_text"
+                    android:textColor="@color/main_bg_color" />
+
+                <TextView
+                    android:id="@+id/converted_text_value"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/border_square"
+                    android:gravity="center|center_vertical"
+                    android:padding="10dp"
+                    android:textColor="@color/main_bg_color" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/apichange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/border_button_selector"
+            android:text="@string/change_api"
+            android:textColor="@drawable/border_button_text_selecter" />
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

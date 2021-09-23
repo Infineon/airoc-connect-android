@@ -1,1 +1,1 @@
-# cysmart-android
+CySmart Android app

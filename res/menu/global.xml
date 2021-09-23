@@ -1,0 +1,42 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/share"
+        app:showAsAction="always"
+        android:title="@string/share" />
+    <!--  android:actionProviderClass="android.widget.ShareActionProvider" -->
+
+    <item
+        android:id="@+id/log"
+        android:icon="@drawable/document_icon"
+        app:showAsAction="always"
+        android:title="@string/log" />
+    <item
+        android:id="@+id/graph"
+        android:icon="@drawable/graph"
+        app:showAsAction="always"
+        android:title="@string/graph"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/search_white_icon"
+        app:showAsAction="always|collapseActionView"
+        android:title="@string/search_title"
+        android:visible="false"
+        app:actionLayout="@layout/layout_search" />
+    <item
+        android:id="@+id/sharelogger"
+        android:icon="@drawable/share"
+        app:showAsAction="always"
+        android:title="@string/share"
+        android:visible="false" />
+
+    <item
+        android:id="@+id/clearcache"
+        android:icon="@drawable/delete_normal"
+        app:showAsAction="always"
+        android:title="@string/share"
+        android:visible="false" />
+</menu>

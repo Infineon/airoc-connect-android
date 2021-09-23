@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/promity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:singleLine="true"
+        android:text="@string/proximity"
+        android:textColor="@color/main_bg_color"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/promity"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="17dp"
+        android:layout_toLeftOf="@+id/proximity_meter"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:singleLine="true"
+            android:text="@string/proximity_bar_hundred"
+            android:textColor="@color/main_bg_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_marginBottom="25dp"
+            android:text="@string/proximity_bar_seventyfive"
+            android:textColor="@color/main_bg_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/proximity_bar_fifty"
+            android:textColor="@color/main_bg_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:singleLine="true"
+            android:text="@string/proximity_bar_twentyfive"
+            android:textColor="@color/main_bg_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:singleLine="true"
+            android:text="@string/proximity_bar_zero"
+            android:textColor="@color/main_bg_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/proximity_meter"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/promity"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_toLeftOf="@+id/proximity_bar"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_bg_color" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/proximity_bar"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/promity"
+        android:layout_centerInParent="true"
+        android:layout_margin="30dp"
+        android:background="@drawable/proximity_bar"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/proximity_view_1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="255"
+            android:contentDescription="@string/app_name"
+            android:src="@color/white" />
+
+        <ImageView
+            android:id="@+id/proximity_view_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:contentDescription="@string/app_name"
+            android:gravity="center" />
+    </LinearLayout>
+
+</RelativeLayout>
