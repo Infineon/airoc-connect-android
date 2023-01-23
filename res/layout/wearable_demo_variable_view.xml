@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <com.cypress.cysmart.wearable.demo.VariableTargetProgressBar
+    <com.infineon.airocbluetoothconnect.wearable.demo.VariableTargetProgressBar
         android:id="@+id/progress"
         style="@style/CustomProgressBar"
         android:layout_width="0dp"

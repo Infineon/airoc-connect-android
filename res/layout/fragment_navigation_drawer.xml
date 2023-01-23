@@ -7,4 +7,4 @@
     android:choiceMode="singleChoice"
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
-    tools:context="com.cypress.cysmart.CommonFragments.NavigationDrawerFragment" />
+    tools:context="com.infineon.airocbluetoothconnect.CommonFragments.NavigationDrawerFragment" />

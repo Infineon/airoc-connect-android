@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cypress.cysmart"
-    android:versionCode="39"
-    android:versionName="${version_name}">
+    package="com.infineon.airocbluetoothconnect"
+    >
 
     <!--
     Declare this required feature if you want to make the app available to BLE-capable
@@ -14,21 +13,31 @@
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
+    <!-- Request legacy Bluetooth permissions on older devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- Needed to look for Bluetooth devices. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+
+    <!-- Needed to communicates with already-paired Bluetooth devices. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <!-- Needed to copy cyacd/cyacd2 files from external storage to application folder -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <!--
     Apps that target Android 10 (API level 29) can still request the requestLegacyExternalStorage attribute.
     After you update your app to target Android 11, the system ignores the requestLegacyExternalStorage flag.
     -->
     <application
-        android:name="com.cypress.cysmart.CySmartApplication"
+        android:name="com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp"
         android:allowBackup="true"
         android:enabled="true"
         android:icon="@drawable/appicon"
@@ -38,7 +47,7 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name="com.cypress.cysmart.BLEConnectionServices.BluetoothLeService"
+            android:name="com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService"
             android:enabled="true" />
 
         <receiver
@@ -46,7 +55,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.cysmart.bluetooth.le.ACTION_OTA_DATA_AVAILABLE" />
+                <action android:name="com.airocbluetoothconnect.bluetooth.le.ACTION_OTA_DATA_AVAILABLE" />
             </intent-filter>
         </receiver>
         <receiver
@@ -54,7 +63,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.cysmart.bluetooth.le.ACTION_OTA_DATA_AVAILABLE_V1" />
+                <action android:name="com.airocbluetoothconnect.bluetooth.le.ACTION_OTA_DATA_AVAILABLE_V1" />
             </intent-filter>
         </receiver>
         <receiver
@@ -67,10 +76,11 @@
         </receiver>
 
         <activity
-            android:name="com.cypress.cysmart.SplashPageActivity"
+            android:name="com.infineon.airocbluetoothconnect.SplashPageActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -82,11 +92,12 @@
         <!--NOTE: android:launchMode changed from "singleTask" to "standard" to allow creation of new instances of HPA (instead of reusing existing ones)
         for startActivity with flags Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK-->
         <activity
-            android:name="com.cypress.cysmart.HomePageActivity"
+            android:name="com.infineon.airocbluetoothconnect.HomePageActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="standard"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"></meta-data>
@@ -155,7 +166,6 @@
             android:parentActivityName=".HomePageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
-
         </activity>
         <activity
             android:name=".DataLoggerFragments.DataLoggerHistoryList"
@@ -163,7 +173,6 @@
             android:parentActivityName=".HomePageActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
-
         </activity>
 
         <provider

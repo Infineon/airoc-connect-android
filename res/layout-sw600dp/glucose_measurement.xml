@@ -40,7 +40,7 @@
                 android:textSize="@dimen/textsize_very_small"
                 android:visibility="invisible" />
 
-            <com.cypress.cysmart.CommonUtils.CustomSpinner
+            <com.infineon.airocbluetoothconnect.CommonUtils.CustomSpinner
                 android:id="@+id/record_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

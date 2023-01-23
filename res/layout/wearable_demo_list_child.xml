@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cypress.cysmart.wearable.demo.VariableView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.infineon.airocbluetoothconnect.wearable.demo.VariableView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/variable"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

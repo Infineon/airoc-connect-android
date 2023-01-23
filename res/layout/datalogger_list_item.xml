@@ -12,7 +12,7 @@
         android:id="@+id/txtservicename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/list_bg_small"
+        android:background="@drawable/border_blue"
         android:ellipsize="marquee"
         android:focusable="false"
         android:marqueeRepeatLimit="marquee_forever"

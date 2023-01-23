@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="authority_fileprovider" translatable="false">com.cypress.cysmart.fileprovider</string>
+    <string name="authority_fileprovider" translatable="false">com.infineon.airocbluetoothconnect.fileprovider</string>
 
     <!-- Application elements -->
-    <string name="app_name">CySmart</string>
+    <string name="app_name">AIROC™ Bluetooth® Connect App</string>
+    <string name="app_name_ascii">AIROCBluetoothConnectApp</string>
     <string name="loading">Loading</string>
 
     <!-- Navigation drawer elements -->
-    <string name="title_devices">BLE Devices</string>
-    <string name="title_products">Cypress BLE Products</string>
+    <string name="title_devices">Bluetooth® LE Devices</string>
+    <string name="title_products">Cypress Bluetooth® LE Products</string>
     <string name="title_contact">Contact Us</string>
     <string name="title_about">About</string>
 
@@ -22,8 +23,8 @@
     <string name="bluetooth_try_bond_device_started_message">Pairing if necessary…\nPlease wait…</string>
 
     <string-array name="nav_drawer_items">
-        <item>BLE Devices</item>
-        <item>Cypress</item>
+        <item>Bluetooth® LE Devices</item>
+        <item>Infineon</item>
         <item>About</item>
         <item>Settings</item>
     </string-array>
@@ -39,8 +40,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_child_home">Home</string>
-    <string name="navigation_drawer_child_ble">BLE Products</string>
-    <string name="navigation_drawer_child_mobile">CySmart Mobile</string>
+    <string name="navigation_drawer_child_ble">Products</string>
+    <string name="navigation_drawer_child_mobile">App Website</string>
     <string name="navigation_drawer_child_contact">Contact Us</string>
 
     <!-- CAB -->
@@ -61,7 +62,7 @@
     <string name="glucose_icon">glucose icon</string>
     <string name="capsense_button_item">CapSense button icon</string>
     <string name="image_actionbar_bg_color">background color</string>
-    <string name="image_about_cypress_logo">cypress logo</string>
+    <string name="image_about_company_logo">Infineon logo</string>
     <string name="image_blood_pressure">Blood pressure image</string>
     <string name="image_sensor_hub_graph">Sensor hub graph image</string>
     <string name="image_sensor_hub_accelerometer">Sensor hub accelerometer image</string>
@@ -75,64 +76,67 @@
     <string name="alert_message_exit_ok">OK</string>
     <string name="alert_message_exit_cancel">Cancel</string>
     <string name="alert_message_connect">Connecting to the device</string>
-    <string name="alert_message_log_read">Reading the log file please wait...</string>
+    <string name="alert_message_log_read">Reading the log file, please wait…</string>
     <string name="alert_message_connect_title">Device Connection</string>
-    <string name="alert_message_bluetooth_connect">The BLE device is connected</string>
-    <string name="alert_message_bluetooth_disconnect">The BLE device is disconnected</string>
-    <string name="alert_message_bluetooth_reconnect">Please Turn Bluetooth ON</string>
+    <string name="alert_message_bluetooth_connect">The Bluetooth® LE device is connected</string>
+    <string name="alert_message_bluetooth_disconnect">The Bluetooth® LE device is disconnected</string>
+    <string name="alert_message_bluetooth_reconnect">Please turn Bluetooth® ON</string>
     <string name="alert_message_reconnect">Your connection has been lost.</string>
-    <string name="alert_message_wait">Please wait...</string>
+    <string name="alert_message_wait">Please wait…</string>
     <string name="alert_message_no_internet">No internet connection</string>
-    <string name="alert_message_unkown">Do you want to go to GATT DB ?</string>
+    <string name="alert_message_unkown">Do you want to go to GATT DB?</string>
     <string name="alert_message_yes">Yes</string>
     <string name="alert_message_no">No</string>
     <string name="alert_message_retry">Retry</string>
-    <string name="alert_message_unknown_title">No custom UI available !</string>
+    <string name="alert_message_unknown_title">No custom UI available</string>
     <string name="alert_message_bonding_title">Bonding</string>
-    <string name="alert_message_bonding_message">Bonding is in process \nPlease wait...</string>
+    <string name="alert_message_bonding_message">Bonding is in process \nPlease wait…</string>
     <string name="alert_message_prepare_title">Preparing Notifications</string>
     <string name="alert_message_prepare_message">Enabling all available notifications</string>
-    <string name="alert_csc_weight">Please enter a valid weight!</string>
-    <string name="alert_title_clear_cache">Clear Bluetooth Cache?</string>
-    <string name="alert_message_clear_cache">Will clear all cache information of connected device. Connection will be lost. Do you want to continue?</string>
+    <string name="alert_csc_weight">Please enter a valid weight</string>
+    <string name="alert_title_clear_cache">Clear Bluetooth® cache?</string>
+    <string name="alert_message_clear_cache">Will clear all cache information of the connected device. The connection will be lost. Do you want to continue?</string>
     <string name="alert_message_delete_log">Do you want to delete this log?</string>
     <string name="alert_message_ota_cancel">Do you want to cancel the OTA update?</string>
-    <string name="alert_message_ota_resume">Do you want to resume the OTA Update?</string>
-    <string name="alert_message_ota_pending">You have firmware upgrade in progress. Going back will stop the firmware upgrade and disconnect from the device. Do you want to continue?</string>
-    <string name="alert_message_ota_user_warning">While firmware upgrade is in progress don\'t press back button or home button. Please stay in the page till the upgrade is complete</string>
+    <string name="alert_message_ota_resume">Do you want to resume the OTA update?</string>
+    <string name="alert_message_ota_pending">You have the firmware upgrade in progress. Going back will stop the firmware upgrade and disconnect the device. Do you want to continue?</string>
+    <string name="alert_message_ota_user_warning">While firmware upgrade is in progress, don\'t press back button or home button. Please stay on the page till the upgrade is complete.</string>
     <string name="alert_programming_of_active_app_is_not_allowed">Programming of active application is not allowed</string>
-    <string name="alert_invalid_active_app_programmed">Illegal active application selected!\nPlease change selection and try again.</string>
+    <string name="alert_invalid_active_app_programmed">Illegal active application selected.\nPlease change selection and try again.</string>
     <string name="alert_message_write_error">Error occurred in writing data.</string>
     <string name="alert_message_ota_error">Firmware update canceled\nError: </string>
-    <string name="alert_message_silicon_id_mismatch_error">Error: The SiliconID or SiliconRev does not match</string>
-    <string name="alert_message_no_silicon_id_error">Error: Target returned no SiliconID</string>
-    <string name="alert_message_checksum_error">Error: The checksum do not match</string>
+    <string name="alert_message_silicon_id_mismatch_error">Error: The Silicon ID or Silicon Rev does not match</string>
+    <string name="alert_message_no_silicon_id_error">Error: Target returned no Silicon ID</string>
+    <string name="alert_message_checksum_error">Error: The checksum does not match</string>
     <string name="alert_message_verify_application_error">Error: Verification failed for the programmed application</string>
     <string name="alert_message_row_out_of_bounds_error">Error: The row number exceeds the bounds</string>
     <string name="alert_message_write_error_code">Error code:</string>
     <string name="alert_message_try_again">Please try again.</string>
-    <string name="alert_message_hid_warning">HID service related access may be restricted by the OS. Accessing the associated characteristics and descriptor may cause the app to crash</string>
-    <string name="alert_message_file_copy">A cyacd file with the same name exists in CySmart folder! Do you want to replace the existing cyacd file?</string>
+    <string name="alert_message_hid_warning">HID service related access may be restricted by the OS. Accessing the associated characteristics and descriptor may cause the app to crash.</string>
+    <string name="alert_message_file_copy">A cyacd file with the same name exists in AIROC™ Bluetooth® Connect App folder. Do you want to replace the existing cyacd file?</string>
     <string name="alert_message_service_undiscovered">No services found</string>
     <string name="alert_message_pair_on_connect_timed_out">Pairing attempt timed out</string>
     <string name="alert_message_pair_on_connect_failed">Pairing attempt failed</string>
     <string name="alert_message_pair_on_connect_failed_due_to_already_paired">Pairing attempt failed due to device already paired</string>
-    <string name="alert_message_permission_required_title">Permission required</string>
-    <string name="alert_message_location_permission_required_message">Starting from Android 6.0 Marshmallow the system requires location permission in order to scan Bluetooth LE devices. \n\nBluetooth beacons, like iBeacons or Eddystone beacons, may be used to determine the phone\'s and user\'s location. This application is not using this information in any way.</string>
+    <string name="alert_message_location_permission_required_title">Location permission required</string>
+    <string name="alert_message_location_permission_required_message">Starting from Android 6.0 Marshmallow, the system requires location access in order to scan Bluetooth® LE Devices devices. \n\nBluetooth beacons iBeacons or Eddystone or similar may be used to determine the user\'s location. \n\nThe AIROC™ Bluetooth® Connect App uses the location information only for scanning Bluetooth® LE Devices devices when the application is opened and never uses when the application is sent to the background or when the application is closed.</string>
+    <string name="alert_message_storage_permission_required_title">Storage permission required</string>
     <string name="alert_message_storage_permission_required_message">Starting from Android 6.0 Marshmallow the system requires storage permission to read/write files on the storage.</string>
+    <string name="alert_message_bluetooth_permission_required_title">Bluetooth permission required</string>
+    <string name="alert_message_bluetooth_permission_required_message">Starting from Android 12 Bluetooth scan and connect permissions are required in order to scan and connect to Bluetooth® Low Energy devices.</string>
     <string name="alert_message_location_required_title">Location service</string>
-    <string name="alert_message_location_required_message">Your phone may require the Location service to be enabled in order to scan for Bluetooth LE devices. If you are sure that there are devices advertising in range and you don\'t see them here, enable it. You may restrict other applications from knowing your location by denying them Location permission in Android Settings.</string>
+    <string name="alert_message_location_required_message">Your phone may require the Location service to be enabled in order to scan for Bluetooth® LE devices. If you are sure that there are devices advertising in range and you don\'t see them here, enable it. You may restrict other applications from knowing your location by denying them Location permission in Android Settings.</string>
     <string name="progress_tile_service_discovering">Service Discovery</string>
-    <string name="progress_message_service_discovering">Discovering services. Please wait.</string>
-    <string name="progress_message_reconnect"> Reconnecting to device. Please wait.</string>
+    <string name="progress_message_service_discovering">Discovering services. Please wait…</string>
+    <string name="progress_message_reconnect"> Reconnecting to device. Please wait…</string>
     <string name="pair_on_connect">Initiate pairing after connection</string>
     <string name="wait_for_pairing_request_from_peripheral_seconds">Wait for pairing request\nfrom the peripheral (seconds)</string>
 
     <!-- Device discovery elements -->
     <string name="device_unknown">Unknown device</string>
-    <string name="device_ble_not_supported">Bluetooth Low Energy not supported on device</string>
-    <string name="device_bluetooth_on">Bluetooth turned on successfully</string>
-    <string name="device_bluetooth_not_supported">Bluetooth not supported on device</string>
+    <string name="device_ble_not_supported">Bluetooth® Low Energy not supported on device</string>
+    <string name="device_bluetooth_on">Bluetooth® turned on successfully</string>
+    <string name="device_bluetooth_not_supported">Bluetooth® not supported on device</string>
     <string name="device_signal_strength">RSSI:</string>
     <string name="device_signal_strength_unit">dBm</string>
 
@@ -166,7 +170,7 @@
 
     <!-- Thermometer profile elements -->
     <string name="health_temperature_graph">Health Thermometer</string>
-    <string name="health_temperature_garaph_title">Temperature Vs Time </string>
+    <string name="health_temperature_garaph_title">Temperature vs Time </string>
     <string name="health_temperature_time">Time (s)</string>
     <string name="health_temperature_temperature">Temperature (°C)</string>
     <string name="body">Body (general)</string>
@@ -187,9 +191,9 @@
 
 
     <!-- Glucose profile elements -->
-    <string name="glucose_time">Recording Time :</string>
-    <string name="glucose_type">Type :</string>
-    <string name="glucose_sample_location">Sample Location :</string>
+    <string name="glucose_time">Recording Time:</string>
+    <string name="glucose_type">Type:</string>
+    <string name="glucose_sample_location">Sample Location:</string>
     <string name="glucose_spinner_text">Select a record</string>
     <string name="glucose_concentration_mole">mol/L</string>
     <string name="glucose_concentration_kgl">kg/L</string>
@@ -235,14 +239,10 @@
     </string-array>
 
     <!-- About Fragment elements -->
-<!--    <string name="cysmart_copyright">Copyright © 2014-2020, Cypress \nSemiconductor Corporation or a subsidiary \nof Cypress Semiconductor Corporation. All \nrights reserved. Other names and brands \nmay be claimed as property of their \nrespective owners. \n\nFor End User License Agreement, Open \nSource Licenses Used, and app’s User \nGuide refer to the</string>-->
-    <string name="cysmart_copyright">Copyright © 2014-2020, Cypress Semiconductor Corporation or a subsidiary of Cypress Semiconductor Corporation. All rights reserved. Other names and brands may be claimed as property of their respective owners. \n\nFor End User License Agreement, Open Source Licenses Used, and app’s User Guide refer to the</string>
-    <string name="link_cysmart_mobile"><a href="https://www.cypress.com/cysmartmobile/">www.cypress.com/cysmartmobile</a></string>
+    <string name="cysmart_copyright">Copyright © 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation. All rights reserved. Other names and brands may be claimed as property of their respective owners.\n\nFor End User License Agreement, Open Source Licenses Used, and app’s User Guide refer to the <a href="https://www.infineon.com/cms/en/design-support/tools/utilities/wireless-connectivity/airoc-bluetooth-connect-app-mobile-app/">AIROC™ Bluetooth® Connect App Website</a></string>
 
     <!-- Contact Fragment elements -->
-    <string name="cypress_semiconductors_address">Address:\nCypress Semiconductor\nAn Infineon Technologies Company\n198 Champion Court\nSan Jose, CA - 95134-1709\nUSA</string>
-    <!--string name="cypress_semiconductors_phone">Customer Support: 1–408–943–2600\nE-Mail: customercare@cypress.com</string-->
-    <string name="cypress_semiconductors_phone">Customer Support: 1-408-943-2600\nE-Mail: customercare@cypress.com</string>
+    <string name="cypress_semiconductors_address">Infineon Service Center (call us: +49 89 234 65555)</string>
 
     <!-- Device information profile elements -->
     <string name="div_manufacturer_name">Manufacturer Name </string>
@@ -285,7 +285,7 @@
     <string name="gatt_services_date">Date</string>
     <string name="gatt_services_time">Time</string>
 
-    <string name="gatt_char_properties">Properties : </string>
+    <string name="gatt_char_properties">Properties: </string>
     <string name="gatt_services_stop_notify">Stop Notify</string>
     <string name="gatt_services_stop_indicate">Stop Indicate</string>
     <string name="gatt_details_popup_ok">OK</string>
@@ -296,7 +296,6 @@
 
     <!-- DataLogger elements -->
     <string name="data_logger_no_log">No Logs Found</string>
-    <string name="data_logger_directory">CySmart</string>
     <string name="data_logger_characteristic_ascii_value">Characteristic ASCII value </string>
     <string name="data_logger_characteristic_hex_value">Characteristic HEX value </string>
     <string name="data_logger_history">History</string>
@@ -328,7 +327,7 @@
     <string name="glucose_fragment">Glucose</string>
     <string name="gatt_characteristics_heading">Characteristics</string>
     <string name="gatt_descriptors_heading">Descriptors</string>
-    <string name="profile_scan_fragment">BLE Devices</string>
+    <string name="profile_scan_fragment">Devices</string>
     <string name="battery_info_fragment">Battery Service</string>
     <string name="findme_fragment">Find Me</string>
     <string name="proximity_fragment">Proximity</string>
@@ -366,7 +365,7 @@
     <string name="rsc_weight">Weight:</string>
     <string name="rsc_weight_unit">kg</string>
     <string name="rsc_time">Time:</string>
-    <string name="rsc_graph_title">Instantaneous Speed Vs Time</string>
+    <string name="rsc_graph_title">Instantaneous Speed vs Time</string>
     <string name="rsc_calories">Calories Burned</string>
     <string name="rsc_inst_speed">Instantaneous Speed </string>
     <string name="rsc_avg_speed">Instantaneous Speed (km/h)</string>
@@ -388,13 +387,13 @@
     <string name="csc_distance_unit_m">m</string>
     <string name="csc_distance_unit_km">km</string>
 
-    <string name="csc_weight_toast_greater">Warning! The weight entered is greater than 200 kg</string>
-    <string name="csc_weight_toast_zero">Warning! The weight entered is less than 1 kg</string>
-    <string name="csc_weight_toast_empty">Warning!  No value entered in weight field</string>
+    <string name="csc_weight_toast_greater">Warning: The weight entered is greater than 200 kg</string>
+    <string name="csc_weight_toast_zero">Warning: The weight entered is less than 1 kg</string>
+    <string name="csc_weight_toast_empty">Warning: No value entered in the weight field</string>
 
-    <string name="csc_radius_toast_greater">Warning! The wheel radius entered is greater than 725 mm</string>
-    <string name="csc_radius_toast_less">Warning! The wheel radius entered is lower than 300 mm</string>
-    <string name="csc_radius_toast_empty">Warning! No value entered in radius field</string>
+    <string name="csc_radius_toast_greater">Warning: The wheel radius entered is greater than 725 mm</string>
+    <string name="csc_radius_toast_less">Warning: The wheel radius entered is lower than 300 mm</string>
+    <string name="csc_radius_toast_empty">Warning: No value entered in the radius field</string>
 
 
     <!-- Sensorhub profile elements -->
@@ -488,14 +487,14 @@
     <string name="ota_list">Select Upgrade Option</string>
     <string name="ota_file_list">Select Firmware Upgrade files</string>
     <string name="ota_list_app_download">Application Upgrade</string>
-    <string name="ota_list_app_stack_down_comb">Application and Stack Upgrade (Combined Files)</string>
-    <string name="ota_list_app_stack_down_sep">Application and Stack Upgrade (Separate Files)</string>
+    <string name="ota_list_app_stack_down_comb">Application and Stack Upgrade (Combined files)</string>
+    <string name="ota_list_app_stack_down_sep">Application and Stack Upgrade (Separate files)</string>
     <string name="ota_upgrade">UPGRADE</string>
     <string name="ota_next">NEXT</string>
     <string name="ota_stop">STOP</string>
-    <string name="ota_file_read">Reading file, Please wait..</string>
+    <string name="ota_file_read">Reading file, Please wait…</string>
     <string name="ota_file_read_complete">File Read Completed</string>
-    <string name="ota_file_writ">Writing file, Please wait..</string>
+    <string name="ota_file_writ">Writing file, Please wait…</string>
     <string name="ota_enter_bootloader">Executing Enter Bootloader Command…</string>
     <string name="ota_get_app_status">Executing Get Application Status Command…</string>
     <string name="ota_get_flash_size">Executing Get Flash Size Command…</string>
@@ -508,7 +507,7 @@
     <string name="ota_end_success">Firmware upgrade completed successfully.</string>
     <string name="ota_set_application_metadata">Executing Set Application Metadata Command…</string>
     <string name="ota_verify_application">Executing Verify Application Command…</string>
-    <string name="toast_ota_dev_address">Different devices....!!</string>
+    <string name="toast_ota_dev_address">Different devices…</string>
     <string name="toast_ota_no_update">No update found</string>
     <string name="toast_ota_pending">You have a Second file to Upgrade.</string>
     <string name="toast_ota_completed">OTA successfully Completed</string>
@@ -518,24 +517,26 @@
     <string name="ota_app_file">Select the Application Upgrade file</string>
     <string name="ota_toast_stack_file_selected">Stack file selected</string>
     <string name="ota_toast_pair">Please PAIR the device before starting the Upgrade</string>
-    <string name="ota_notification_title">CySmart</string>
-    <string name="ota_notification_ongoing">OTA Upgrade </string>
+    <string name="ota_notification_title">OTA Upgrade</string>
+    <string name="ota_notification_ongoing">OTA Upgrade:</string>
     <string name="ota_notification_stack_file">Stack upgrade completed successfully. Application upgrade pending.</string>
     <string name="ota_notification_both_file">OTA Firmware Upgrade</string>
+    <string name="ota_notification_fu_done">OTA Firmware Upgrade done</string>
+    <string name="ota_notification_fu_inprogress">OTA Firmware Upgrade in progress</string>
     <string name="ota_alert_invalid_file">Invalid or corrupted file</string>
-    <string name="ota_alert_file_application">Select a file for application upgrade!</string>
-    <string name="ota_alert_file_applicationstackcomb">Select a file for both stack and application upgrade with combined file!</string>
-    <string name="ota_alert_file_applicationstacksep_app_sel">Select the application upgrade file to proceed!</string>
-    <string name="ota_alert_file_applicationstacksep_stack_sel">Select the stack upgrade file to proceed!</string>
+    <string name="ota_alert_file_application">Select a file for application upgrade</string>
+    <string name="ota_alert_file_applicationstackcomb">Select a file for both stack and application upgrade with combined file</string>
+    <string name="ota_alert_file_applicationstacksep_app_sel">Select the application upgrade file to proceed</string>
+    <string name="ota_alert_file_applicationstacksep_stack_sel">Select the stack upgrade file to proceed</string>
     <string name="ota_active_application">Active application:</string>
     <string name="ota_security_key_required">Security key: 0x</string>
     <string name="ota_security_key_invalid">6-byte hexadecimal number expected</string>
 
     <!-- General Toast  -->
     <string name="toast_swipe_profiles">Swipe across to see more profiles...</string>
-    <string name="toast_selection_cancelled">Selection cancelled</string>
+    <string name="toast_selection_cancelled">Selection canceled</string>
     <string name="toast_lollipop_notsupported">OTA FU Feature not supported</string>
-    <string name="toast_file_copied">File copied to CySmart folder successfully</string>
+    <string name="toast_file_copied">File copied to Android/media/com.infineon.airocbluetoothconnect folder successfully</string>
     <string name="toast_descriptor_write">Descriptor Write failed</string>
     <string name="toast_no_services_found">No Services found in this profile...</string>
     <string name="toast_pairing_not_supported">Unable to Pair/Pairing is not supported by the profile</string>
@@ -555,7 +556,7 @@
     <string name="descriptor_broadcast_enabled">Broadcast enabled</string>
     <string name="descriptor_broadcast_disabled">Broadcast disabled</string>
 
-    <string name="descriptor_bluetoothSIGAssignedNo">Bluetooth SIG Assigned Numbers</string>
+    <string name="descriptor_bluetoothSIGAssignedNo">Bluetooth® SIG Assigned Numbers</string>
     <string name="descriptor_reservedforFutureUse">Reserved for future use</string>
 
     <string name="descriptor_format">Format</string>
@@ -617,6 +618,7 @@
     <string name="service_discovery_unsuccessful">Service discovery unsuccessful</string>
     <string name="tab_scanner">Scanner</string>
     <string name="tab_paired">Paired</string>
+    <string name="screenshot_file_name">screenshot.jpg</string>
 
     <!-- Dual-App Bootloader SetActiveApplication options -->
     <!-- Keep these 2 arrays in sync -->

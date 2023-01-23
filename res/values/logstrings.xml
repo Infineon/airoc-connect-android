@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Data Logger file-->
-    <string name="dl_directory">CySmart</string>
     <string name="dl_commaseparator">" , "</string>
 
     <!--Connection logs-->

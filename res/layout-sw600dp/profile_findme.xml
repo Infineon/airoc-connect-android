@@ -28,7 +28,7 @@
             android:textColor="@color/actionbar_bg_color"
             android:textSize="@dimen/find_textsize" />
 
-        <com.cypress.cysmart.CommonUtils.CustomSpinner
+        <com.infineon.airocbluetoothconnect.CommonUtils.CustomSpinner
             android:id="@+id/linkloss_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             android:textColor="@color/actionbar_bg_color"
             android:textSize="@dimen/find_textsize" />
 
-        <com.cypress.cysmart.CommonUtils.CustomSpinner
+        <com.infineon.airocbluetoothconnect.CommonUtils.CustomSpinner
             android:id="@+id/immediate_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
