@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -44,7 +44,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
@@ -52,7 +51,7 @@ import com.infineon.airocbluetoothconnect.R;
 /**
  * Fragment to show the details of CySmart Android Application
  */
-public class AboutFragment extends Fragment {
+public class AboutFragment extends FragmentWithActionBarRestorer {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,14 +62,14 @@ public class AboutFragment extends Fragment {
         //Set version name
         String appName = getString(R.string.app_name);
         String versionName = Utils.getVersionName(getActivity());
-        TextView version = rootView.findViewById(R.id.cysmart_version);
+        TextView version = rootView.findViewById(R.id.app_version);
         version.setText(appName + " " + versionName);
 
         setHasOptionsMenu(true); // for the onCreateOptionsMenu to be invoked
         Utils.setUpActionBar((AppCompatActivity) getActivity(), R.string.title_about);
 
         // Enable link clicking
-        TextView copyrightText = rootView.findViewById(R.id.cysmart_copyright);
+        TextView copyrightText = rootView.findViewById(R.id.copyright_text);
         copyrightText.setMovementMethod(LinkMovementMethod.getInstance());
 
         return rootView;
@@ -80,7 +79,6 @@ public class AboutFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
-        menu.findItem(R.id.log).setVisible(false);
     }
 
     @Override

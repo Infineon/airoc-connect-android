@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -134,11 +134,10 @@ public class CapsenseService extends Fragment {
             mPagerLayout.setVisibility(View.INVISIBLE);
         }
 
-        /**
-         * get required characteristics from service
-         */
+        // get required characteristics from service
         int count = 0;
-        List<BluetoothGattCharacteristic> gattCharacteristics = mService.getCharacteristics();
+        List<BluetoothGattCharacteristic> gattCharacteristics = Utils.getServiceCharacteristics(mService);
+
         for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
             UUID uuidchara = gattCharacteristic.getUuid();
             if (uuidchara.equals(UUIDDatabase.UUID_CAPSENSE_PROXIMITY) || uuidchara.equals(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM)) {
@@ -314,11 +313,9 @@ public class CapsenseService extends Fragment {
                     android.R.color.transparent)));
         }
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -81,9 +81,10 @@ public class NavigationDrawerFragment extends Fragment {
 
     public interface ItemPosition {
         int BLE = 0;
-        int CYPRESS = 1;
-        int ABOUT = 2;
-        int SETTINGS = 3;
+        int DATA_LOGGER = 1;
+        int COMPANY = 2;
+        int ABOUT = 3;
+        int SETTINGS = 4;
     }
 
     /**
@@ -166,11 +167,9 @@ public class NavigationDrawerFragment extends Fragment {
                 R.layout.fragment_drawer_header, mDrawerListView, false);
         mDrawerListView.addHeaderView(header, null, false);
         // load slide menu items
-        mNavMenuTitles = getResources()
-                .getStringArray(R.array.nav_drawer_items);
+        mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         // Navigation drawer icons from resources
-        mNavMenuIcons = getResources().obtainTypedArray(
-                R.array.nav_drawer_icons);
+        mNavMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
         /**
          * Adding NavigationDrawer items to array
          */
@@ -181,16 +180,21 @@ public class NavigationDrawerFragment extends Fragment {
         mNavDrawerItems.add(new NavigationDrawerModel(mNavMenuTitles[ItemPosition.BLE],
                 mNavMenuIcons.getResourceId(ItemPosition.BLE, -1)));
 
-        // Cypress
-        mNavDrawerItems.add(new NavigationDrawerModel(mNavMenuTitles[ItemPosition.CYPRESS],
-                mNavMenuIcons.getResourceId(ItemPosition.CYPRESS, -1)));
-        //Cypress subitems
+        // Data Logger
+        mNavDrawerItems.add(new NavigationDrawerModel(mNavMenuTitles[ItemPosition.DATA_LOGGER],
+                mNavMenuIcons.getResourceId(ItemPosition.DATA_LOGGER, -1)));
+
+        // Infineon
+        mNavDrawerItems.add(new NavigationDrawerModel(mNavMenuTitles[ItemPosition.COMPANY],
+                mNavMenuIcons.getResourceId(ItemPosition.COMPANY, -1)));
+
+        //Infineon sub items
         List<String> subitems = new ArrayList<String>();
         subitems.add(getResources().getString(R.string.navigation_drawer_child_home));
         subitems.add(getResources().getString(R.string.navigation_drawer_child_ble));
         subitems.add(getResources().getString(R.string.navigation_drawer_child_mobile));
         subitems.add(getResources().getString(R.string.navigation_drawer_child_contact));
-        mNavDrawerChildItems.put(mNavDrawerItems.get(ItemPosition.CYPRESS), subitems);
+        mNavDrawerChildItems.put(mNavDrawerItems.get(ItemPosition.COMPANY), subitems);
 
         // About
         mNavDrawerItems.add(new NavigationDrawerModel(mNavMenuTitles[ItemPosition.ABOUT],
@@ -210,7 +214,7 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView,
                                         View view, int groupPosition, long l) {
-                if (groupPosition == ItemPosition.CYPRESS) {
+                if (groupPosition == ItemPosition.COMPANY) {
                     return false;
                 } else {
                     selectItem(groupPosition);
@@ -222,7 +226,7 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView,
                                         View view, int groupPosition, int childPosition, long l) {
-                if (groupPosition == ItemPosition.CYPRESS) {
+                if (groupPosition == ItemPosition.COMPANY) {
                     TextView childText = (TextView) view.findViewById(R.id.lblListItem);
                     selectChildView(childText.getText().toString());
                     return true;
@@ -231,7 +235,7 @@ public class NavigationDrawerFragment extends Fragment {
                 }
             }
         });
-        mDrawerListView.expandGroup(ItemPosition.CYPRESS);
+        mDrawerListView.expandGroup(ItemPosition.COMPANY);
 
         return mDrawerListView;
     }
@@ -253,6 +257,7 @@ public class NavigationDrawerFragment extends Fragment {
             } else {
                 CharSequence actionBarTitleToRestore = ((AppCompatActivity) getActivity()).getSupportActionBar().getTitle();
                 ContactUsFragment contactFragment = ContactUsFragment.create(actionBarTitleToRestore);
+                contactFragment.storeActionBar(((AppCompatActivity) getActivity()).getSupportActionBar());
                 displayView(contactFragment);
                 if (mDrawerLayout != null) {
                     mDrawerLayout.closeDrawer(mFragmentContainerView);

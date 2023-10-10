@@ -6,24 +6,18 @@
     <!-- Application elements -->
     <string name="app_name">AIROC™ Bluetooth® Connect App</string>
     <string name="app_name_ascii">AIROCBluetoothConnectApp</string>
-    <string name="loading">Loading</string>
 
     <!-- Navigation drawer elements -->
-    <string name="title_devices">Bluetooth® LE Devices</string>
-    <string name="title_products">Cypress Bluetooth® LE Products</string>
     <string name="title_contact">Contact Us</string>
     <string name="title_about">About</string>
 
     <!-- bluetooth button elements -->
-    <string name="bluetooth_pair_start">Pairing started…\nPlease wait…</string>
     <string name="bluetooth_pair">Paired</string>
     <string name="bluetooth_unpair">Not Paired</string>
-    <string name="bluetooth_pair_unpair_failed">Pair/Unpair failed</string>
-    <string name="bluetooth_try_bond_device_started_title">Pairing attempt</string>
-    <string name="bluetooth_try_bond_device_started_message">Pairing if necessary…\nPlease wait…</string>
 
     <string-array name="nav_drawer_items">
         <item>Bluetooth® LE Devices</item>
+        <item>Data Logger</item>
         <item>Infineon</item>
         <item>About</item>
         <item>Settings</item>
@@ -31,10 +25,11 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/bledevices</item>
-        <item>@drawable/cypress</item>
-        <item>@drawable/about</item>
-        <item>@drawable/settings</item>
+        <item>@drawable/icon_devices</item>
+        <item>@drawable/icon_data_logger</item>
+        <item>@drawable/icon_company_resources</item>
+        <item>@drawable/icon_about</item>
+        <item>@drawable/icon_settings</item>
     </array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -45,23 +40,17 @@
     <string name="navigation_drawer_child_contact">Contact Us</string>
 
     <!-- CAB -->
-    <string name="cab_delete">Delete</string>
 
     <!-- Image descriptors -->
     <string name="image_navigation_icon">Navigation icon</string>
-    <string name="image_splash_logo">Splash logo</string>
     <string name="image_navigation_drawer_logo">navigation logo</string>
     <string name="image_hrm_measurement_heart">heart rate monitor heart icon</string>
-    <string name="image_hrm_ee_icon">heart rate monitor energy icon</string>
-    <string name="image_hrm_rr_icon">heart rate monitor rr icon</string>
     <string name="image_health_temp_measurement_heart">health temperature thermometer icon</string>
-    <string name="image_battery_service_level">battery level icon</string>
     <string name="image_bluetooth_logo">bluetooth logo</string>
     <string name="image_transmission_background_circle_logo">transmission blue circle</string>
     <string name="image_transmission_foreground_circle_logo">transmission white circle</string>
     <string name="glucose_icon">glucose icon</string>
     <string name="capsense_button_item">CapSense button icon</string>
-    <string name="image_actionbar_bg_color">background color</string>
     <string name="image_about_company_logo">Infineon logo</string>
     <string name="image_blood_pressure">Blood pressure image</string>
     <string name="image_sensor_hub_graph">Sensor hub graph image</string>
@@ -81,26 +70,20 @@
     <string name="alert_message_bluetooth_connect">The Bluetooth® LE device is connected</string>
     <string name="alert_message_bluetooth_disconnect">The Bluetooth® LE device is disconnected</string>
     <string name="alert_message_bluetooth_reconnect">Please turn Bluetooth® ON</string>
-    <string name="alert_message_reconnect">Your connection has been lost.</string>
     <string name="alert_message_wait">Please wait…</string>
-    <string name="alert_message_no_internet">No internet connection</string>
     <string name="alert_message_unkown">Do you want to go to GATT DB?</string>
     <string name="alert_message_yes">Yes</string>
     <string name="alert_message_no">No</string>
-    <string name="alert_message_retry">Retry</string>
     <string name="alert_message_unknown_title">No custom UI available</string>
     <string name="alert_message_bonding_title">Bonding</string>
     <string name="alert_message_bonding_message">Bonding is in process \nPlease wait…</string>
     <string name="alert_message_prepare_title">Preparing Notifications</string>
     <string name="alert_message_prepare_message">Enabling all available notifications</string>
-    <string name="alert_csc_weight">Please enter a valid weight</string>
     <string name="alert_title_clear_cache">Clear Bluetooth® cache?</string>
     <string name="alert_message_clear_cache">Will clear all cache information of the connected device. The connection will be lost. Do you want to continue?</string>
-    <string name="alert_message_delete_log">Do you want to delete this log?</string>
     <string name="alert_message_ota_cancel">Do you want to cancel the OTA update?</string>
     <string name="alert_message_ota_resume">Do you want to resume the OTA update?</string>
     <string name="alert_message_ota_pending">You have the firmware upgrade in progress. Going back will stop the firmware upgrade and disconnect the device. Do you want to continue?</string>
-    <string name="alert_message_ota_user_warning">While firmware upgrade is in progress, don\'t press back button or home button. Please stay on the page till the upgrade is complete.</string>
     <string name="alert_programming_of_active_app_is_not_allowed">Programming of active application is not allowed</string>
     <string name="alert_invalid_active_app_programmed">Illegal active application selected.\nPlease change selection and try again.</string>
     <string name="alert_message_write_error">Error occurred in writing data.</string>
@@ -115,20 +98,23 @@
     <string name="alert_message_hid_warning">HID service related access may be restricted by the OS. Accessing the associated characteristics and descriptor may cause the app to crash.</string>
     <string name="alert_message_file_copy">A cyacd file with the same name exists in AIROC™ Bluetooth® Connect App folder. Do you want to replace the existing cyacd file?</string>
     <string name="alert_message_service_undiscovered">No services found</string>
-    <string name="alert_message_pair_on_connect_timed_out">Pairing attempt timed out</string>
-    <string name="alert_message_pair_on_connect_failed">Pairing attempt failed</string>
-    <string name="alert_message_pair_on_connect_failed_due_to_already_paired">Pairing attempt failed due to device already paired</string>
+
     <string name="alert_message_location_permission_required_title">Location permission required</string>
     <string name="alert_message_location_permission_required_message">Starting from Android 6.0 Marshmallow, the system requires location access in order to scan Bluetooth® LE Devices devices. \n\nBluetooth beacons iBeacons or Eddystone or similar may be used to determine the user\'s location. \n\nThe AIROC™ Bluetooth® Connect App uses the location information only for scanning Bluetooth® LE Devices devices when the application is opened and never uses when the application is sent to the background or when the application is closed.</string>
+
     <string name="alert_message_storage_permission_required_title">Storage permission required</string>
     <string name="alert_message_storage_permission_required_message">Starting from Android 6.0 Marshmallow the system requires storage permission to read/write files on the storage.</string>
+
     <string name="alert_message_bluetooth_permission_required_title">Bluetooth permission required</string>
     <string name="alert_message_bluetooth_permission_required_message">Starting from Android 12 Bluetooth scan and connect permissions are required in order to scan and connect to Bluetooth® Low Energy devices.</string>
+
+    <string name="alert_message_notification_permission_required_title">Notification permission required</string>
+    <string name="alert_message_notification_permission_required_message">This permission will allow the application to notify you of OTA progress.</string>
+
     <string name="alert_message_location_required_title">Location service</string>
     <string name="alert_message_location_required_message">Your phone may require the Location service to be enabled in order to scan for Bluetooth® LE devices. If you are sure that there are devices advertising in range and you don\'t see them here, enable it. You may restrict other applications from knowing your location by denying them Location permission in Android Settings.</string>
     <string name="progress_tile_service_discovering">Service Discovery</string>
     <string name="progress_message_service_discovering">Discovering services. Please wait…</string>
-    <string name="progress_message_reconnect"> Reconnecting to device. Please wait…</string>
     <string name="pair_on_connect">Initiate pairing after connection</string>
     <string name="wait_for_pairing_request_from_peripheral_seconds">Wait for pairing request\nfrom the peripheral (seconds)</string>
 
@@ -143,22 +129,17 @@
     <!-- profile control elements -->
     <string name="profile_control_unknown_service">Unknown Service</string>
     <string name="profile_cannot_connect_message">Cannot connect to the device</string>
-    <string name="profile_control_stop_notification_toast">Notifications disabled</string>
-    <string name="profile_control_stop_indication_toast">Indications disabled</string>
     <string name="profile_control_stop_both_notify_indicate_toast">All indications and notifications disabled</string>
-    <string name="enable_notify_failed">Failed to enable notification(s).
-        If you see this error repeatedly, disconnect and connect back to the device.</string>
 
     <!-- HRM profile elements -->
     <string name="hrm_data_unit">bpm</string>
-    <string name="hrm_graph_title">Heart Rate Vs Time </string>
+    <string name="hrm_graph_title">Heart Rate vs Time </string>
     <string name="hrm_graph_label">Heart Rate (bpm)</string>
     <string name="hrm_sensor_location">Sensor Location:</string>
     <string name="hrm_sensor_contact">Sensor Contact:</string>
     <string name="hrm_ee_unit">kcal</string>
-    <string name="hrm_ee_text">Energy Expended\n(kcal)</string>
-    <string name="hrm_rr_unit">ms</string>
-    <string name="hrm_rr_unit_text">RR-Interval\n(ms)</string>
+    <string name="hrm_ee_text">Energy Expended</string>
+    <string name="hrm_rr_unit_text">RR-Interval</string>
     <string name="hrm_EAR_LOBE">Ear Lobe</string>
     <string name="hrm_CHEST">Chest</string>
     <string name="hrm_FINGER">Finger</string>
@@ -181,65 +162,30 @@
     <string name="rectum">Rectum</string>
     <string name="tympanum">Tympanum (ear drum)</string>
     <string name="toe_1">Toe</string>
-    <string name="toe_2">Toe</string>
     <string name="reserverd">Reserved for future use</string>
     <string name="armpit">Armpit</string>
 
-
     <string name="tt_fahrenheit">°F</string>
     <string name="tt_celcius">°C</string>
-
 
     <!-- Glucose profile elements -->
     <string name="glucose_time">Recording Time:</string>
     <string name="glucose_type">Type:</string>
     <string name="glucose_sample_location">Sample Location:</string>
-    <string name="glucose_spinner_text">Select a record</string>
+    <string name="glucose_spinner_text">Select a record:</string>
     <string name="glucose_concentration_mole">mol/L</string>
     <string name="glucose_concentration_kgl">kg/L</string>
 
-    <string name="glucose_ISF">Interstitial Fluid (ISF)</string>
-    <string name="glucose_CS">Control Solution</string>
-    <string name="glucose_UWB">Undetermined Whole blood</string>
-    <string name="glucose_UP">"Undetermined Plasma</string>
-    <string name="glucose_AP">Arterial Plasma</string>
-    <string name="glucose_AWB">Arterial Whole blood</string>
-    <string name="glucose_VP">Venous Plasma</string>
-    <string name="glucose_VWB">Venous Whole blood</string>
-    <string name="glucose_CP">Capillary Plasma</string>
-    <string name="glucose_CWB">Capillary Whole blood</string>
-    <string name="glucose_RESERVED">Reserved for future use</string>
-
-    <string name="gls_select_record">Select a record</string>
+    <string name="gls_select_record">Select a record:</string>
     <string name="gls_no_record">No record</string>
 
-    <string name="glucose_btn_read_all">READ ALL</string>
-    <string name="glucose_btn_read_last">READ LAST</string>
-    <string name="glucose_btn_delete_all">DELETE ALL</string>
-    <string name="glucose_btn_clear">CLEAR</string>
-
-    <string name="gls_context_health_title">Health</string>
-    <string-array name="gls_context_health">
-        <item>Reserved for future use</item>
-        <item>Minor health issues</item>
-        <item>Major health issues</item>
-        <item>During menses</item>
-        <item>Under stress</item>
-        <item>No health issues</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item>Health value not available</item>
-    </string-array>
+    <string name="glucose_btn_read_all">Read All</string>
+    <string name="glucose_btn_read_last">Read Last</string>
+    <string name="glucose_btn_delete_all">Delete All</string>
+    <string name="glucose_btn_clear">Clear</string>
 
     <!-- About Fragment elements -->
-    <string name="cysmart_copyright">Copyright © 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation. All rights reserved. Other names and brands may be claimed as property of their respective owners.\n\nFor End User License Agreement, Open Source Licenses Used, and app’s User Guide refer to the <a href="https://www.infineon.com/cms/en/design-support/tools/utilities/wireless-connectivity/airoc-bluetooth-connect-app-mobile-app/">AIROC™ Bluetooth® Connect App Website</a></string>
+    <string name="copyright_text">Copyright © 2014–2023, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation. All rights reserved. Other names and brands may be claimed as property of their respective owners.\n\nFor End User License Agreement, Open Source Licenses Used, and app’s User Guide refer to the <a href="https://www.infineon.com/cms/en/design-support/tools/utilities/wireless-connectivity/airoc-bluetooth-connect-app-mobile-app/">AIROC™ Bluetooth® Connect App Website</a></string>
 
     <!-- Contact Fragment elements -->
     <string name="cypress_semiconductors_address">Infineon Service Center (call us: +49 89 234 65555)</string>
@@ -275,11 +221,11 @@
     <string name="gatt_services_indicate">Indicate</string>
     <string name="gatt_services_details">Details</string>
     <string name="gatt_descriptors_details">Descriptor Details</string>
-    <string name="gatt_services">Service</string>
-    <string name="gatt_charateristic">Characteristic</string>
-    <string name="gatt_descriptor">Descriptor</string>
-    <string name="gatt_descriptor_hex_value">Descriptor HEX Value</string>
-    <string name="gatt_descriptor_value">Descriptor Value</string>
+    <string name="gatt_services">Service:</string>
+    <string name="gatt_charateristic">Characteristic:</string>
+    <string name="gatt_descriptor">Descriptor:</string>
+    <string name="gatt_descriptor_hex_value">Descriptor HEX Value:</string>
+    <string name="gatt_descriptor_value">Descriptor Value:</string>
     <string name="gatt_services_ascii">ASCII</string>
     <string name="gatt_services_hex">HEX</string>
     <string name="gatt_services_date">Date</string>
@@ -288,33 +234,30 @@
     <string name="gatt_char_properties">Properties: </string>
     <string name="gatt_services_stop_notify">Stop Notify</string>
     <string name="gatt_services_stop_indicate">Stop Indicate</string>
-    <string name="gatt_details_popup_ok">OK</string>
-    <string name="gatt_details_popup_cancel">Cancel</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
     <string name="gatt_details_popup_heading">Enter Hex values</string>
     <string name="gatt_details_descriptors">Descriptors</string>
     <string name="gatt_details_ascii_popup_heading">Enter ASCII values</string>
 
     <!-- DataLogger elements -->
-    <string name="data_logger_no_log">No Logs Found</string>
-    <string name="data_logger_characteristic_ascii_value">Characteristic ASCII value </string>
-    <string name="data_logger_characteristic_hex_value">Characteristic HEX value </string>
     <string name="data_logger_history">History</string>
     <string name="data_logger_timestamp">Showing data logs up to "</string>
     <string name="data_logger_scroll_end">Scroll down</string>
 
     <!-- Capsense elements -->
-    <string name="proximity">CapSense Proximity</string>
+    <string name="proximity">CAPSENSE™ Proximity</string>
     <string name="proximity_bar_zero">0 - </string>
     <string name="proximity_bar_twentyfive">25 - </string>
     <string name="proximity_bar_fifty">50 - </string>
     <string name="proximity_bar_seventyfive">75 - </string>
     <string name="proximity_bar_hundred">100 - </string>
-    <string name="slider">CapSense Slider</string>
-    <string name="buttons">CapSense Buttons</string>
+    <string name="capsense_slider">CAPSENSE™ Slider</string>
+    <string name="capsense_buttons">CAPSENSE™ Buttons</string>
 
     <!-- ActionBar fragment Names -->
     <string name="profile_control_fragment">Services</string>
-    <string name="capsense">CapSense</string>
+    <string name="capsense">CAPSENSE™</string>
     <string name="health_thermometer_fragment">Health Thermometer</string>
     <string name="graph">Graph</string>
     <string name="log">Log</string>
@@ -342,10 +285,9 @@
     <string name="rgb_current_color">Current Color</string>
 
     <!-- Find Me profile elements -->
-    <string name="find_linkloss">Link Loss</string>
+    <string name="find_linkloss">Link Loss:</string>
     <string name="find_spinner_prompt">Select</string>
-    <string name="find_immediate_alert">Immediate Alert</string>
-    <string name="find_value_read_toast">Value read from kit: </string>
+    <string name="find_immediate_alert">Immediate Alert:</string>
     <string name="find_value_written_toast">Written </string>
     <string name="find_value_success_toast"> successfully </string>
     <string name="find_me_no_alert">No Alert</string>
@@ -356,8 +298,8 @@
     <string name="blood_pressure">Blood Pressure</string>
     <string name="blood_pressure_systolic">SYS</string>
     <string name="blood_pressure_diastolic">DIA</string>
-    <string name="blood_pressure_start_btn">START</string>
-    <string name="blood_pressure_stop_btn">STOP</string>
+    <string name="button_start">Start</string>
+    <string name="button_stop">Stop</string>
     <string name="blood_pressure_mmHg">mmHg</string>
     <string name="blood_pressure_kPa"> kPa</string>
 
@@ -365,13 +307,12 @@
     <string name="rsc_weight">Weight:</string>
     <string name="rsc_weight_unit">kg</string>
     <string name="rsc_time">Time:</string>
-    <string name="rsc_graph_title">Instantaneous Speed vs Time</string>
+    <string name="rsc_graph_title">Instant Speed vs Time</string>
     <string name="rsc_calories">Calories Burned</string>
-    <string name="rsc_inst_speed">Instantaneous Speed </string>
-    <string name="rsc_avg_speed">Instantaneous Speed (km/h)</string>
+    <string name="rsc_inst_speed">Instant Speed </string>
+    <string name="rsc_avg_speed">Instant Speed (km/h)</string>
     <string name="rsc_avg_speed_unit">km/h</string>
     <string name="rsc_distance_unit">km</string>
-    <string name="rsc_total_distance">Total Distance Ran</string>
 
     <!-- CSC profile elements -->
     <string name="csc_cadence">Cadence</string>
@@ -379,11 +320,7 @@
     <string name="csc_radius">Radius:</string>
     <string name="csc_radius_unit">mm</string>
     <string name="csc_cadence_unit">rpm</string>
-    <string name="csc_distance_unit">Distance (km)</string>
-    <string name="csc_cadence_graph_title">Cadence Vs Time</string>
-    <string name="csc_cadence_graph_unit">Cadence (rpm)</string>
-    <string name="csc_total_distance">Total Distance Cycled</string>
-    <string name="csc_weight_toast">Enter a valid weight !</string>
+    <string name="csc_cadence_graph_title">Cadence vs Time</string>
     <string name="csc_distance_unit_m">m</string>
     <string name="csc_distance_unit_km">km</string>
 
@@ -394,7 +331,6 @@
     <string name="csc_radius_toast_greater">Warning: The wheel radius entered is greater than 725 mm</string>
     <string name="csc_radius_toast_less">Warning: The wheel radius entered is lower than 300 mm</string>
     <string name="csc_radius_toast_empty">Warning: No value entered in the radius field</string>
-
 
     <!-- Sensorhub profile elements -->
     <string name="sen_hub">Sensor Hub</string>
@@ -427,74 +363,22 @@
         <item>Custom</item>
     </string-array>
 
-    <string name="send_to">Send to..</string>
-
     <!-- Battery profile elements -->
     <string name="battery_stop_notify">Stop Notify</string>
     <string name="battery_start_notify">Start Notify</string>
     <string name="battery_read">Read</string>
 
-    <!-- RDK profile elements -->
-    <string name="rdk_emulator_view">Remote Control RDK</string>
-    <string name="rdk_emulator_view_identifier">CY5672</string>
-    <string name="view_trackpad">VIEW TRACK PAD/MOTION SENSOR DATA</string>
-    <string name="view_microphone">VIEW MICROPHONE DATA</string>
-    <string name="volume">VOL</string>
-    <string name="channel">CH</string>
-    <string name="rdk_microphone">MICROPHONE DATA</string>
-    <string name="rdk_motion">TRACK PAD/MOTION SENSOR DATA</string>
-    <string name="property">PROPERTY</string>
-    <string name="format">FORMAT</string>
-    <string name="value">VALUE</string>
-    <string name="motion_x">X</string>
-    <string name="motion_y">Y</string>
-    <string name="motion_zwheel">Z-Wheel</string>
-    <string name="motion_tilt">Tilt</string>
-    <string name="motion_lcd">Left Click Down</string>
-    <string name="motion_lcu">Left Click Up</string>
-    <string name="motion_rcd">Right Click Down</string>
-    <string name="motion_rcu">Right Click Up</string>
-    <string name="motion_keycode">Keycode</string>
-    <string name="motion_default_value">00</string>
-    <string name="motion_clear">CLEAR COUNTERS</string>
-    <string name="motion_clear_data">CLEAR DATA</string>
-    <string name="speech_text">SPEECH TO TEXT</string>
-    <string name="record">RECORD</string>
-    <string name="hex">HEX</string>
-    <string name="record_stop">CANCEL</string>
-    <string name="convert">CONVERT</string>
-    <string name="play_back">PLAY BACK</string>
-    <string name="change_api">CHANGE API KEY</string>
-    <string name="apikey_requirement_text">Please enter your developer API Key
-        for voice to text conversion</string>
-    <string name="volume_up">Volume Up</string>
-    <string name="volume_down">Volume Down</string>
-    <string name="channel_up">Channel Up</string>
-    <string name="channel_down">Channel Down</string>
-    <string name="power_on">On</string>
-    <string name="power_off">Off</string>
-    <string name="source">Source</string>
-    <string name="key_left_ctrl"> Keyboard LeftControl </string>
-    <string name="key_left_shift"> Keyboard LeftShift </string>
-    <string name="key_left_alt"> Keyboard LeftAlt </string>
-    <string name="key_left_gui"> Keyboard Left GUI </string>
-    <string name="key_right_ctrl"> Keyboard RightControl </string>
-    <string name="key_right_shift"> Keyboard RightShift </string>
-    <string name="key_right_alt"> Keyboard RightAlt </string>
-    <string name="key_right_gui"> Keyboard Right GUI </string>
-
     <!-- OTA profile elements -->
     <string name="ota_list">Select Upgrade Option</string>
     <string name="ota_file_list">Select Firmware Upgrade files</string>
     <string name="ota_list_app_download">Application Upgrade</string>
-    <string name="ota_list_app_stack_down_comb">Application and Stack Upgrade (Combined files)</string>
-    <string name="ota_list_app_stack_down_sep">Application and Stack Upgrade (Separate files)</string>
+    <string name="ota_list_app_stack_down_comb">Application and Stack Upgrade\n(Combined files)</string>
+    <string name="ota_list_app_stack_down_sep">Application and Stack Upgrade\n(Separate files)</string>
     <string name="ota_upgrade">UPGRADE</string>
     <string name="ota_next">NEXT</string>
     <string name="ota_stop">STOP</string>
     <string name="ota_file_read">Reading file, Please wait…</string>
     <string name="ota_file_read_complete">File Read Completed</string>
-    <string name="ota_file_writ">Writing file, Please wait…</string>
     <string name="ota_enter_bootloader">Executing Enter Bootloader Command…</string>
     <string name="ota_get_app_status">Executing Get Application Status Command…</string>
     <string name="ota_get_flash_size">Executing Get Flash Size Command…</string>
@@ -507,20 +391,12 @@
     <string name="ota_end_success">Firmware upgrade completed successfully.</string>
     <string name="ota_set_application_metadata">Executing Set Application Metadata Command…</string>
     <string name="ota_verify_application">Executing Verify Application Command…</string>
-    <string name="toast_ota_dev_address">Different devices…</string>
-    <string name="toast_ota_no_update">No update found</string>
-    <string name="toast_ota_pending">You have a Second file to Upgrade.</string>
-    <string name="toast_ota_completed">OTA successfully Completed</string>
-    <string name="toast_ota_one_completion">Stack successfully Updated. Please select the same profile to Upgrade the Application</string>
     <string name="ota_title">OTA Firmware Upgrade</string>
     <string name="ota_stack_file">Select the Stack Upgrade file</string>
     <string name="ota_app_file">Select the Application Upgrade file</string>
-    <string name="ota_toast_stack_file_selected">Stack file selected</string>
-    <string name="ota_toast_pair">Please PAIR the device before starting the Upgrade</string>
     <string name="ota_notification_title">OTA Upgrade</string>
     <string name="ota_notification_ongoing">OTA Upgrade:</string>
     <string name="ota_notification_stack_file">Stack upgrade completed successfully. Application upgrade pending.</string>
-    <string name="ota_notification_both_file">OTA Firmware Upgrade</string>
     <string name="ota_notification_fu_done">OTA Firmware Upgrade done</string>
     <string name="ota_notification_fu_inprogress">OTA Firmware Upgrade in progress</string>
     <string name="ota_alert_invalid_file">Invalid or corrupted file</string>
@@ -529,20 +405,18 @@
     <string name="ota_alert_file_applicationstacksep_app_sel">Select the application upgrade file to proceed</string>
     <string name="ota_alert_file_applicationstacksep_stack_sel">Select the stack upgrade file to proceed</string>
     <string name="ota_active_application">Active application:</string>
-    <string name="ota_security_key_required">Security key: 0x</string>
+    <string name="ota_security_key_required">Security key:\ </string>
+    <string name="ota_security_key_required_hex_prefix">0x</string>
+    <string name="ota_security_key_hint">Enter value</string>
     <string name="ota_security_key_invalid">6-byte hexadecimal number expected</string>
 
     <!-- General Toast  -->
-    <string name="toast_swipe_profiles">Swipe across to see more profiles...</string>
+    <string name="toast_swipe_profiles">Swipe across to see more profiles…</string>
     <string name="toast_selection_cancelled">Selection canceled</string>
-    <string name="toast_lollipop_notsupported">OTA FU Feature not supported</string>
     <string name="toast_file_copied">File copied to Android/media/com.infineon.airocbluetoothconnect folder successfully</string>
-    <string name="toast_descriptor_write">Descriptor Write failed</string>
-    <string name="toast_no_services_found">No Services found in this profile...</string>
-    <string name="toast_pairing_not_supported">Unable to Pair/Pairing is not supported by the profile</string>
+    <string name="toast_no_services_found">No Services found in this profile…</string>
     <string name="toast_unpaired">Device unpaired successfully</string>
     <string name="toast_paired">Device paired successfully</string>
-    <string name="toast_file_zero">No data found on recorded file</string>
 
     <!-- Descriptor parser  -->
     <string name="descriptor_notification_enabled">Notifications enabled</string>
@@ -569,48 +443,6 @@
     <string name="exchange_mtu_request">"[%1$s | %2$s] %3$s request, MTU: %4$d, Status: %5$d"</string>
     <string name="exchange_mtu_rsp">"[%1$s | %2$s] %3$s request completed, MTU: %4$d, Status: %5$d"</string>
     <string name="unpair_on_disconnect">Delete bond on disconnect</string>
-    <string name="wearable_solution_demo">Wearable Demo</string>
-    <string name="wearable_motion_sensor">Motion Sensor</string>
-    <string name="disable_sensor">Disable sensor</string>
-    <string name="roll">Roll</string>
-    <string name="pitch">Pitch</string>
-    <string name="yaw">Yaw</string>
-    <string name="chart_title_orientation">Orientation vs. Time</string>
-    <string name="chart_title_magnetometer">Magnetometer vs. Time</string>
-    <string name="chart_title_gyroscope">Gyroscope vs. Time</string>
-    <string name="chart_title_accelerometer">Accelerometer vs. Time</string>
-    <string name="group_title_accelerometer">Accelerometer</string>
-    <string name="group_title_gyroscope">Gyroscope</string>
-    <string name="group_title_magnetometer">Magnetometer</string>
-    <string name="group_title_orientation">Orientation</string>
-    <string name="group_title_steps">Number of steps</string>
-    <string name="group_title_calories">Calories burnt</string>
-    <string name="var_act_steps">Steps</string>
-    <string name="var_act_duration">Duration</string>
-    <string name="var_act_calories">Calories</string>
-    <string name="var_act_distance">Distance</string>
-    <string name="var_act_speed">Speed</string>
-    <string name="var_act_floors">Floors</string>
-    <string name="var_act_sleep">Sleep</string>
-    <string name="cat_activity">Activity</string>
-    <string name="var_env_temperature">Temperature</string>
-    <string name="var_env_uv">UV Index</string>
-    <string name="var_env_pressure">Atmos. Pressure</string>
-    <string name="var_env_altitude">Altitude (Baro)</string>
-    <string name="var_env_air_quality">Air Quality</string>
-    <string name="var_magnetic_declination">Magnetic Declination</string>
-    <string name="cat_environment">Environment</string>
-    <string name="enter_target">Enter target:</string>
-    <string name="wearable_demo_action_bar_title">PSoC 6 Wearable Demo</string>
-    <string name="wearable_motion_action_bar_title">Motion Sensor</string>
-    <string name="var_loc_position">Position</string>
-    <string name="var_loc_altitude">Altitude (GPS)</string>
-    <string name="var_loc_speed">Speed</string>
-    <string name="cat_location">Location</string>
-    <string name="message_notifications_enabling">Enabling notifications</string>
-    <string name="message_notifications_disabling">Disabling notifications</string>
-    <string name="message_notifications_disabled">Notifications disabled</string>
-    <string name="message_notifications_enabled">Notifications enabled</string>
     <string name="location_disabled">Location disabled</string>
     <string name="location_required_dont_ask_again">Dismiss the \"Location disabled\" warning and don\'t show it again</string>
     <string name="enable">Enable</string>
@@ -619,6 +451,12 @@
     <string name="tab_scanner">Scanner</string>
     <string name="tab_paired">Paired</string>
     <string name="screenshot_file_name">screenshot.jpg</string>
+    <string name="gatt_db_services_updated">GATT DB services updated</string>
+    <string name="unit_ms">ms</string>
+    <string name="unit_kcal">kcal</string>
+    <string name="heart_rate_parameter_name">Heart Rate</string>
+    <string name="cycling_distance_parameter_name">Cycling Distance</string>
+    <string name="directory_does_not_exist">Directory does not exist</string>
 
     <!-- Dual-App Bootloader SetActiveApplication options -->
     <!-- Keep these 2 arrays in sync -->

@@ -2,10 +2,20 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <!-- Secondary brand color-->
+        <item name="colorSecondary">@color/secondary</item>
+
+        <!-- Infineon widget styles -->
+        <item name="buttonStyle">@style/Infineon.Button.Primary</item>
+        <item name="imageButtonStyle">@style/Infineon.ImageButton.Primary</item>
+        <item name="android:textViewStyle">@style/Infineon.TextView</item>
+        <item name="editTextStyle">@style/Infineon.EditText</item>
+        <item name="android:alertDialogTheme">@style/Infineon.Dialog.Alert</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -25,7 +35,7 @@
         <item name="android:ellipsize">marquee</item>
         <!--custom settings -->
         <item name="android:textAlignment">inherit</item>
-        <item name="android:textColor">@color/main_bg_color</item>
+        <item name="android:textColor">@color/primary</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -35,8 +45,76 @@
         <item name="android:layout_height">48dip</item>
         <item name="android:ellipsize">marquee</item>
         <!--custom settings -->
-        <item name="android:textColor">@color/main_bg_color</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="Infineon.Button.Primary" parent="@style/Widget.AppCompat.Button">
+        <item name="android:textColor">@color/light_button_text</item>
+        <item name="android:backgroundTint">@color/button_bg_tint_stateful</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:paddingHorizontal">@dimen/padding_default</item>
+    </style>
+
+    <style name="Infineon.Button.Primary.Big" parent="@style/Infineon.Button.Primary">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:paddingHorizontal">50dp</item>
+        <item name="android:paddingVertical">25dp</item>
+    </style>
+
+    <style name="Infineon.ImageButton.Primary" parent="@style/Widget.AppCompat.ImageButton">
+        <item name="android:textColor">@color/light_button_text</item>
+        <item name="android:backgroundTint">@color/button_background</item>
+    </style>
+
+    <style name="Infineon.EditText" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:paddingVertical">5dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="Infineon.EditText.Outlined" parent="@style/Infineon.EditText">
+        <item name="android:background">@drawable/background_border_primary_color</item>
+    </style>
+
+    <style name="Infineon.TextView" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:gravity">start</item>
+        <item name="android:paddingVertical">10dp</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="Infineon.TextView.Outlined" parent="@style/Infineon.TextView">
+        <item name="android:background">@drawable/background_border_primary_color</item>
+    </style>
+
+
+    <style name="Infineon.TextView.ValueStyle" parent="@style/Infineon.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">...</item>
+    </style>
+
+
+    <style name="Infineon.TextView.Header" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Infineon.Dialog.Alert" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:buttonBarNegativeButtonStyle">@style/Infineon.AlertDialog.ButtonStyle
+        </item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/Infineon.AlertDialog.ButtonStyle
+        </item>
+    </style>
+
+    <style name="Infineon.AlertDialog.ButtonStyle" parent="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/primary</item>
     </style>
 
 </resources>

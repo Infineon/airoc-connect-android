@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,10 +36,7 @@ package com.infineon.airocbluetoothconnect;
 import android.app.Application;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothGattService;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.infineon.airocbluetoothconnect.CommonUtils.GattDbParser;
 import java.util.List;
 
 /**
@@ -48,13 +45,10 @@ import java.util.List;
 public class AIROCBluetoothConnectApp extends Application {
 
     public static Application mApplication;
-
-    private ArrayList<HashMap<String, BluetoothGattService>> mGattServiceMasterData =
-            new ArrayList<HashMap<String, BluetoothGattService>>();
-
     private List<BluetoothGattCharacteristic> mGattCharacteristics;
     private BluetoothGattCharacteristic mBluetoothGattCharacteristic;
     private BluetoothGattDescriptor mBluetoothGattDescriptor;
+    private final GattDbParser mGattDbParser = new GattDbParser();
 
     @Override
     public void onCreate() {
@@ -74,7 +68,7 @@ public class AIROCBluetoothConnectApp extends Application {
     /**
      * setter method for Blue tooth GATT characteristics
      *
-     * @param bluetoothgattcharacteristic
+     * @param bluetoothgattcharacteristic : a {@link BluetoothGattCharacteristic} to set
      */
     public void setBluetoothGattCharacteristic(
             BluetoothGattCharacteristic bluetoothgattcharacteristic) {
@@ -93,7 +87,7 @@ public class AIROCBluetoothConnectApp extends Application {
     /**
      * setter method for Blue tooth GATT Descriptor
      *
-     * @param bluetoothGattDescriptor
+     * @param bluetoothGattDescriptor : a {@link BluetoothGattDescriptor} to set
      */
     public void setBluetoothGattDescriptor(
             BluetoothGattDescriptor bluetoothGattDescriptor) {
@@ -112,19 +106,18 @@ public class AIROCBluetoothConnectApp extends Application {
     /**
      * setter method for blue tooth GATT Characteristic list
      *
-     * @param gattCharacteristics
+     * @param gattCharacteristics : list of characteristics to set
      */
     public void setGattCharacteristics(
             List<BluetoothGattCharacteristic> gattCharacteristics) {
         this.mGattCharacteristics = gattCharacteristics;
     }
 
-    public ArrayList<HashMap<String, BluetoothGattService>> getGattServiceMasterData() {
-        return mGattServiceMasterData;
-    }
-
-    public void setGattServiceMasterData(
-            ArrayList<HashMap<String, BluetoothGattService>> gattServiceMasterData) {
-        this.mGattServiceMasterData = gattServiceMasterData;
+    /**
+     * GattDbParser getter
+     * @return ref to {@link GattDbParser} instance
+     */
+    public GattDbParser getGattDbParser() {
+        return mGattDbParser;
     }
 }

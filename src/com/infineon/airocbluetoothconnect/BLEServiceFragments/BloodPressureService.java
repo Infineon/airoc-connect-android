@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -185,9 +185,9 @@ public class BloodPressureService extends Fragment {
                 Button btn = (Button) v;
                 String buttonText = btn.getText().toString();
                 String startText = getResources().getString(
-                        R.string.blood_pressure_start_btn);
+                        R.string.button_start);
                 String stopText = getResources().getString(
-                        R.string.blood_pressure_stop_btn);
+                        R.string.button_stop);
                 if (buttonText.equalsIgnoreCase(startText)) {
                     btn.setText(stopText);
                     if (mIndicateCharacteristic != null) {
@@ -249,11 +249,9 @@ public class BloodPressureService extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

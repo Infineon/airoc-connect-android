@@ -3,9 +3,10 @@
     android:id="@+id/parent_ota_files"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     android:clickable="true"
     android:orientation="vertical"
+    android:padding="@dimen/padding_default"
     android:scrollbars="none"
     android:weightSum="1.0">
 
@@ -24,20 +25,28 @@
                 android:id="@+id/security_key_required"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
                 android:text="@string/ota_security_key_required"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/main_bg_color"
-                android:textSize="@dimen/find_textsize"
-                android:textStyle="bold" />
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/security_key_hex_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/ota_security_key_required_hex_prefix"
+                android:padding="0dp"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_medium"/>
 
             <EditText
+                android:hint="@string/ota_security_key_hint"
+                android:textColorHint="@color/hint_text"
                 android:id="@+id/security_key"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:digits="0123456789ABCDEF"
+                android:paddingStart="0dp"
+                android:gravity="start"
                 android:inputType="textCapCharacters"
                 android:maxLength="12" />
         </LinearLayout>
@@ -45,7 +54,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/main_bg_color" />
+            android:background="@color/primary" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,14 +69,10 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/active_app_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:padding="15dp"
-                android:text="@string/ota_active_application"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/main_bg_color"
-                android:textSize="@dimen/find_textsize"
-                android:textStyle="bold" />
+                android:text="@string/ota_active_application" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/active_app"
@@ -79,25 +84,29 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/main_bg_color" />
+            android:background="@color/primary" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/heading_2"
+        style="@style/Infineon.TextView.Header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="15dp"
-        android:text="@string/ota_file_list"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/main_bg_color"
-        android:textSize="@dimen/find_textsize"
-        android:textStyle="bold" />
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:focusedByDefault="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:text="@string/ota_file_list">
+
+        <requestFocus />
+    </TextView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/main_bg_color" />
+        android:background="@color/primary" />
 
     <ListView
         android:id="@+id/listView"
@@ -105,8 +114,8 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1.0"
-        android:divider="@color/main_bg_color"
-        android:dividerHeight="2dp" />
+        android:divider="@color/primary"
+        android:dividerHeight="1dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -121,11 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/button_selector"
             android:text="@string/ota_upgrade"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/textsize_very_small"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/next_button"
@@ -133,10 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/button_selector"
             android:text="@string/ota_next"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/textsize_very_small"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </LinearLayout>
 </LinearLayout>

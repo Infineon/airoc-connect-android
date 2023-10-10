@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -75,6 +75,7 @@ import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp;
 import com.infineon.airocbluetoothconnect.R;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class GattDetailsFragment extends Fragment implements DialogListener, OnClickListener {
@@ -116,17 +117,17 @@ public class GattDetailsFragment extends Fragment implements DialogListener, OnC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.gattdb_details, container,
+        View rootView = inflater.inflate(R.layout.gattdb_characteristic_details, container,
                 false);
         mApplication = (AIROCBluetoothConnectApp) getActivity().getApplication();
         mServiceName = (TextView) rootView.findViewById(R.id.txtservicename);
         mHexValue = (TextView) rootView.findViewById(R.id.txthex);
         mCharacteristicName = (TextView) rootView
                 .findViewById(R.id.txtcharatrname);
-        mBtnNotify = (TextView) rootView.findViewById(R.id.txtnotify);
-        mBtnIndicate = (TextView) rootView.findViewById(R.id.txtindicate);
-        mBtnRead = (TextView) rootView.findViewById(R.id.txtread);
-        mBtnWrite = (TextView) rootView.findViewById(R.id.txtwrite);
+        mBtnNotify = (Button) rootView.findViewById(R.id.txtnotify);
+        mBtnIndicate = (Button) rootView.findViewById(R.id.txtindicate);
+        mBtnRead = (Button) rootView.findViewById(R.id.txtread);
+        mBtnWrite = (Button) rootView.findViewById(R.id.txtwrite);
         mAsciiValue = (EditText) rootView.findViewById(R.id.txtascii);
         mTimeValue = (TextView) rootView.findViewById(R.id.txttime);
         mDateValue = (TextView) rootView.findViewById(R.id.txtdate);
@@ -284,11 +285,9 @@ public class GattDetailsFragment extends Fragment implements DialogListener, OnC
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -522,16 +521,17 @@ public class GattDetailsFragment extends Fragment implements DialogListener, OnC
     /**
      * Method to convert ascii to hex
      *
-     * @param asciiValue
+     * @param input
      * @return
      */
-    private String asciiToHex(String asciiValue) {
-        char[] chars = asciiValue.toCharArray();
-        StringBuffer hex = new StringBuffer();
-        for (int i = 0; i < chars.length; i++) {
-            hex.append(Integer.toHexString((int) chars[i]));
+    private String asciiToHex(String input) {
+        StringBuffer output = new StringBuffer();
+        // Using utf-8 to handle non-ascii chars
+        byte[] stringBytes = input.getBytes(StandardCharsets.UTF_8);
+        for (byte value : stringBytes) {
+            output.append(String.format("%02X", value));
         }
-        return hex.toString();
+        return output.toString();
     }
 
     /**

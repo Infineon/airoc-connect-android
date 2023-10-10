@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -54,12 +54,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.HomePageActivity;
+import com.infineon.airocbluetoothconnect.CommonFragments.FragmentWithActionBarRestorer;
 import com.infineon.airocbluetoothconnect.ListAdapters.DataLogsListAdapter;
 import com.infineon.airocbluetoothconnect.R;
 
@@ -73,11 +74,11 @@ import java.util.ArrayList;
 /**
  * Fragment to showToast the DataLogger
  */
-public class DataLoggerFragment extends Fragment implements AbsListView.OnScrollListener {
+public class DataLoggerFragment extends FragmentWithActionBarRestorer implements AbsListView.OnScrollListener {
     /**
      * FilePath of DataLogger
      */
-    private static String mFilepath;
+    private String mFilepath;
     int mTotalLinesToRead = 0;
     ProgressDialog mProgressDialog;
     /**
@@ -107,6 +108,7 @@ public class DataLoggerFragment extends Fragment implements AbsListView.OnScroll
      */
     private TextView mFileName;
     private Button mScrollDown;
+    private Button mDataHistory;
 
     //Activity Request Code
     private static final int REQUEST_CODE = 123;
@@ -118,26 +120,29 @@ public class DataLoggerFragment extends Fragment implements AbsListView.OnScroll
         mLogList = (ListView) rootView.findViewById(R.id.txtlog);
         mFileName = (TextView) rootView.findViewById(R.id.txt_file_name);
         mScrollDown = (Button) rootView.findViewById(R.id.btn_scroll_down);
+        mDataHistory = (Button) rootView.findViewById(R.id.txthistory);
+        mFilepath = Utils.getDefaultLogFilePath(getContext());
 
         /*
-        /History option text
+         Load data from bundle if possible
         */
-        TextView mDataHistory = (TextView) rootView.findViewById(R.id.txthistory);
-        //mScrollView = (CustumScrollView) rootView.findViewById(R.id.scroll_view_logger);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            mFilepath = bundle.getString(Constants.DATA_LOGGER_FILE_NAME);
-            mVisible = bundle.getBoolean(Constants.DATA_LOGGER_FLAG);
-            File fileInView = new File(mFilepath);
-            mFileName.setText(fileInView.getName());
+            mFilepath = bundle.getString(Constants.DATA_LOGGER_FILE_PATH);
+            mVisible = bundle.getBoolean(Constants.DATA_LOGGER_SHOW_HISTORY_FILES_FLAG);
         }
+
+        File fileInView = new File(mFilepath);
+        mFileName.setText(fileInView.getName());
+
         // Handling the history text visibility based on the received Arguments
         if (mVisible) {
             mDataHistory.setVisibility(View.GONE);
         } else {
-            Toast.makeText(getActivity(), getResources().
-                            getString(R.string.data_logger_timestamp) + Utils.GetTimeandDateUpdate()
-                    , Toast.LENGTH_SHORT).show();
+            ToastUtils.makeText(
+                getResources().getString(R.string.data_logger_timestamp) + Utils.GetTimeandDateUpdate(),
+                Toast.LENGTH_SHORT
+            );
             mDataHistory.setVisibility(View.VISIBLE);
         }
         mDataHistory.setOnClickListener(new OnClickListener() {
@@ -168,8 +173,8 @@ public class DataLoggerFragment extends Fragment implements AbsListView.OnScroll
         getActivity();
         if (resultCode == Activity.RESULT_OK) {
             Bundle bundleReceived = data.getExtras();
-            mFilepath = bundleReceived.getString(Constants.DATA_LOGGER_FILE_NAME);
-            mVisible = bundleReceived.getBoolean(Constants.DATA_LOGGER_FLAG);
+            mFilepath = bundleReceived.getString(Constants.DATA_LOGGER_FILE_PATH);
+            mVisible = bundleReceived.getBoolean(Constants.DATA_LOGGER_SHOW_HISTORY_FILES_FLAG);
             File fileinView = new File(mFilepath);
             mFileName.setText(fileinView.getName());
             prepareData();
@@ -332,13 +337,11 @@ public class DataLoggerFragment extends Fragment implements AbsListView.OnScroll
         inflater.inflate(R.menu.global, menu);
         MenuItem share = menu.findItem(R.id.share);
         MenuItem sharelogger = menu.findItem(R.id.sharelogger);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         MenuItem graph = menu.findItem(R.id.graph);
 
         search.setVisible(false);
         share.setVisible(false);
-        log.setVisible(false);
         graph.setVisible(false);
         sharelogger.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);

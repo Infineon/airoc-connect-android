@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,6 +36,8 @@ package com.infineon.airocbluetoothconnect;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.widget.Toast;
 
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
@@ -61,14 +63,28 @@ public class BLEStatusReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
+        Resources.Theme theme = context.getTheme();
+        TypedValue typedValue = new TypedValue();
+        theme.resolveAttribute(android.R.attr.textSize, typedValue, true);
+        float size = typedValue.getDimension(context.getResources().getDisplayMetrics());
+
         if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-            Logger.d("BLEStatusReceiver.onReceive HPA.inBackground: " + HomePageActivity.mApplicationInBackground
-                    + ", HPTF.inFragment: " + HomePageTabbedFragment.mIsInFragment + ", SDF.inFragment: " + ServiceDiscoveryFragment.mIsInFragment
-                    + ", PCF.inFragment: " + ProfileControlFragment.mIsInFragment + ", Connection State: " + BluetoothLeService.getConnectionState());
-            if (!HomePageActivity.mApplicationInBackground
-                    || !OTAFilesListingActivity.mApplicationInBackground
-                    || !DataLoggerHistoryList.mApplicationInBackground) {
-                ToastUtils.showToast(R.string.alert_message_bluetooth_disconnect, Toast.LENGTH_SHORT);
+            Logger.d(
+                    "BLEStatusReceiver.onReceive HPA.inBackground: " + HomePageActivity.mApplicationInBackground +
+                            ", HPTF.inFragment: " + HomePageTabbedFragment.mIsInFragment +
+                            ", SDF.inFragment: " + ServiceDiscoveryFragment.mIsInFragment +
+                            ", PCF.inFragment: " + ProfileControlFragment.mIsInFragment +
+                            ", Connection State: " + BluetoothLeService.getConnectionState()
+            );
+
+            boolean appIsForeground = !HomePageActivity.mApplicationInBackground;
+            boolean userIsOnHomePage = HomePageTabbedFragment.mIsInFragment;
+            boolean otaActivityIsForeground = OTAFilesListingActivity.mIsStarted;
+            boolean loggerActivityIsForeground = !DataLoggerHistoryList.mApplicationInBackground;
+
+            if (appIsForeground || otaActivityIsForeground || loggerActivityIsForeground) {
+                ToastUtils.makeText(R.string.alert_message_bluetooth_disconnect, Toast.LENGTH_SHORT);
+
                 if (OTAFirmwareUpgradeFragment.mFileUpgradeStarted) {
                     //Resetting all preferences on Stop Button
                     Utils.setStringSharedPreference(context, Constants.PREF_OTA_FILE_ONE_NAME, "Default");
@@ -79,14 +95,14 @@ public class BLEStatusReceiver extends BroadcastReceiver {
                     Utils.setStringSharedPreference(context, Constants.PREF_BOOTLOADER_STATE, "Default");
                     Utils.setIntSharedPreference(context, Constants.PREF_PROGRAM_ROW_NO, 0);
                 }
-                if (!HomePageTabbedFragment.mIsInFragment &&
-                        !HomePageActivity.mApplicationInBackground) {
-                    if (BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_DISCONNECTED) {
-                        Logger.e("Disconnected -> navigating to the PSF");
-                        Intent homePage = new Intent(context, HomePageActivity.class);
-                        homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(homePage);
-                    }
+
+                // TODO(OGSK): refactor this. Each activity should handle disconnect behavior by itself
+                boolean shouldNavigateToHome = (appIsForeground && !userIsOnHomePage) || otaActivityIsForeground;
+                if (shouldNavigateToHome) {
+                    Logger.e("Disconnected -> navigating to the PSF");
+                    Intent homePage = new Intent(context, HomePageActivity.class);
+                    homePage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(homePage);
                 }
             }
         }

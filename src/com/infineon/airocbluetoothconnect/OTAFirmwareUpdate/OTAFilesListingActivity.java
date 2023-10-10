@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -39,11 +39,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.view.MotionEvent;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,11 +62,11 @@ import androidx.appcompat.widget.AppCompatSpinner;
 
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.DataModelClasses.OTAFileModel;
 import com.infineon.airocbluetoothconnect.ListAdapters.OTAFileListAdapter;
 import com.infineon.airocbluetoothconnect.R;
-import com.infineon.airocbluetoothconnect.wearable.utils.Utilities;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,6 +80,8 @@ public class OTAFilesListingActivity extends AppCompatActivity {
     public static final String REGEX_CYACD = "(?i)cyacd2?";
     public static final String ENABLED_VIEW_BG_COLOR = "#FFFFFF";
     public static final String DISABLED_VIEW_BG_COLOR = "#E0E0E0";
+    public static final String ENABLED_SECTION_TEXT_COLOR = "#000000";
+    public static final String DISABLED_SECTION_TEXT_COLOR = "#A6A6A6";
     public static final float ENABLED_VIEW_ALPHA = 1f;
     public static final float DISABLED_VIEW_ALPHA = 0.8f;
 
@@ -94,13 +98,15 @@ public class OTAFilesListingActivity extends AppCompatActivity {
     private View mSecurityKeySection;
     private View mActiveAppSection;
     private CheckBox mSecurityKeyRequiredCheckBox;
+    private TextView mSecurityKeyPrefixTextView;
     private EditText mSecurityKeyEditText;
     private AppCompatSpinner mActiveAppSpinner;
+    private TextView mActiveAppTextView;
 
     //Dual-App Bootloader Active Application ID
     private byte mActiveApp;
 
-    public static Boolean mApplicationInBackground = false;
+    public static Boolean mIsStarted = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,8 +131,8 @@ public class OTAFilesListingActivity extends AppCompatActivity {
         mNextButton = findViewById(R.id.next_button);
         mHeadingTextView = findViewById(R.id.heading_2);
 
-        /**
-         * Shows the cyacd files in the device
+        /*
+          Shows the cyacd files in the device
          */
         mFirmwareAdapter = new OTAFileListAdapter(this, mArrayListFiles, mUpgradeMode);
         mFileListView.setAdapter(mFirmwareAdapter);
@@ -145,8 +151,10 @@ public class OTAFilesListingActivity extends AppCompatActivity {
         mSecurityKeySection = findViewById(R.id.security_key_section);
         mActiveAppSection = findViewById(R.id.active_app_section);
         mSecurityKeyRequiredCheckBox = findViewById(R.id.security_key_required);
+        mSecurityKeyPrefixTextView = findViewById(R.id.security_key_hex_prefix);
         mSecurityKeyEditText = findViewById(R.id.security_key);
         mActiveAppSpinner = findViewById(R.id.active_app);
+        mActiveAppTextView = findViewById(R.id.active_app_text);
 
         setSecurityKeySectionEnabled(false);
 
@@ -161,10 +169,15 @@ public class OTAFilesListingActivity extends AppCompatActivity {
         mSecurityKeyRequiredCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                setSecurityKeyEditTextEnabled(isChecked);
-                if (isChecked) {
-                    mSecurityKeyEditText.requestFocus();
+                if(isChecked){
+                    mSecurityKeySection.setAlpha(ENABLED_VIEW_ALPHA);
+                    mSecurityKeySection.setBackgroundColor(Color.parseColor(ENABLED_VIEW_BG_COLOR));
+                } else {
+                    mSecurityKeySection.setAlpha(DISABLED_VIEW_ALPHA);
+                    mSecurityKeySection.setBackgroundColor(Color.parseColor(DISABLED_VIEW_BG_COLOR));
                 }
+                setSecurityKeyEditTextEnabled(isChecked);
+                setSecurityKeyPrefixEnabled(isChecked);
             }
         });
 
@@ -172,9 +185,9 @@ public class OTAFilesListingActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    boolean hardwareKeyboardAvailable = Utilities.isHardwareKeyboardAvailable(OTAFilesListingActivity.this);
+                    boolean hardwareKeyboardAvailable = Utils.isHardwareKeyboardAvailable(OTAFilesListingActivity.this);
                     Logger.d("Hardware keyboard available: " + hardwareKeyboardAvailable);
-                    if (false == hardwareKeyboardAvailable) {
+                    if (!hardwareKeyboardAvailable) {
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         if (imm != null) {
                             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
@@ -207,169 +220,193 @@ public class OTAFilesListingActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * File Selection click event
+        /*
+          File Selection click event
          */
         mFileListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OTAFileModel model = mArrayListFiles.get(position);
-                model.setSelected(false == model.isSelected());
+                model.setSelected(!model.isSelected());
                 for (int i = 0; i < mArrayListFiles.size(); i++) {
                     if (position != i) {
                         mArrayListFiles.get(i).setSelected(false);
                     }
                 }
 
-                boolean cyacdFileSelected =
-                        model.isSelected()
-                                && model.getFileName().toLowerCase().endsWith(FILE_EXT_CYACD);
+                boolean cyacdFileSelected = model.isSelected() && model.getFileName().toLowerCase().endsWith(FILE_EXT_CYACD);
 
-                boolean securityKeySectionEnabled =
-                        mUpgradeButton.getVisibility() == View.VISIBLE
-                                && cyacdFileSelected;
+                boolean securityKeySectionEnabled = mUpgradeButton.getVisibility() == View.VISIBLE && cyacdFileSelected;
                 setSecurityKeySectionEnabled(securityKeySectionEnabled);
 
-                boolean activeAppSectionEnabled =
-                        mUpgradeMode != OTAFirmwareUpgradeFragment.APP_AND_STACK_COMBINED // App Only + App/Stack separate
-                                && mUpgradeButton.getVisibility() == View.VISIBLE
-                                && cyacdFileSelected;
+                boolean activeAppSectionEnabled = mUpgradeMode != OTAFirmwareUpgradeFragment.APP_AND_STACK_COMBINED // App Only + App/Stack separate
+                        && mUpgradeButton.getVisibility() == View.VISIBLE && cyacdFileSelected;
                 setActiveAppSectionEnabled(activeAppSectionEnabled);
 
                 mFirmwareAdapter.notifyDataSetChanged();
             }
         });
 
-        /**
-         * returns to the type selection fragment by selecting the required files
+        /*
+          returns to the type selection fragment by selecting the required files
          */
         mUpgradeButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 
-                                                  if (mUpgradeMode == OTAFirmwareUpgradeFragment.APP_AND_STACK_SEPARATE) {
-                                                      if (mArrayListPaths.size() > 1) {
-                                                          String path = mArrayListPaths.get(0);
-                                                          mArrayListPaths.clear();
-                                                          mArrayListPaths.add(path);
-                                                          String fileName = mArrayListFileNames.get(0);
-                                                          mArrayListFileNames.clear();
-                                                          mArrayListFileNames.add(fileName);
-                                                      }
-                                                      for (int i = 0; i < mArrayListFiles.size(); i++) {
-                                                          if (mArrayListFiles.get(i).isSelected()) {
-                                                              mArrayListPaths.add(1, mArrayListFiles.get(i).getFilePath());
-                                                              mArrayListFileNames.add(1, mArrayListFiles.get(i).getFileName());
-                                                          }
-                                                      }
-                                                  } else {
-                                                      if (mArrayListPaths.size() > 0) {
-                                                          mArrayListPaths.clear();
-                                                          mArrayListFileNames.clear();
-                                                      }
-                                                      for (int i = 0; i < mArrayListFiles.size(); i++) {
-                                                          if (mArrayListFiles.get(i).isSelected()) {
-                                                              mArrayListPaths.add(0, mArrayListFiles.get(i).getFilePath());
-                                                              mArrayListFileNames.add(0, mArrayListFiles.get(i).getFileName());
-                                                          }
-                                                      }
-                                                  }
+                if (mUpgradeMode == OTAFirmwareUpgradeFragment.APP_AND_STACK_SEPARATE) {
+                    if (mArrayListPaths.size() > 1) {
+                        String path = mArrayListPaths.get(0);
+                        mArrayListPaths.clear();
+                        mArrayListPaths.add(path);
+                        String fileName = mArrayListFileNames.get(0);
+                        mArrayListFileNames.clear();
+                        mArrayListFileNames.add(fileName);
+                    }
+                    for (int i = 0; i < mArrayListFiles.size(); i++) {
+                        if (mArrayListFiles.get(i).isSelected()) {
+                            mArrayListPaths.add(1, mArrayListFiles.get(i).getFilePath());
+                            mArrayListFileNames.add(1, mArrayListFiles.get(i).getFileName());
+                        }
+                    }
+                } else {
+                    if (mArrayListPaths.size() > 0) {
+                        mArrayListPaths.clear();
+                        mArrayListFileNames.clear();
+                    }
+                    for (int i = 0; i < mArrayListFiles.size(); i++) {
+                        if (mArrayListFiles.get(i).isSelected()) {
+                            mArrayListPaths.add(0, mArrayListFiles.get(i).getFilePath());
+                            mArrayListFileNames.add(0, mArrayListFiles.get(i).getFileName());
+                        }
+                    }
+                }
 
-                                                  if (mUpgradeMode == OTAFirmwareUpgradeFragment.APP_AND_STACK_SEPARATE) { // App/Stack separate
-                                                      if (mArrayListPaths.size() == 2) {
-                                                          Intent returnIntent = new Intent();
-                                                          returnIntent.putExtra(Constants.SELECTION_FLAG, true);
-                                                          returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_PATHS, mArrayListPaths);
-                                                          returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_NAMES, mArrayListFileNames);
+                if (mUpgradeMode == OTAFirmwareUpgradeFragment.APP_AND_STACK_SEPARATE) { // App/Stack separate
+                    if (mArrayListPaths.size() == 2) {
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra(Constants.SELECTION_FLAG, true);
+                        returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_PATHS, mArrayListPaths);
+                        returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_NAMES, mArrayListFileNames);
 
-                                                          if (false == submitSecurityKey(returnIntent)) {
-                                                              return;
-                                                          }
-                                                          addActiveAppToIntent(returnIntent);
+                        if (!submitSecurityKey(returnIntent)) {
+                            return;
+                        }
+                        addActiveAppToIntent(returnIntent);
 
-                                                          setResult(RESULT_OK, returnIntent);
-                                                          finish();
-                                                      } else {
-                                                          alertFileSelection(getResources().getString(R.string.ota_alert_file_applicationstacksep_app_sel));
-                                                      }
-                                                  } else if (mUpgradeMode != OTAFirmwareUpgradeFragment.APP_AND_STACK_SEPARATE // App Only + App/Stack combined
-                                                          && mArrayListPaths.size() == 1) {
-                                                      Intent returnIntent = new Intent();
-                                                      returnIntent.putExtra(Constants.SELECTION_FLAG, true);
-                                                      returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_PATHS, mArrayListPaths);
-                                                      returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_NAMES, mArrayListFileNames);
+                        setResult(RESULT_OK, returnIntent);
+                        finish();
+                    } else {
+                        alertFileSelection(getResources().getString(R.string.ota_alert_file_applicationstacksep_app_sel));
+                    }
+                } else if (mUpgradeMode != OTAFirmwareUpgradeFragment.APP_AND_STACK_SEPARATE // App Only + App/Stack combined
+                        && mArrayListPaths.size() == 1) {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(Constants.SELECTION_FLAG, true);
+                    returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_PATHS, mArrayListPaths);
+                    returnIntent.putExtra(Constants.ARRAYLIST_SELECTED_FILE_NAMES, mArrayListFileNames);
 
-                                                      if (false == submitSecurityKey(returnIntent)) {
-                                                          return;
-                                                      }
-                                                      if (mUpgradeMode == OTAFirmwareUpgradeFragment.APP_ONLY) {
-                                                          addActiveAppToIntent(returnIntent); // App/Stack combined has no Active App option
-                                                      }
+                    if (!submitSecurityKey(returnIntent)) {
+                        return;
+                    }
+                    if (mUpgradeMode == OTAFirmwareUpgradeFragment.APP_ONLY) {
+                        addActiveAppToIntent(returnIntent); // App/Stack combined has no Active App option
+                    }
 
-                                                      setResult(RESULT_OK, returnIntent);
-                                                      finish();
-                                                  } else {
-                                                      if (mUpgradeMode != OTAFirmwareUpgradeFragment.APP_AND_STACK_COMBINED) {
-                                                          alertFileSelection(getResources().getString(R.string.ota_alert_file_application));
-                                                      } else {
-                                                          alertFileSelection(getResources().getString(R.string.ota_alert_file_applicationstackcomb));
-                                                      }
-                                                  }
-                                              }
-                                          }
-        );
+                    setResult(RESULT_OK, returnIntent);
+                    finish();
+                } else {
+                    if (mUpgradeMode != OTAFirmwareUpgradeFragment.APP_AND_STACK_COMBINED) {
+                        alertFileSelection(getResources().getString(R.string.ota_alert_file_application));
+                    } else {
+                        alertFileSelection(getResources().getString(R.string.ota_alert_file_applicationstackcomb));
+                    }
+                }
+            }
+        });
 
-        /**
-         * returns to the type selection fragment by selecting the required files
+        /*
+          returns to the type selection fragment by selecting the required files
          */
         mNextButton.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View view) {
-                                               for (int i = 0; i < mArrayListFiles.size(); i++) {
-                                                   if (mArrayListFiles.get(i).isSelected()) {
-                                                       mArrayListPaths.add(0, mArrayListFiles.get(i).getFilePath());
-                                                       mArrayListFileNames.add(0, mArrayListFiles.get(i).getFileName());
-                                                       mHeadingTextView.setText(getResources().getString((R.string.ota_app_file)));
-                                                       mArrayListFiles.remove(i);
-                                                       mFirmwareAdapter.addFiles(mArrayListFiles);
-                                                       mFirmwareAdapter.notifyDataSetChanged();
-                                                       mUpgradeButton.setVisibility(View.VISIBLE);
-                                                       mNextButton.setVisibility(View.GONE);
-                                                   }
-                                               }
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < mArrayListFiles.size(); i++) {
+                    if (mArrayListFiles.get(i).isSelected()) {
+                        mArrayListPaths.add(0, mArrayListFiles.get(i).getFilePath());
+                        mArrayListFileNames.add(0, mArrayListFiles.get(i).getFileName());
+                        mHeadingTextView.setText(getResources().getString((R.string.ota_app_file)));
+                        mArrayListFiles.remove(i);
+                        mFirmwareAdapter.addFiles(mArrayListFiles);
+                        mFirmwareAdapter.notifyDataSetChanged();
+                        mUpgradeButton.setVisibility(View.VISIBLE);
+                        mNextButton.setVisibility(View.GONE);
+                    }
+                }
 
-                                               if (mArrayListPaths.size() == 0) {
-                                                   alertFileSelection(getResources().getString(R.string.ota_alert_file_applicationstacksep_stack_sel));
-                                               } else if (mUpgradeButton.getVisibility() == View.VISIBLE) {
-                                                   mSecurityKeySection.setVisibility(View.VISIBLE);
-                                                   mActiveAppSection.setVisibility(View.VISIBLE);
-                                               }
-                                           }
-                                       }
+                if (mArrayListPaths.size() == 0) {
+                    alertFileSelection(getResources().getString(R.string.ota_alert_file_applicationstacksep_stack_sel));
+                } else if (mUpgradeButton.getVisibility() == View.VISIBLE) {
+                    mSecurityKeySection.setVisibility(View.VISIBLE);
+                    mActiveAppSection.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
 
-        );
+    /*
+    * checks if screen was touched outside the edit text to lose focus and hide keyboard.
+    */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View view = getCurrentFocus();
+            if (view == mSecurityKeyEditText) {
+                Rect outRect = new Rect();
+                view.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    view.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     private void setSecurityKeySectionEnabled(boolean enabled) {
         mSecurityKeyRequiredCheckBox.setEnabled(enabled);
         if (enabled) {
-            mSecurityKeySection.setAlpha(1f);
-            mSecurityKeySection.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            mSecurityKeyRequiredCheckBox.setBackgroundColor(Color.parseColor(ENABLED_VIEW_BG_COLOR));
         } else {
-            mSecurityKeySection.setAlpha(0.8f);
-            mSecurityKeySection.setBackgroundColor(Color.parseColor("#E0E0E0"));
+            mSecurityKeySection.setAlpha(DISABLED_VIEW_ALPHA);
+            mSecurityKeySection.setBackgroundColor(Color.parseColor(DISABLED_VIEW_BG_COLOR));
+            mSecurityKeyRequiredCheckBox.setBackgroundColor(Color.parseColor(DISABLED_VIEW_BG_COLOR));
             // Uncheck radio button
             mSecurityKeyRequiredCheckBox.setChecked(false);
         }
+        setSecurityKeyPrefixEnabled(enabled && mSecurityKeyRequiredCheckBox.isChecked());
         setSecurityKeyEditTextEnabled(enabled && mSecurityKeyRequiredCheckBox.isChecked());
+    }
+
+    private void setSecurityKeyPrefixEnabled(boolean enabled) {
+        if (enabled) {
+            mSecurityKeyPrefixTextView.setTextColor(Color.parseColor(ENABLED_SECTION_TEXT_COLOR));
+        } else {
+            mSecurityKeyPrefixTextView.setTextColor(Color.parseColor(DISABLED_SECTION_TEXT_COLOR));
+        }
     }
 
     private void setSecurityKeyEditTextEnabled(boolean enabled) {
         mSecurityKeyEditText.setEnabled(enabled);
         mSecurityKeyEditText.setFocusableInTouchMode(enabled);
         mSecurityKeyEditText.setFocusable(enabled);
-        if (false == enabled) {
+        if (!enabled) {
             // Clear validation error
             mSecurityKeyEditText.setError(null);
+            // Key value should be gray if the Security key is disabled
+            mSecurityKeyEditText.setTextColor(Color.parseColor(DISABLED_SECTION_TEXT_COLOR));
+        } else {
+            mSecurityKeyEditText.setTextColor(Color.parseColor(ENABLED_SECTION_TEXT_COLOR));
         }
     }
 
@@ -382,6 +419,7 @@ public class OTAFilesListingActivity extends AppCompatActivity {
             mActiveAppSection.setAlpha(DISABLED_VIEW_ALPHA);
             mActiveAppSection.setBackgroundColor(Color.parseColor(DISABLED_VIEW_BG_COLOR));
         }
+        mActiveAppTextView.setTextColor(Color.parseColor(enabled ? ENABLED_SECTION_TEXT_COLOR : DISABLED_SECTION_TEXT_COLOR));
     }
 
     private boolean submitSecurityKey(Intent returnIntent) {
@@ -397,7 +435,7 @@ public class OTAFilesListingActivity extends AppCompatActivity {
                     success = false;
                 }
             }
-            if (false == success) {
+            if (!success) {
                 mSecurityKeyEditText.setError(getResources().getString(R.string.ota_security_key_invalid));
             }
         }
@@ -428,8 +466,7 @@ public class OTAFilesListingActivity extends AppCompatActivity {
                             Uri selectedUri = Uri.fromFile(analyseFile);
                             String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
                             if (fileExtension.matches(REGEX_CYACD)) {
-                                OTAFileModel fileModel = new OTAFileModel(analyseFile.getName(),
-                                        analyseFile.getAbsolutePath(), false, analyseFile.getParent());
+                                OTAFileModel fileModel = new OTAFileModel(analyseFile.getName(), analyseFile.getAbsolutePath(), false, analyseFile.getParent());
                                 mArrayListFiles.add(fileModel);
                                 mFirmwareAdapter.addFiles(mArrayListFiles);
                                 mFirmwareAdapter.notifyDataSetChanged();
@@ -439,39 +476,36 @@ public class OTAFilesListingActivity extends AppCompatActivity {
                 }
             }
         } else {
-            Toast.makeText(this, "Directory does not exist", Toast.LENGTH_SHORT).show();
+            ToastUtils.makeText(R.string.directory_does_not_exist, Toast.LENGTH_SHORT);
         }
     }
 
     void alertFileSelection(String message) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-                .setTitle(R.string.app_name)
-                .setCancelable(true)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
+        builder.setMessage(message).setTitle(R.string.app_name).setCancelable(true).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog alert = builder.create();
         alert.show();
     }
 
     @Override
     protected void onResume() {
-        mApplicationInBackground = false;
+        mIsStarted = true;
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        mApplicationInBackground = true;
+        mIsStarted = false;
         super.onPause();
     }
 
     private static class DisplayableValue {
-        private int mValue;
-        private String mDisplayValue;
+        private final int mValue;
+        private final String mDisplayValue;
 
         public DisplayableValue(int value, String displayValue) {
             mValue = value;

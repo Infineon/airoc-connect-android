@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/location_disabled_alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red"
         android:visibility="gone">
 
         <TextView
@@ -16,41 +16,32 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="@string/location_disabled"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textsize_very_small" />
+            android:text="@string/location_disabled" />
 
         <Button
             android:id="@+id/location_enable"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/enable"
-            android:textColor="@color/white" />
+            android:text="@string/enable" />
 
         <Button
             android:id="@+id/location_more"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/more"
-            android:textColor="@color/white" />
+            android:text="@string/more" />
     </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:descendantFocusability="blocksDescendants">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <ListView

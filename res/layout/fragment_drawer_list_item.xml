@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/navigation_drawer_item_height"
-    android:background="@color/list_background"
-    android:padding="10dp" >
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/padding_default">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:contentDescription="@string/image_navigation_icon"
-        android:scaleType="center" />
+        android:gravity="center_vertical"
+        android:minWidth="24dp"
+        android:scaleType="center"
+        app:tint="@color/black" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/icon"
-        android:gravity="center_vertical"
-        android:paddingEnd="0dp"
-        android:paddingStart="10dp"
-        android:textSize="@dimen/navigation_drawer_item_textsize" />
+        android:gravity="center_vertical" />
 
-</RelativeLayout>
+</LinearLayout>

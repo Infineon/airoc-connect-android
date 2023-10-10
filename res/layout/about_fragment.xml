@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/abt_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:fillViewport="true"
     android:orientation="vertical"
-    android:fillViewport="true">
+    android:background="@color/background"
+    android:padding="@dimen/padding_default">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/company_logo"
@@ -20,51 +19,43 @@
             android:layout_height="0dp"
             android:layout_margin="20dp"
             android:contentDescription="@string/image_about_company_logo"
-            android:src="@drawable/infineon_logo"
-
             android:scaleType="fitCenter"
-            app:layout_constraintWidth_percent="0.5"
-            app:layout_constraintHeight_min="100dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/cysmart_version"
-            app:layout_constraintStart_toStartOf="parent"
+
+            android:src="@drawable/infineon_logo"
+            app:layout_constraintBottom_toTopOf="@+id/app_version"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintHeight_min="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.6" />
 
         <TextView
-            android:id="@+id/cysmart_version"
-            android:layout_width="0dp"
+            android:id="@+id/app_version"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
 
             android:text="VERSION SHOULD BE HERE"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="30sp"
             android:textAlignment="center"
+            android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
 
-            app:layout_constraintTop_toBottomOf="@+id/company_logo"
-            app:layout_constraintBottom_toTopOf="@+id/cysmart_copyright"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/copyright_text"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/company_logo" />
 
         <TextView
-            android:id="@+id/cysmart_copyright"
-            android:layout_width="0dp"
+            android:id="@+id/copyright_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-
-            android:text="@string/cysmart_copyright"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="20sp"
+            android:text="@string/copyright_text"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cysmart_version" />
+            app:layout_constraintTop_toBottomOf="@+id/app_version" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

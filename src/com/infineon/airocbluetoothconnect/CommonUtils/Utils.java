@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -38,6 +38,7 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattService;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -52,12 +53,14 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp;
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.R;
 
@@ -69,6 +72,8 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -190,7 +195,7 @@ public class Utils {
     }
 
     /**
-     * Adding the necessary INtent filters for Broadcast receivers
+     * Adding the necessary Intent filters for Broadcast receivers
      *
      * @return {@link IntentFilter}
      */
@@ -349,7 +354,7 @@ public class Utils {
      * @return {@link String}
      */
     public static String GetTimeFromMilliseconds() {
-        DateFormat formatter = new SimpleDateFormat("HH:mm ss SSS");
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
@@ -359,7 +364,7 @@ public class Utils {
      *
      * @return {@link String}
      */
-    public static String GetTimeandDate() {
+    public static String GetTimeAndDate() {
         DateFormat formatter = new SimpleDateFormat("[dd-MMM-yyyy|HH:mm:ss]");
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
@@ -597,6 +602,18 @@ public class Utils {
         txn.commit();
     }
 
+    public static void moveToFragment(FragmentActivity activity, Fragment newFragment, String newFragmentTag, boolean addToBackStack){
+        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container, newFragment, newFragmentTag);
+
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(newFragmentTag);
+        }
+
+        fragmentTransaction.commit();
+    }
+
     // See CDT 251485
     // This method returns number format in default en_US locale.
     // This method fixes NumberFormatException thrown when the following condition holds true
@@ -659,5 +676,57 @@ public class Utils {
         if (externalMediaDirs.length < 1) return "";
         String applicationDataDirectory = externalMediaDirs[0].getAbsolutePath();
         return applicationDataDirectory;
+    }
+
+    public static boolean isHardwareKeyboardAvailable(Context context) {
+        return context.getResources().getConfiguration().keyboard != Configuration.KEYBOARD_NOKEYS;
+    }
+
+    @NonNull
+    public static String getDefaultLogFilePath(Context context) {
+        String path = getApplicationDataDirectory(context) + File.separator + GetDate() + ".txt";
+        return path;
+    }
+
+    /*
+     * Checks whether a file exists in the folder specified
+     */
+    public static boolean fileExists(String name, File file) {
+        File[] list = file.listFiles();
+        if (list != null) { // Might be null on Android M and above when not granted Storage permission
+            for (File fil : list) {
+                if (fil.isDirectory()) {
+                    fileExists(name, fil);
+                } else if (name.equalsIgnoreCase(fil.getName())) {
+                    Logger.e("File>>" + fil.getName());
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /*
+     * If сharacteristics null, return empty list
+     */
+    public static List<BluetoothGattCharacteristic> getServiceCharacteristics(BluetoothGattService service) {
+        List<BluetoothGattCharacteristic> сharacteristics = service.getCharacteristics();
+        if(сharacteristics == null)
+        {
+            сharacteristics = Collections.emptyList();
+        }
+        return сharacteristics;
+    }
+
+    /*
+     * If сharacteristics null, return empty list
+     */
+    public static List<BluetoothGattCharacteristic> getApplicationCharacteristics(AIROCBluetoothConnectApp application) {
+        List<BluetoothGattCharacteristic> сharacteristics = application.getGattCharacteristics();
+        if(сharacteristics == null)
+        {
+            сharacteristics = Collections.emptyList();
+        }
+        return сharacteristics;
     }
 }

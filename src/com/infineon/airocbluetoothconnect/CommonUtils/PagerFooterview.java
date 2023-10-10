@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -62,7 +62,7 @@ public class PagerFooterview extends View {
     public PagerFooterview(Context context, int numOfViews, int width) {
         super(context);
         mPaint = new Paint();
-        mPaint.setColor(getResources().getColor(R.color.actionbar_bg_color));
+        mPaint.setColor(getResources().getColor(R.color.primary, getContext().getTheme()));
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(STROKE_WIDTH);
         this.mViewsCount = numOfViews;

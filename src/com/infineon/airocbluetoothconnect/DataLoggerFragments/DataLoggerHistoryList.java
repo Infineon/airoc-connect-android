@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -36,7 +36,6 @@ package com.infineon.airocbluetoothconnect.DataLoggerFragments;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -145,8 +144,8 @@ public class DataLoggerHistoryList extends AppCompatActivity {
                 Logger.i("Selected file path" + mDataLoggerArrayList.get(pos).getFilePath());
                 Intent returnIntent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.DATA_LOGGER_FILE_NAME, path);
-                bundle.putBoolean(Constants.DATA_LOGGER_FLAG, true);
+                bundle.putString(Constants.DATA_LOGGER_FILE_PATH, path);
+                bundle.putBoolean(Constants.DATA_LOGGER_SHOW_HISTORY_FILES_FLAG, true);
                 returnIntent.putExtras(bundle);
                 setResult(RESULT_OK, returnIntent);
                 finish();

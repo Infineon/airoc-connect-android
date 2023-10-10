@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -86,7 +86,7 @@ public class GattCharacteristicDescriptorsAdapter extends BaseAdapter {
         if (view == null) {
             LayoutInflater mInflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = mInflator.inflate(R.layout.gattdb_characteristics_list_item,
+            view = mInflator.inflate(R.layout.gattdb_characteristic_list_item,
                     viewGroup, false);
             viewHolder = new ViewHolder();
             viewHolder.serviceName = (TextView) view

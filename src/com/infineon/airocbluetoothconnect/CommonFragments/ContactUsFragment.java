@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -44,7 +44,6 @@ import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
@@ -52,7 +51,7 @@ import com.infineon.airocbluetoothconnect.R;
 /**
  * Fragment to show the Contact information of CyPress
  */
-public class ContactUsFragment extends Fragment {
+public class ContactUsFragment extends FragmentWithActionBarRestorer {
 
     /**
      * WebView variable
@@ -73,8 +72,7 @@ public class ContactUsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.contact_us_fragment, container, false);
         RelativeLayout layout = (RelativeLayout) rootView.findViewById(R.id.cont_parent);
         /**
-         * Checking the network, Displaying the contact webPage for Cypress
-         * Semiconductors.
+         * Checking the network, Displaying the contact webPage for company.
          */
         layout.setVisibility(View.VISIBLE);
 
@@ -94,6 +92,5 @@ public class ContactUsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
-        menu.findItem(R.id.log).setVisible(false);
     }
 }

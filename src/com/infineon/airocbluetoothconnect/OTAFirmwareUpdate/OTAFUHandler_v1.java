@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -271,7 +271,6 @@ public class OTAFUHandler_v1 extends OTAFUHandlerBase {
             storeAndReturnDeviceAddress();
             BluetoothLeService.disconnect();
             BluetoothLeService.unpairDevice(device);
-            Toast.makeText(getActivity(), getResources().getString(R.string.alert_message_bluetooth_disconnect), Toast.LENGTH_SHORT).show();
             Intent finishIntent = getActivity().getIntent();
             getActivity().finish();
             getActivity().overridePendingTransition(R.anim.slide_right, R.anim.push_right);

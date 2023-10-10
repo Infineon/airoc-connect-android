@@ -1,319 +1,376 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:clickable="true"
+    android:padding="@dimen/padding_default">
 
-    <LinearLayout
-        android:id="@+id/parent_sensorhub"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:clickable="true"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/parent_sensorhub"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:padding="@dimen/sensor_hub_padding"
-            android:text="@string/sen_hub"
-            android:textColor="@color/main_bg_color"
-            android:textSize="@dimen/textsize_medium" />
-
-        <Button
-            android:id="@+id/locate_device"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_selector"
-            android:paddingEnd="20dp"
-            android:paddingStart="20dp"
-            android:text="@string/sen_hub_locate"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/textsize_very_small" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/sensor_hub_segment_color"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:text="@string/sen_hub_accelerometer"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-
-                <ImageButton
-                    android:id="@+id/acc_graph"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/image_sensor_hub_graph"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:src="@drawable/graph_right" />
-
-                <ImageButton
-                    android:id="@+id/acc_more"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/image_sensor_hub_graph"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:rotation="-90"
-                    android:src="@drawable/back_btn" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/accelerometer_chart_container"
+            <TextView
+                style="@style/Infineon.TextView.Header"
                 android:layout_width="wrap_content"
-                android:layout_height="300dip"
-                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:text="@string/sen_hub" />
+
+            <Button
+                android:id="@+id/locate_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/sen_hub_locate" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/accelerometer_tv_title"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sen_hub_accelerometer"
-                    android:gravity="center_horizontal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/acc_context_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/padding_default">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:text="@string/sen_hub_sensor_scan_interval"
-                        android:textColor="@color/main_bg_color"
-                        android:textStyle="bold" />
+                        android:layout_weight="2"
+                        android:text="@string/sen_hub_accelerometer" />
 
-                    <EditText
-                        android:id="@+id/acc_sensor_scan_interval"
+                    <ImageButton
+                        android:id="@+id/acc_graph"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:imeOptions="actionDone"
-                        android:inputType="number"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:singleLine="true"
-                        android:textSize="@dimen/textsize_very_small" />
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/image_sensor_hub_graph"
+                        android:src="@drawable/icon_chart"
+                        app:tint="@color/primary" />
+
+                    <ImageButton
+                        android:id="@+id/acc_more"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/image_sensor_hub_graph"
+                        android:rotation="-90"
+                        android:src="@drawable/icon_back"
+                        app:tint="@color/primary" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/accelerometer_chart_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:text="@string/sen_hub_sensor_type"
-                        android:textColor="@color/main_bg_color"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/acc_sensor_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_very_small" />
-                </LinearLayout>
-
-                <Spinner
-                    android:id="@+id/acc_filter_configuration"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:padding="@dimen/sensor_hub_padding" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:padding="@dimen/sensor_hub_padding">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="300dip"
                     android:orientation="vertical"
-                    android:padding="@dimen/sensor_hub_padding">
+                    android:visibility="gone">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/accelerometer_tv_title"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/sensor_hub_margin"
-                        android:contentDescription="@string/image_sensor_hub_accelerometer"
-                        android:src="@drawable/accelometer" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/sen_hub_accelerometer_x" />
-
-                        <TextView
-                            android:id="@+id/acc_x_value"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/sen_hub_accelerometer_x" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/sen_hub_accelerometer_Y" />
-
-                        <TextView
-                            android:id="@+id/acc_y_value"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/sen_hub_accelerometer_Y" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/sen_hub_accelerometer_Z" />
-
-                        <TextView
-                            android:id="@+id/acc_z_value"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/sen_hub_accelerometer_Z" />
-                    </LinearLayout>
+                        android:gravity="center_horizontal"
+                        android:text="@string/sen_hub_accelerometer" />
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/acc_context_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:contentDescription="@string/image_sensor_hub_accelerometer_cube"
-                        android:src="@drawable/qube" />
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>
+                        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sen_hub_sensor_scan_interval" />
+
+                        <EditText
+                            android:id="@+id/acc_sensor_scan_interval"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:imeOptions="actionDone"
+                            android:inputType="number"
+                            android:singleLine="true" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sen_hub_sensor_type" />
+
+                        <TextView
+                            android:id="@+id/acc_sensor_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/acc_filter_configuration"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/medium_icon"
+                            android:layout_height="@dimen/medium_icon"
+                            android:contentDescription="@string/image_sensor_hub_accelerometer"
+                            android:src="@drawable/icon_accelometer"
+                            app:tint="@color/accent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sen_hub_accelerometer_x" />
+
+                            <TextView
+                                android:id="@+id/acc_x_value"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sen_hub_accelerometer_x" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sen_hub_accelerometer_Y" />
+
+                            <TextView
+                                android:id="@+id/acc_y_value"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sen_hub_accelerometer_Y" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sen_hub_accelerometer_Z" />
+
+                            <TextView
+                                android:id="@+id/acc_z_value"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sen_hub_accelerometer_Z" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="@string/image_sensor_hub_accelerometer_cube"
+                            android:src="@drawable/qube" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:text="@string/sen_hub_temperature"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-
-                <ImageButton
-                    android:id="@+id/temp_graph"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/image_sensor_hub_graph"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:src="@drawable/graph_right" />
-
-                <ImageButton
-                    android:id="@+id/stemp_more"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/image_sensor_hub_graph"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:rotation="-90"
-                    android:src="@drawable/back_btn" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/temp_chart_container"
-                android:layout_width="wrap_content"
-                android:layout_height="300dip"
-                android:visibility="gone"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/temp_tv_title"
-                    android:layout_width="fill_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/sen_hub_temperature"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/padding_default">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/sen_hub_temperature" />
+
+                    <ImageButton
+                        android:id="@+id/temp_graph"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/image_sensor_hub_graph"
+                        android:src="@drawable/icon_chart"
+                        app:tint="@color/primary" />
+
+                    <ImageButton
+                        android:id="@+id/stemp_more"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/image_sensor_hub_graph"
+                        android:rotation="-90"
+                        android:src="@drawable/icon_back"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/temp_chart_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dip"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/temp_tv_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/sen_hub_temperature" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/stemp_context_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sen_hub_sensor_scan_interval" />
+
+                        <EditText
+                            android:id="@+id/stemp_sensor_scan_interval"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:singleLine="true" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sen_hub_sensor_type" />
+
+                        <TextView
+                            android:id="@+id/stemp_sensor_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/padding_default">
+
+                    <ImageView
+                        android:layout_width="@dimen/medium_icon"
+                        android:layout_height="@dimen/medium_icon"
+                        android:contentDescription="@string/image_sensor_hub_temperature"
+                        android:src="@drawable/icon_temp"
+                        app:tint="@color/accent" />
+
+                    <TextView
+                        style="@style/Infineon.TextView.ValueStyle"
+                        android:id="@+id/temperature_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="@string/sen_hub_temperature_unit" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/stemp_context_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:paddingTop="@dimen/padding_default">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -321,329 +378,199 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:text="@string/sen_hub_sensor_scan_interval"
-                        android:textColor="@color/main_bg_color"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/stemp_sensor_scan_interval"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="number"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:singleLine="true"
-                        android:textSize="@dimen/textsize_very_small" />
+                        android:text="@string/sen_hub_battery" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/padding_default">
+
+                    <ImageView
+                        android:layout_width="@dimen/medium_icon"
+                        android:layout_height="@dimen/medium_icon"
+                        android:contentDescription="@string/image_sensor_hub_battery"
+                        android:src="@drawable/icon_battery_full"
+                        app:tint="@color/accent" />
+
+                    <TextView
+                        style="@style/Infineon.TextView.ValueStyle"
+                        android:id="@+id/bat_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:text="@string/sen_hub_sensor_type"
-                        android:textColor="@color/main_bg_color"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/stemp_sensor_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_very_small" />
+                        android:gravity="start"
+                        android:text="@string/sen_hub_battery_unit" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="@dimen/sensor_hub_padding">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/image_sensor_hub_temperature"
-                    android:src="@drawable/temp" />
-
-                <TextView
-                    android:id="@+id/temperature_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|end"
-                    android:padding="@dimen/sensor_hub_padding_child"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|start"
-                    android:padding="@dimen/sensor_hub_padding_child"
-                    android:text="@string/sen_hub_temperature_unit"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/sensor_hub_segment_color"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:text="@string/sen_hub_battery"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="@dimen/sensor_hub_padding">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/image_sensor_hub_battery"
-                    android:src="@drawable/battery_small" />
-
-                <TextView
-                    android:id="@+id/bat_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|end"
-                    android:padding="@dimen/sensor_hub_padding_child"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|start"
-                    android:padding="@dimen/sensor_hub_padding_child"
-                    android:text="@string/sen_hub_battery_unit"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:text="@string/sen_hub_pressure"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-
-                <ImageButton
-                    android:id="@+id/pressure_graph"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/image_sensor_hub_graph"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:src="@drawable/graph_right" />
-
-                <ImageButton
-                    android:id="@+id/spressure_more"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/image_sensor_hub_graph"
-                    android:padding="@dimen/sensor_hub_padding"
-                    android:rotation="-90"
-                    android:src="@drawable/back_btn" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/pressure_chart_container"
-                android:layout_width="wrap_content"
-                android:layout_height="300dip"
-                android:visibility="gone"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/pressure_tv_title"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sen_hub_pressure"
-                    android:gravity="center_horizontal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/spressure_context_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/padding_default">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:text="@string/sen_hub_sensor_scan_interval"
-                        android:textColor="@color/main_bg_color"
-                        android:textStyle="bold" />
+                        android:layout_weight="2"
+                        android:text="@string/sen_hub_pressure" />
 
-                    <EditText
-                        android:id="@+id/spressure_sensor_scan_interval"
+                    <ImageButton
+                        android:id="@+id/pressure_graph"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:inputType="number"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:singleLine="true"
-                        android:textSize="@dimen/textsize_very_small" />
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/image_sensor_hub_graph"
+                        android:src="@drawable/icon_chart"
+                        app:tint="@color/primary" />
+
+                    <ImageButton
+                        android:id="@+id/spressure_more"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/image_sensor_hub_graph"
+                        android:rotation="-90"
+                        android:src="@drawable/icon_back"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pressure_chart_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dip"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/pressure_tv_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/sen_hub_pressure" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/spressure_context_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sen_hub_sensor_scan_interval" />
+
+                        <EditText
+                            android:id="@+id/spressure_sensor_scan_interval"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:singleLine="true" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sen_hub_sensor_type" />
+
+                        <TextView
+                            android:id="@+id/spressure_sensor_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/spressure_filter_configuration"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sen_hub_threshold" />
+
+                        <EditText
+                            android:id="@+id/spressure_threshold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:inputType="number"
+                            android:singleLine="true" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/padding_default">
+
+                    <ImageView
+                        android:layout_width="@dimen/medium_icon"
+                        android:layout_height="@dimen/medium_icon"
+                        android:contentDescription="@string/image_sensor_hub_pressure"
+                        android:src="@drawable/icon_pressure"
+                        app:tint="@color/accent" />
+
+                    <TextView
+                        style="@style/Infineon.TextView.ValueStyle"
+                        android:id="@+id/pressure_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:text="@string/sen_hub_sensor_type"
-                        android:textColor="@color/main_bg_color"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/spressure_sensor_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_very_small" />
+                        android:gravity="start"
+                        android:text="@string/sen_hub_pressure_unit" />
                 </LinearLayout>
-
-                <Spinner
-                    android:id="@+id/spressure_filter_configuration"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:padding="@dimen/sensor_hub_padding" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:text="@string/sen_hub_threshold"
-                        android:textColor="@color/main_bg_color"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/spressure_threshold"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:inputType="number"
-                        android:padding="@dimen/sensor_hub_padding"
-                        android:singleLine="true" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="@dimen/sensor_hub_padding">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/image_sensor_hub_pressure"
-                    android:src="@drawable/pressure" />
-
-                <TextView
-                    android:id="@+id/pressure_value"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|end"
-                    android:padding="@dimen/sensor_hub_padding_child"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/sensor_hub_margin"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|start"
-                    android:padding="@dimen/sensor_hub_padding_child"
-                    android:text="@string/sen_hub_pressure_unit"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

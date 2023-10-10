@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- From Infineon design guidelines https://brandportal.infineon.com/files/guidelines/User-Manual_Mobile-Applications.pdf -->
+    <color name="primary">#5EA290</color>
+    <color name="primary_dark">#5EA290</color>
+    <color name="secondary">#D7D7D7</color>
+    <color name="accent">#AB377A</color>
 
-    <color name="colorPrimary">@color/dark_blue</color>
-    <color name="colorPrimaryDark">@color/black</color>
-    <color name="colorAccent">@color/light_blue</color>
+    <color name="light">#F4F4F4</color>
+    <color name="dark">#263238</color>
 
-    <color name="main_bg_color">#0c377b</color>
+    <color name="side_menu_header_background">@color/primary</color>
+    <color name="side_menu_background">#FAFAFA</color>
 
-    <color name="list_item_title_notactivated">#000</color>
-    <color name="list_item_title_activated">#007aff</color>
-    <color name="list_background">#FFF</color>
+    <color name="hint_text">#A6A6A6</color>
 
-    <color name="actionbar_bg_color">#0c377b</color>
-    <color name="actionbar_bg_color_light">#900c377b</color>
-    <color name="slider_bg_color">#0a2b61</color>
-    <color name="sensor_hub_segment_color">#e5e5e5</color>
+    <color name="background">#FFFFFF</color>
 
-    <!-- Action bar pull to refresh colors -->
-    <color name="dark_blue">#0c377b</color>
-    <color name="medium_blue">#11479c</color>
-    <color name="light_blue">#2a67c8</color>
-    <color name="faint_blue">#9ec2fb</color>
+    <!-- Filled button -->
+    <color name="light_button_text">@color/background</color>
+    <color name="button_background">@color/primary</color>
 
-    <!-- Action bar pull to refresh colors -->
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <color name="text">@color/dark</color>
+    <color name="link">#AB377A</color>
 
-    <!--File Read/Write progress colors-->
-    <color name="file_read_progress">#751abb00</color>
-    <color name="grey">#EFEFF4</color>
-    <color name="green">#701ABB00</color>
+    <!-- App icon colors -->
+    <color name="logo_red">#E30034</color>
+    <color name="logo_blue">#005DA9</color>
+    <color name="engineering_20">#33928285</color>
 
-    <color name="red">#FF0000</color>
 </resources>

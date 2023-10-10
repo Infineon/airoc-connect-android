@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -38,16 +38,29 @@ import android.widget.Toast;
 
 import com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp;
 
+/**
+ * Collection of methods to display toasts.
+ */
 public class ToastUtils {
+    /**
+     * Makes toast with default android style (application context is used).
+     *
+     * @param resId    : string resource id
+     * @param duration : toast duration
+     */
+    public static void makeText(int resId, int duration) {
+        String text = AIROCBluetoothConnectApp.mApplication.getApplicationContext().getResources().getString(resId);
+        makeText(text, duration);
+    }
 
-    private static Toast mToast;
-
-    public static void showToast(int resId, int duration) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
+    /**
+     * Makes toast with default android style (application context is used).
+     *
+     * @param message  : toast text
+     * @param duration : toast duration
+     */
+    public static void makeText(String message, int duration) {
         Context context = AIROCBluetoothConnectApp.mApplication.getApplicationContext();
-        mToast = Toast.makeText(context, resId, duration);
-        mToast.show();
+        Toast.makeText(context, message, duration).show();
     }
 }

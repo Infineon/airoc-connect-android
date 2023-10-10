@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -49,6 +49,7 @@ import com.infineon.airocbluetoothconnect.R;
 public class TextProgressBar extends ProgressBar {
     private String mProgressText;
     private Paint mProgressPaint;
+    private final Rect mBoundsProgressRect = new Rect();
 
     public TextProgressBar(Context context) {
         super(context);
@@ -69,26 +70,9 @@ public class TextProgressBar extends ProgressBar {
         mProgressText = "0%";
         mProgressPaint = new Paint();
 
-        final int densityDpi = getResources().getDisplayMetrics().densityDpi;
-        if (densityDpi <= DisplayMetrics.DENSITY_LOW) {
-            mProgressPaint.setTextSize(14);
-        } else if (densityDpi <= DisplayMetrics.DENSITY_MEDIUM) {
-            mProgressPaint.setTextSize(16);
-        } else if (densityDpi <= DisplayMetrics.DENSITY_TV) {
-            mProgressPaint.setTextSize(14);
-        } else if (densityDpi <= DisplayMetrics.DENSITY_HIGH) {
-            mProgressPaint.setTextSize(16);
-        } else if (densityDpi <= DisplayMetrics.DENSITY_XHIGH) {
-            mProgressPaint.setTextSize(30);
-        } else if (densityDpi <= DisplayMetrics.DENSITY_XXHIGH) {
-            mProgressPaint.setTextSize(40);
-        } else if (densityDpi <= DisplayMetrics.DENSITY_XXXHIGH) {
-            mProgressPaint.setTextSize(50);
-        } else {
-            mProgressPaint.setTextSize(50);
-        }
-
-        mProgressPaint.setColor(getResources().getColor(R.color.main_bg_color));
+        int scaledSizeInPixels = getResources().getDimensionPixelSize(R.dimen.text_size_small);
+        mProgressPaint.setTextSize(scaledSizeInPixels);
+        mProgressPaint.setColor(getResources().getColor(R.color.text, getContext().getTheme()));
     }
 
 
@@ -96,7 +80,7 @@ public class TextProgressBar extends ProgressBar {
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Rect boundsProgress = new Rect();
+        Rect boundsProgress = mBoundsProgressRect;
         mProgressPaint.getTextBounds(mProgressText, 0, mProgressText.length(), boundsProgress);
         int xp;
         final int densityDpi = getResources().getDisplayMetrics().densityDpi;

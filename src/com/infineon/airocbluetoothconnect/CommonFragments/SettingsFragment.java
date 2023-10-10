@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -46,13 +46,13 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
 
-public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, NumberPicker.OnValueChangeListener {
+public class SettingsFragment extends FragmentWithActionBarRestorer implements CompoundButton.OnCheckedChangeListener, NumberPicker.OnValueChangeListener {
 
     private int mNewVal;
     private boolean mNewValSet;
@@ -99,7 +99,6 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
-        menu.findItem(R.id.log).setVisible(false);
     }
 
     @Override
@@ -107,15 +106,15 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
         switch (buttonView.getId()) {
             case R.id.clear_cache_on_disconnect:
                 Utils.setBooleanSharedPreference(getActivity(), Constants.PREF_CLEAR_CACHE_ON_DISCONNECT, isChecked);
-                Toast.makeText(getActivity(), getString(R.string.clear_cache_on_disconnect) + (isChecked ? " enabled" : " disabled"), Toast.LENGTH_SHORT).show();
+                ToastUtils.makeText(getString(R.string.clear_cache_on_disconnect) + (isChecked ? " enabled" : " disabled"), Toast.LENGTH_SHORT);
                 break;
             case R.id.unpair_on_disconnect:
                 Utils.setBooleanSharedPreference(getActivity(), Constants.PREF_UNPAIR_ON_DISCONNECT, isChecked);
-                Toast.makeText(getActivity(), getString(R.string.unpair_on_disconnect) + (isChecked ? " enabled" : " disabled"), Toast.LENGTH_SHORT).show();
+                ToastUtils.makeText(getString(R.string.unpair_on_disconnect) + (isChecked ? " enabled" : " disabled"), Toast.LENGTH_SHORT);
                 break;
             case R.id.pair_on_connect:
                 Utils.setBooleanSharedPreference(getActivity(), Constants.PREF_PAIR_ON_CONNECT, isChecked);
-                Toast.makeText(getActivity(), getString(R.string.pair_on_connect) + (isChecked ? " enabled" : " disabled"), Toast.LENGTH_SHORT).show();
+                ToastUtils.makeText(getString(R.string.pair_on_connect) + (isChecked ? " enabled" : " disabled"), Toast.LENGTH_SHORT);
                 break;
         }
     }
@@ -132,10 +131,9 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                 public void run() {
                     mNewValSet = false;
                     if (SettingsFragment.this.isResumed()) {
-                        Toast.makeText(
-                                getActivity(),
+                        ToastUtils.makeText(
                                 getString(R.string.wait_for_pairing_request_from_peripheral_seconds) + ": " + mNewVal,
-                                Toast.LENGTH_SHORT).show();
+                                Toast.LENGTH_SHORT);
                     }
                 }
             }, 1000);

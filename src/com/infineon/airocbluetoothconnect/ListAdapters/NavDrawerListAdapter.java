@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -95,11 +95,11 @@ public class NavDrawerListAdapter extends BaseAdapter {
                     parent, false);
         }
 
-        TextView drawerTitle = (TextView) convertView.findViewById(R.id.title);
-        ImageView drawericon = (ImageView) convertView.findViewById(R.id.icon);
+        TextView itemTitle = (TextView) convertView.findViewById(R.id.title);
+        ImageView itemIcon = (ImageView) convertView.findViewById(R.id.icon);
 
-        drawericon.setImageResource(mNavDrawerItems.get(position).getIcon());
-        drawerTitle.setText(mNavDrawerItems.get(position).getTitle());
+        itemIcon.setImageResource(mNavDrawerItems.get(position).getIcon());
+        itemTitle.setText(mNavDrawerItems.get(position).getTitle());
 
         return convertView;
     }

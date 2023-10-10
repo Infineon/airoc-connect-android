@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -39,10 +39,13 @@ import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,12 +58,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp;
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
+import com.infineon.airocbluetoothconnect.CommonUtils.GattDbParser;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.UUIDDatabase;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.DataModelClasses.PairOnConnect;
@@ -68,46 +75,46 @@ import com.infineon.airocbluetoothconnect.HomePageActivity;
 import com.infineon.airocbluetoothconnect.ListAdapters.CarouselPagerAdapter;
 import com.infineon.airocbluetoothconnect.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Owns Carousel and reacts to BluetoothLeService events
+ */
 public class ProfileControlFragment extends Fragment {
+    private AIROCBluetoothConnectApp mApplication;
 
+    // Carousel fields. TODO: move to separate class
     public static final float BIG_SCALE = 1.0f;
     public static final float SMALL_SCALE = 0.7f;
     public static final float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
-    public static final int PAIR_DELAY_MILLIS = 500;
-    public static final int PAIRING_NO_BONDING_PROGRESS_DIALOG_TIME_OUT_MILLIS = 6000; // less than 6 seconds doesn't work for Nexus 5
     public static int LOOPS = 100;
-    // CarouselView related variables
     public static int mPages = 0;
     public static int FIRST_PAGE = mPages * LOOPS / 2;
-    // ViewPager for CarouselView
-    public ViewPager mPager;
-    // Adapter for loading data to CarouselView
-    private CarouselPagerAdapter mAdapter;
+    public ViewPager mPager; // ViewPager for CarouselView
+    private CarouselPagerAdapter mAdapter; // Adapter for loading data to CarouselView
     private int mWidth = 0;
     public static boolean mIsInFragment = false;
+
+    // Pairing fields. TODO: move to separate class
+    public static final int PAIR_DELAY_MILLIS = 500;
+    public static final int PAIRING_NO_BONDING_PROGRESS_DIALOG_TIME_OUT_MILLIS = 6000; // less than 6 seconds doesn't work for Nexus 5
     private boolean mFirstTime = false;
     private boolean mPairOnConnectStatusReceiverRegistered = false;
-
     private BluetoothGattCharacteristic mServiceChangedCharacteristic;
     private BluetoothGattDescriptor mServiceChangedCCCD;
-
-    private final BroadcastReceiver mPairOnConnectStatusReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mBtServiceEventsReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             final String action = intent.getAction();
             if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-
                 Bundle extras = intent.getExtras();
-                if (extras.containsKey(Constants.EXTRA_DESCRIPTOR_BYTE_VALUE_UUID)
-                        && extras.containsKey(Constants.EXTRA_DESCRIPTOR_BYTE_VALUE_CHARACTERISTIC_UUID)) {
+                if (extras.containsKey(Constants.EXTRA_DESCRIPTOR_BYTE_VALUE_UUID) && extras.containsKey(Constants.EXTRA_DESCRIPTOR_BYTE_VALUE_CHARACTERISTIC_UUID)) {
 
                     String descriptorUUID = extras.getString(Constants.EXTRA_DESCRIPTOR_BYTE_VALUE_UUID);
                     String characteristicUUID = extras.getString(Constants.EXTRA_DESCRIPTOR_BYTE_VALUE_CHARACTERISTIC_UUID);
-                    if (GattAttributes.CLIENT_CHARACTERISTIC_CONFIG.equalsIgnoreCase(descriptorUUID)
-                            && GattAttributes.SERVICE_CHANGED.equalsIgnoreCase(characteristicUUID)) {
+                    if (GattAttributes.CLIENT_CHARACTERISTIC_CONFIG.equalsIgnoreCase(descriptorUUID) && GattAttributes.SERVICE_CHANGED.equalsIgnoreCase(characteristicUUID)) {
 
                         Logger.d("PCF: pair: onDescriptorRead(CCCD): SUCCESS");
                         if (mServiceChangedCharacteristic != null) {
@@ -116,7 +123,6 @@ public class ProfileControlFragment extends Fragment {
                     }
                 }
             } else if (BluetoothLeService.ACTION_GATT_INSUFFICIENT_ENCRYPTION.equals(action)) { // this event is not being thrown for Samsung S7
-
                 Logger.d("PCF: pair: onDescriptorWrite(CCCD): BluetoothLeService.ACTION_GATT_INSUFFICIENT_ENCRYPTION");
                 // It is necessary to set characteristic indication for the 2nd time to kick off pairing
                 if (mServiceChangedCharacteristic != null) {
@@ -135,14 +141,32 @@ public class ProfileControlFragment extends Fragment {
                     HomePageActivity activity = (HomePageActivity) getActivity();
                     Utils.showBondingProgressDialog(activity, activity.mProgressDialog, PAIRING_NO_BONDING_PROGRESS_DIALOG_TIME_OUT_MILLIS);
                 }
+            } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
+                // Parse the services
+                mApplication.getGattDbParser().prepareGattServices(BluetoothLeService.getSupportedGattServices());
+
+                // Refresh carousel
+                refreshCarouselView();
+
+                // Fragments don't know how to react to GATT DB refresh, drop them to avoid weird bugs
+                unwindBackStack();
             }
         }
     };
+
+    private void unwindBackStack() {
+        if (mIsInFragment) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Utils.debug("PCF: lifecycle: onCreate", this, getActivity());
+
+        mApplication = (AIROCBluetoothConnectApp) getActivity().getApplication();
 
         //Hiding the softkeyboard if visible
         View view = getActivity().getCurrentFocus();
@@ -206,7 +230,7 @@ public class ProfileControlFragment extends Fragment {
             getActivity().overridePendingTransition(R.anim.slide_right, R.anim.push_right);
         } else {
             Logger.d("PCF: pair: registering mPairOnConnectStatusReceiver");
-            BluetoothLeService.registerBroadcastReceiver(getActivity(), mPairOnConnectStatusReceiver, Utils.makeGattUpdateIntentFilter());
+            BluetoothLeService.registerBroadcastReceiver(getActivity(), mBtServiceEventsReceiver, Utils.makeGattUpdateIntentFilter());
             mPairOnConnectStatusReceiverRegistered = true;
 
             if (mFirstTime) {
@@ -227,11 +251,6 @@ public class ProfileControlFragment extends Fragment {
     public void onPause() {
         Utils.debug("PCF: lifecycle: onPause", this, getActivity());
         mIsInFragment = false;
-        if (mPairOnConnectStatusReceiverRegistered) {
-            Logger.d("PCF: pair: unregistering mPairOnConnectStatusReceiver");
-            BluetoothLeService.unregisterBroadcastReceiver(getActivity(), mPairOnConnectStatusReceiver);
-            mPairOnConnectStatusReceiverRegistered = false;
-        }
         super.onPause();
     }
 
@@ -248,6 +267,13 @@ public class ProfileControlFragment extends Fragment {
         // Dismiss the dialog if it is shown and we are leaving the fragment
         HomePageActivity activity = (HomePageActivity) getActivity();
         Utils.hideBondingProgressDialog(activity.mProgressDialog);
+
+        if (mPairOnConnectStatusReceiverRegistered) {
+            Logger.d("PCF: pair: unregistering mPairOnConnectStatusReceiver");
+            BluetoothLeService.unregisterBroadcastReceiver(getActivity(), mBtServiceEventsReceiver);
+            mPairOnConnectStatusReceiverRegistered = false;
+        }
+
         super.onDestroy();
     }
 
@@ -269,6 +295,13 @@ public class ProfileControlFragment extends Fragment {
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             mPager.setPageMargin(-width / 3);
         }
+
+        // After the screen rotation the pager items aren't properly positioned.
+        // After a lot of debugging re-setting the adapter was the simplest workaround that worked.
+        // Though, here may be a better solution ...
+        int currentItemIndexBeforeReset = mPager.getCurrentItem();
+        mPager.setAdapter(mAdapter);
+        mPager.setCurrentItem(currentItemIndexBeforeReset);
         mPager.refreshDrawableState();
     }
 
@@ -277,7 +310,6 @@ public class ProfileControlFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         MenuItem clearCache = menu.findItem(R.id.clearcache);
 
@@ -289,21 +321,36 @@ public class ProfileControlFragment extends Fragment {
         }
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         clearCache.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void refreshCarouselView() {
+        setupCarousel();
+        ToastUtils.makeText(R.string.gatt_db_services_updated, Toast.LENGTH_LONG);
     }
 
     /**
      * Setting the CarouselView with data
      */
     private void setCarouselView() {
+        setupCarousel();
+
+        if (mPages == 0) {
+            ToastUtils.makeText(R.string.toast_no_services_found, Toast.LENGTH_LONG);
+        } else {
+            ToastUtils.makeText(R.string.toast_swipe_profiles, Toast.LENGTH_SHORT);
+        }
+    }
+
+    private void setupCarousel() {
         // Getting the number of services discovered
-        mPages = ServiceDiscoveryFragment.mGattServiceData.size();
+        ArrayList<HashMap<String, BluetoothGattService>> gattServiceData = mApplication.getGattDbParser().getGattServiceData();
+        mPages = gattServiceData.size();
         FIRST_PAGE = mPages * LOOPS / 2;
 
         // Setting the adapter
-        mAdapter = new CarouselPagerAdapter(getActivity(), ProfileControlFragment.this, getActivity().getSupportFragmentManager(), ServiceDiscoveryFragment.mGattServiceData);
+        mAdapter = new CarouselPagerAdapter(getActivity(), ProfileControlFragment.this, getActivity().getSupportFragmentManager(), gattServiceData);
         mPager.setAdapter(mAdapter);
         mPager.setOnPageChangeListener(mAdapter);
 
@@ -314,12 +361,6 @@ public class ProfileControlFragment extends Fragment {
         // Necessary or the pager will only have one extra page to showToast
         // make this at least however many pages you can see
         mPager.setOffscreenPageLimit(3);
-
-        if (mPages == 0) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.toast_no_services_found), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getActivity(), getResources().getString(R.string.toast_swipe_profiles), Toast.LENGTH_SHORT).show();
-        }
     }
 
     /**

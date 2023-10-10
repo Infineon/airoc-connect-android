@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -45,6 +45,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,12 +66,14 @@ import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.CustomSpinner;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FindMeService extends Fragment {
 
@@ -95,11 +98,6 @@ public class FindMeService extends Fragment {
     private static final String IMM_NO_ALERT = "0x00";
     private static final String IMM_MILD_ALERT = "0x01";
     private static final String IMM_HIGH_ALERT = "0x02";
-
-    // Immediate alert text
-    private static final String IMM_NO_ALERT_TEXT = " No Alert ";
-    private static final String IMM_MILD_ALERT_TEXT = " Mild Alert ";
-    private static final String IMM_HIGH_ALERT_TEXT = " High Alert ";
 
     //Selected spinner position
     private int mSelectedLinkLossPosition = 3;
@@ -277,72 +275,20 @@ public class FindMeService extends Fragment {
                                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         mSpinnerLinkLoss.setAdapter(adapter_linkloss);
-                        mSpinnerLinkLoss
-                                .setOnItemSelectedListener(new OnItemSelectedListener() {
+                        mSpinnerLinkLoss.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-                                    @Override
-                                    public void onItemSelected(
-                                            AdapterView<?> parent, View view,
-                                            int position, long id) {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                String alertItemText = parent.getItemAtPosition(position).toString();
+                                writeAlertAndDisplayToast(alertItemText, gattCharacteristic);
+                            }
 
-                                        if (parent.getItemAtPosition(position)
-                                                .toString()
-                                                .equalsIgnoreCase(getResources().getString(R.string.find_me_no_alert))) {
-                                            byte[] convertedBytes = convertingTobyteArray(
-                                                    IMM_NO_ALERT);
-                                            BluetoothLeService
-                                                    .writeCharacteristicNoResponse(
-                                                            gattCharacteristic,
-                                                            convertedBytes);
-                                            Toast.makeText(
-                                                    getActivity(),
-                                                    getResources().getString(R.string.find_value_written_toast)
-                                                            + IMM_NO_ALERT_TEXT
-                                                            + getResources().getString(R.string.find_value_success_toast),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                        if (parent.getItemAtPosition(position)
-                                                .toString()
-                                                .equalsIgnoreCase(getResources().getString(R.string.find_me_mild_alert))) {
-                                            byte[] convertedBytes = convertingTobyteArray(
-                                                    IMM_MILD_ALERT);
-                                            BluetoothLeService
-                                                    .writeCharacteristicNoResponse(
-                                                            gattCharacteristic,
-                                                            convertedBytes);
-                                            Toast.makeText(
-                                                    getActivity(),
-                                                    getResources().getString(R.string.find_value_written_toast)
-                                                            + IMM_MILD_ALERT_TEXT
-                                                            + getResources().getString(R.string.find_value_success_toast),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                        if (parent.getItemAtPosition(position)
-                                                .toString()
-                                                .equalsIgnoreCase(getResources().getString(R.string.find_me_high_alert))) {
-                                            byte[] convertedBytes = convertingTobyteArray(
-                                                    IMM_HIGH_ALERT);
-                                            BluetoothLeService
-                                                    .writeCharacteristicNoResponse(
-                                                            gattCharacteristic,
-                                                            convertedBytes);
-                                            Toast.makeText(
-                                                    getActivity(),
-                                                    getResources().getString(R.string.find_value_written_toast)
-                                                            + IMM_HIGH_ALERT_TEXT
-                                                            + getResources().getString(R.string.find_value_success_toast),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                // TODO Auto-generated method stub
 
-                                    }
-
-                                    @Override
-                                    public void onNothingSelected(
-                                            AdapterView<?> parent) {
-                                        // TODO Auto-generated method stub
-
-                                    }
-                                });
+                            }
+                        });
                     }
                     if (bgs.getUuid()
                             .toString()
@@ -363,72 +309,20 @@ public class FindMeService extends Fragment {
                         adapter_immediate_alert
                                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
-                        mSpinnerImmediateAlert
-                                .setAdapter(adapter_immediate_alert);
-                        mSpinnerImmediateAlert
-                                .setOnItemSelectedListener(new OnItemSelectedListener() {
+                        mSpinnerImmediateAlert.setAdapter(adapter_immediate_alert);
+                        mSpinnerImmediateAlert.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-                                    @Override
-                                    public void onItemSelected(
-                                            AdapterView<?> parent, View view,
-                                            int position, long id) {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                String alertItemText = parent.getItemAtPosition(position).toString();
+                                writeAlertAndDisplayToast(alertItemText, gattCharacteristic);
+                            }
 
-                                        if (parent.getItemAtPosition(position)
-                                                .toString()
-                                                .equalsIgnoreCase(getResources().getString(R.string.find_me_no_alert))) {
-                                            byte[] convertedBytes = convertingTobyteArray(
-                                                    IMM_NO_ALERT);
-                                            BluetoothLeService
-                                                    .writeCharacteristicNoResponse(
-                                                            gattCharacteristic,
-                                                            convertedBytes);
-                                            Toast.makeText(
-                                                    getActivity(),
-                                                    getResources().getString(R.string.find_value_written_toast)
-                                                            + IMM_NO_ALERT_TEXT
-                                                            + getResources().getString(R.string.find_value_success_toast),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                        if (parent.getItemAtPosition(position)
-                                                .toString()
-                                                .equalsIgnoreCase(getResources().getString(R.string.find_me_mild_alert))) {
-                                            byte[] convertedBytes = convertingTobyteArray(
-                                                    IMM_MILD_ALERT);
-                                            BluetoothLeService
-                                                    .writeCharacteristicNoResponse(
-                                                            gattCharacteristic,
-                                                            convertedBytes);
-                                            Toast.makeText(
-                                                    getActivity(),
-                                                    getResources().getString(R.string.find_value_written_toast)
-                                                            + IMM_MILD_ALERT_TEXT
-                                                            + getResources().getString(R.string.find_value_success_toast),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                        if (parent.getItemAtPosition(position)
-                                                .toString()
-                                                .equalsIgnoreCase(getResources().getString(R.string.find_me_high_alert))) {
-                                            byte[] convertedBytes = convertingTobyteArray(
-                                                    IMM_HIGH_ALERT);
-                                            BluetoothLeService
-                                                    .writeCharacteristicNoResponse(
-                                                            gattCharacteristic,
-                                                            convertedBytes);
-                                            Toast.makeText(
-                                                    getActivity(),
-                                                    getResources().getString(R.string.find_value_written_toast)
-                                                            + IMM_HIGH_ALERT_TEXT
-                                                            + getResources().getString(R.string.find_value_success_toast),
-                                                    Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onNothingSelected(
-                                            AdapterView<?> parent) {
-                                        // TODO Auto-generated method stub
-                                    }
-                                });
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                // TODO Auto-generated method stub
+                            }
+                        });
                     }
 
                 }
@@ -448,6 +342,30 @@ public class FindMeService extends Fragment {
         }
     }
 
+    /**
+     * Writes alert to bluetooth device and displays toast
+     *
+     * @param alertItemText      : alert to write (
+     * @param gattCharacteristic : target GATT DB characteristic
+     */
+    private void writeAlertAndDisplayToast(String alertItemText, BluetoothGattCharacteristic gattCharacteristic) {
+        String alertItemTextLowerCase = alertItemText.toLowerCase();
+
+        // Map item text to item bytes
+        Map<String, String> itemTextToBytesString = new HashMap<>();
+        itemTextToBytesString.put(getResources().getString(R.string.find_me_no_alert).toLowerCase(), IMM_NO_ALERT);
+        itemTextToBytesString.put(getResources().getString(R.string.find_me_mild_alert).toLowerCase(), IMM_MILD_ALERT);
+        itemTextToBytesString.put(getResources().getString(R.string.find_me_high_alert).toLowerCase(), IMM_HIGH_ALERT);
+
+        // Write item to bluetooth characteristic and display toast
+        if (itemTextToBytesString.containsKey(alertItemTextLowerCase)) {
+            byte[] convertedBytes = convertingTobyteArray(itemTextToBytesString.get(alertItemTextLowerCase));
+            BluetoothLeService.writeCharacteristicNoResponse(gattCharacteristic, convertedBytes);
+            String toastMsg = String.format("%s %s %s", getResources().getString(R.string.find_value_written_toast), alertItemText, getResources().getString(R.string.find_value_success_toast));
+            ToastUtils.makeText(toastMsg, Toast.LENGTH_SHORT);
+        }
+    }
+
     @Override
     public void onPause() {
         mHandlerFlag = false;
@@ -455,6 +373,7 @@ public class FindMeService extends Fragment {
             mSelectedImmediateAlertPosition = mSpinnerImmediateAlert.getSelectedItemPosition();
         if (mSpinnerLinkLoss != null)
             mSelectedLinkLossPosition = mSpinnerLinkLoss.getSelectedItemPosition();
+        BluetoothLeService.unregisterBroadcastReceiver(getActivity(), mGattUpdateReceiver);
         super.onPause();
     }
 
@@ -462,7 +381,6 @@ public class FindMeService extends Fragment {
     public void onDestroy() {
         // mReadCharacteristic_ll = null;
         mReadCharacteristicTxPower = null;
-        BluetoothLeService.unregisterBroadcastReceiver(getActivity(), mGattUpdateReceiver);
         super.onDestroy();
     }
 
@@ -471,11 +389,9 @@ public class FindMeService extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

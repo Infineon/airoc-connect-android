@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -151,11 +151,8 @@ public class ASCIIKeyBoard extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnhex:
-                hexUpdate();
-                break;
-
+        if (view.getId() == R.id.btnhex) {
+            hexUpdate();
         }
     }
 

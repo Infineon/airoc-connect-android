@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -112,9 +112,9 @@ public class NavDrawerExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView drawerTitle = (TextView) convertView.findViewById(R.id.title);
-        ImageView drawericon = (ImageView) convertView.findViewById(R.id.icon);
+        ImageView drawerIcon = (ImageView) convertView.findViewById(R.id.icon);
 
-        drawericon.setImageResource(mHeaderData.get(position).getIcon());
+        drawerIcon.setImageResource(mHeaderData.get(position).getIcon());
         drawerTitle.setText(mHeaderData.get(position).getTitle());
 
         return convertView;
@@ -138,16 +138,16 @@ public class NavDrawerExpandableListAdapter extends BaseExpandableListAdapter {
         txtListChild.setText(childText);
         if(childText.equalsIgnoreCase(mContext.getResources().
                 getString(R.string.navigation_drawer_child_ble))){
-            txtListChildIcon.setImageResource(R.drawable.products);
+            txtListChildIcon.setImageResource(R.drawable.icon_products);
         }else if(childText.equalsIgnoreCase(mContext.getResources().
                 getString(R.string.navigation_drawer_child_home))){
-            txtListChildIcon.setImageResource(R.drawable.home);
+            txtListChildIcon.setImageResource(R.drawable.icon_home);
         }else if(childText.equalsIgnoreCase(mContext.getResources().
                 getString(R.string.navigation_drawer_child_contact))){
-            txtListChildIcon.setImageResource(R.drawable.contact);
+            txtListChildIcon.setImageResource(R.drawable.icon_contact);
         }else if(childText.equalsIgnoreCase(mContext.getResources().
                 getString(R.string.navigation_drawer_child_mobile))){
-            txtListChildIcon.setImageResource(R.drawable.mobile);
+            txtListChildIcon.setImageResource(R.drawable.icon_app_website);
         }
         return convertView;
     }

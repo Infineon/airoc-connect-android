@@ -4,22 +4,14 @@
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtservicename"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_blue"
-        android:ellipsize="marquee"
+        android:background="@drawable/background_border_primary_color"
         android:focusable="false"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/main_bg_color" />
-
+        android:singleLine="true" />
 
 </LinearLayout>

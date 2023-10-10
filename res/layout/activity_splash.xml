@@ -1,55 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:gravity="bottom"
-    android:background="@color/white" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="9"
-        android:orientation="vertical"
-        android:gravity="center"
-        >
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/padding_default"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="300dp"
-            android:layout_height="160dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:src="@drawable/infineon_logo" />
+
         <TextView
             android:id="@+id/text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoSizeMaxTextSize="@dimen/text_size_large"
+            android:autoSizeMinTextSize="@dimen/text_size_small"
+            android:autoSizeTextType="uniform"
+            android:paddingHorizontal="0dp"
+            android:singleLine="true"
             android:text="@string/app_name"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsize_20sp"
-            android:textStyle="bold"
-            />
+            android:textColor="@color/text"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ImageView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
-        android:src="@drawable/slanted_element"
-        android:gravity="bottom|center_horizontal"
-        android:adjustViewBounds="true" />
-
-    <!--    <ImageView-->
-<!--        android:id="@+id/imageView1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:contentDescription="@string/image_splash_logo"-->
-<!--        android:src="@drawable/logo" /> -->
-
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/slanted_element" />
+</RelativeLayout>

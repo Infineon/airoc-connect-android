@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -32,6 +32,7 @@
  */
 
 package com.infineon.airocbluetoothconnect.CommonUtils;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,18 +50,23 @@ public class PermissionManager {
     private final Activity activity;
 
     private static boolean locationPermissionCanBeAsked = true;
-    private static boolean storagePermissionCanBeAsked = true;
     private static boolean bluetoothPermissionCanBeAsked = true;
+    private static boolean notificationPermissionCanBeAsked = true;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private static final int STORAGE_PERMISSION_REQUEST_CODE = 2;
     private static final int BLUETOOTH_PERMISSION_REQUEST_CODE = 3;
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 4;
+
     private final String[] locationPermissions = getLocationPermissions();
-    private final String[] storagePermissions = getStoragePermissions();
     private final String[] bluetoothPermissions = getBtPermissions();
+    private final String[] notificationPermissions = getNotificationPermissions();
 
-
-    public PermissionManager(Activity activity){
+    /**
+     * Constructs PermissionManager object
+     *
+     * @param activity : parent activity to check and request permissions
+     */
+    public PermissionManager(Activity activity) {
         this.activity = activity;
     }
 
@@ -68,10 +74,11 @@ public class PermissionManager {
      * Check if Location permissions granted.
      * true if granted or doesn't required to ask
      * false if not granted or activity is null
+     *
      * @return result of verification
      */
-    public boolean isLocationPermissionGranted(){
-        if (activity == null){
+    public boolean isLocationPermissionGranted() {
+        if (activity == null) {
             return false;
         }
         // Before Android 6.0 location permission were granted during installation
@@ -91,10 +98,11 @@ public class PermissionManager {
      * Check if Bluetooth permissions granted.
      * true if granted or doesn't required to ask
      * false if not granted or activity is null
+     *
      * @return result of verification
      */
-    public boolean isBluetoothPermissionGranted(){
-        if (activity == null){
+    public boolean isBluetoothPermissionGranted() {
+        if (activity == null) {
             return false;
         }
         // Before Android 11 there were no Bluetooth permissions
@@ -110,37 +118,106 @@ public class PermissionManager {
     }
 
     /**
-     * Check if Storage permissions granted.
+     * Check if Notification permissions granted.
      * true if granted or doesn't required to ask
      * false if not granted or activity is null
+     *
      * @return result of verification
      */
-    public boolean isStoragePermissionGranted(){
-        if (activity == null){
+    public boolean isNotificationPermissionGranted() {
+        if (activity == null) {
             return false;
-        }
-        // Before Android 6.0 storage permissions were granted during installation
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
         }
 
         // Check the permissions
-        boolean isStoragePermissionGranted = true;
-        for (String permission : storagePermissions) {
-            isStoragePermissionGranted &= activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+        boolean isNotificationPermissionGranted = true;
+        for (String permission : notificationPermissions) {
+            isNotificationPermissionGranted &= activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
         }
-        return isStoragePermissionGranted;
+        return isNotificationPermissionGranted;
     }
 
     /**
-     * Check if Location permissions are granted. Request if not granted
-     * @return true if already granted
+     * Checks if Location and Bluetooth permissions are granted. It is impossible to work without them.
+     * Requests absent permissions if possible.
+     * Note: if permission request scheduled to be shown to user it is still considered as NOT granted.
+     *
+     * @return :
+     * true if both permissions granted
+     * false otherwise
      */
-    private boolean checkAndRequestLocationPermissions(){
-        if (activity == null){
+    public boolean checkAndRequestPrimaryPermissions() {
+        return checkAndRequestLocationPermissions() &&
+                checkAndRequestBluetoothPermissions();
+    }
+
+    /**
+     * Check if notification permission is granted and request if not.
+     *
+     * @return : true if granted, false otherwise
+     */
+    public boolean checkAndRequestNotificationPermission() {
+        if (activity == null) {
             return false;
         }
-        if(isLocationPermissionGranted()) {
+        if (isNotificationPermissionGranted()) {
+            return true;
+        }
+        if (notificationPermissionCanBeAsked){
+            notificationPermissionCanBeAsked = false;
+            activity.requestPermissions(notificationPermissions, NOTIFICATION_PERMISSION_REQUEST_CODE);
+        }
+        return false;
+    }
+
+    /**
+     * Should be called after user interaction with permission request dialog
+     */
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Logger.d("PSF: permission: REQUEST_PERMISSION_FINE_LOCATION: granted");
+                } else {
+                    Logger.d("PSF: permission: REQUEST_PERMISSION_FINE_LOCATION: denied");
+                }
+                break;
+            }
+            case BLUETOOTH_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Logger.d("PSF: permission: REQUEST_PERMISSION_BLUETOOTH_CONNECT: granted");
+                } else {
+                    Logger.d("PSF: permission: REQUEST_PERMISSION_BLUETOOTH_CONNECT: denied");
+                }
+                break;
+            }
+            case NOTIFICATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Logger.d("PSF: permission: POST_NOTIFICATIONS: granted");
+                } else {
+                    Logger.d("PSF: permission: POST_NOTIFICATIONS: denied");
+                }
+                break;
+            }
+            default:
+                Logger.e("PSF: permission: unknown requestCode: " + requestCode);
+                break;
+        }
+    }
+
+    /**
+     * Reset permissions request flags, so permissions can be asked one more time.
+     */
+    public void resetLocationAndBtPermissionsCanBeAsked() {
+        locationPermissionCanBeAsked = true;
+        bluetoothPermissionCanBeAsked = true;
+    }
+
+    private boolean checkAndRequestLocationPermissions() {
+        if (activity == null) {
+            return false;
+        }
+        if (isLocationPermissionGranted()) {
             // Permission already granted
             return true;
         }
@@ -161,12 +238,8 @@ public class PermissionManager {
         return false;
     }
 
-    /**
-     * Check if Bluetooth permissions are granted. Request if not granted
-     * @return true if already granted
-     */
     private boolean checkAndRequestBluetoothPermissions() {
-        if (activity == null){
+        if (activity == null) {
             return false;
         }
         if (isBluetoothPermissionGranted()) {
@@ -189,94 +262,14 @@ public class PermissionManager {
         return false;
     }
 
-    /**
-     * Check if Storage permissions are granted. Request if not granted
-     * @return true if already granted
-     */
-    private boolean checkAndRequestStoragePermissions() {
-        if (activity == null){
-            return false;
-        }
-        if (isStoragePermissionGranted()) {
-            return true;
-        }
-        if(storagePermissionCanBeAsked) {
-            storagePermissionCanBeAsked = false;
-            // Show rationale only once
-            final AlertDialog.Builder justificationDialog = new AlertDialog.Builder(activity)
-                    .setTitle(R.string.alert_message_storage_permission_required_title)
-                    .setMessage(R.string.alert_message_storage_permission_required_message)
-                    .setCancelable(false)
-                    .setPositiveButton(android.R.string.ok, (dialog, id) -> activity.requestPermissions(storagePermissions, STORAGE_PERMISSION_REQUEST_CODE))
-                    .setNegativeButton(android.R.string.cancel, (dialog, id) -> dialog.cancel());
-            justificationDialog.show();
-        }
-        // Expect user to accept permission request.
-        // Note that request window will not show immediately.
-        return false;
-    }
-
-    public boolean checkAndRequestAllPermissions(){
-        return checkAndRequestLocationPermissions() && checkAndRequestBluetoothPermissions() && checkAndRequestStoragePermissions();
-    }
-
-    /**
-     * Should be called after user interaction with permission request dialog
-     */
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Logger.d("PSF: permission: REQUEST_PERMISSION_FINE_LOCATION: granted");
-                } else {
-                    Logger.d("PSF: permission: REQUEST_PERMISSION_FINE_LOCATION: denied");
-                }
-                break;
-            }
-            case STORAGE_PERMISSION_REQUEST_CODE: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Logger.d("PSF: permission: REQUEST_PERMISSION_EXTERNAL_STORAGE: granted");
-                } else {
-                    Logger.d("PSF: permission: REQUEST_PERMISSION_EXTERNAL_STORAGE: denied");
-                }
-                break;
-            }
-            case BLUETOOTH_PERMISSION_REQUEST_CODE: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Logger.d("PSF: permission: REQUEST_PERMISSION_BLUETOOTH_CONNECT: granted");
-                } else {
-                    Logger.d("PSF: permission: REQUEST_PERMISSION_BLUETOOTH_CONNECT: denied");
-                }
-                break;
-            }
-            default:
-                Logger.e("PSF: permission: unknown requestCode: " + requestCode);
-                break;
-        }
-    }
-
-    /**
-     * Reset permissions request flags, so permissions can be asked one more time.
-     */
-    public void resetPermissionsCanBeAsked(){
-        locationPermissionCanBeAsked = true;
-        bluetoothPermissionCanBeAsked = true;
-        storagePermissionCanBeAsked = true;
-    }
-
-    private String[] getLocationPermissions(){
+    private String[] getLocationPermissions() {
         return new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION,
         };
     }
-    private String[] getStoragePermissions() {
-        return new String[]{
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        };
-    }
-    private String[] getBtPermissions(){
+
+    private String[] getBtPermissions() {
         String[] permissions = new String[]{};
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             permissions = new String[]{
@@ -287,4 +280,13 @@ public class PermissionManager {
         return permissions;
     }
 
+    private String[] getNotificationPermissions() {
+        // Starting from Android 13 notification permission has became runtime permission
+        if (Build.VERSION.SDK_INT >= 33) {
+            return new String[]{
+                    Manifest.permission.POST_NOTIFICATIONS
+            };
+        }
+        return new String[]{};
+    }
 }

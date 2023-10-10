@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -60,7 +60,6 @@ import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.BatteryInformationService;
@@ -76,7 +75,6 @@ import com.infineon.airocbluetoothconnect.BLEServiceFragments.RGBFragment;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.RSCService;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.SensorHubService;
 import com.infineon.airocbluetoothconnect.CommonFragments.AboutFragment;
-import com.infineon.airocbluetoothconnect.CommonFragments.ContactUsFragment;
 import com.infineon.airocbluetoothconnect.CommonFragments.HomePageTabbedFragment;
 import com.infineon.airocbluetoothconnect.CommonFragments.NavigationDrawerFragment;
 import com.infineon.airocbluetoothconnect.CommonFragments.PairedProfilesFragment;
@@ -86,15 +84,14 @@ import com.infineon.airocbluetoothconnect.CommonFragments.ServiceDiscoveryFragme
 import com.infineon.airocbluetoothconnect.CommonFragments.SettingsFragment;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.DataLoggerFragments.DataLoggerFragment;
 import com.infineon.airocbluetoothconnect.DataModelClasses.PairOnConnect;
 import com.infineon.airocbluetoothconnect.GATTDBFragments.GattDescriptorFragment;
 import com.infineon.airocbluetoothconnect.GATTDBFragments.GattServicesFragment;
+import com.infineon.airocbluetoothconnect.CommonFragments.FragmentWithActionBarRestorer;
 import com.infineon.airocbluetoothconnect.OTAFirmwareUpdate.OTAFirmwareUpgradeFragment;
-import com.infineon.airocbluetoothconnect.RDKEmulatorView.RemoteControlEmulatorFragment;
-import com.infineon.airocbluetoothconnect.wearable.demo.CategoryListFragment;
-import com.infineon.airocbluetoothconnect.wearable.motion.MotionFragment;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -171,7 +168,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                             PairedProfilesFragment.mPairButton.setText(mPairedString);
                         }
                         if (previousBondState == BluetoothDevice.BOND_BONDING) {
-                            Toast.makeText(HomePageActivity.this, getResources().getString(R.string.toast_paired), Toast.LENGTH_SHORT).show();
+                            ToastUtils.makeText(R.string.toast_paired, Toast.LENGTH_SHORT);
                         }
                     }
 
@@ -199,7 +196,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                             PairedProfilesFragment.mPairButton.setText(mNotPairedString);
                         }
                         if (previousBondState == BluetoothDevice.BOND_BONDED) {
-                            Toast.makeText(HomePageActivity.this, getResources().getString(R.string.toast_unpaired), Toast.LENGTH_SHORT).show();
+                            ToastUtils.makeText(R.string.toast_unpaired, Toast.LENGTH_SHORT);
                         }
                     }
                     String dataLog = getResources().getString(R.string.dl_commaseparator)
@@ -425,27 +422,14 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                     || currentFragment instanceof RGBFragment
                     || currentFragment instanceof RSCService
                     || currentFragment instanceof SensorHubService
-                    || currentFragment instanceof RemoteControlEmulatorFragment
-                    || currentFragment instanceof GattServicesFragment
-                    || currentFragment instanceof CategoryListFragment
-                    || currentFragment instanceof MotionFragment) {
+                    || currentFragment instanceof GattServicesFragment) {
                 Utils.setUpActionBar(this, R.string.profile_control_fragment);
             }
 
-            if (currentFragment instanceof MotionFragment) {
-                ((MotionFragment) currentFragment).handleBackPressed();
-            } else if (currentFragment instanceof HomePageTabbedFragment) {
+            if (currentFragment instanceof HomePageTabbedFragment) {
                 alertbox();
             } else if (currentFragment instanceof AboutFragment || currentFragment instanceof SettingsFragment) {
-                if (BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTED ||
-                        BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTING ||
-                        BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_DISCONNECTING) {
-                    BluetoothLeService.disconnect();
-                    Toast.makeText(this,
-                            getResources().getString(R.string.alert_message_bluetooth_disconnect),
-                            Toast.LENGTH_SHORT).show();
-                }
-
+                disconnectDeviceIfConnected();
                 // Guiding the user back to profile scanning fragment
                 Intent intent = getIntent();
                 finish();
@@ -454,17 +438,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                 overridePendingTransition(R.anim.slide_right, R.anim.push_right);
             } else if (currentFragment instanceof ProfileControlFragment
                     || currentFragment instanceof ServiceDiscoveryFragment) {
-                // Guiding the user back to profile scanning fragment
-                //  Logger.i("BLE DISCONNECT---->"+BluetoothLeService.getConnectionState());
-                if (BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTED ||
-                        BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTING ||
-                        BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_DISCONNECTING) {
-
-                    BluetoothLeService.disconnect();
-                    Toast.makeText(this,
-                            getResources().getString(R.string.alert_message_bluetooth_disconnect),
-                            Toast.LENGTH_SHORT).show();
-                }
+                disconnectDeviceIfConnected();
                 Intent intent = getIntent();
                 finish();
                 overridePendingTransition(R.anim.slide_right, R.anim.push_right);
@@ -483,8 +457,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                     AlertDialog alert;
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage(
-                            this.getResources().getString(
-                                    R.string.alert_message_ota_pending))
+                                    this.getResources().getString(
+                                            R.string.alert_message_ota_pending))
                             .setTitle(this.getResources().getString(R.string.app_name))
                             .setCancelable(false)
                             .setPositiveButton(
@@ -499,9 +473,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                                                 OTAFirmwareUpgradeFragment.mFileUpgradeStarted = false;
                                                 BluetoothLeService.unpairDevice(device);
                                                 BluetoothLeService.disconnect();
-                                                Toast.makeText(HomePageActivity.this,
-                                                        getResources().getString(R.string.alert_message_bluetooth_disconnect),
-                                                        Toast.LENGTH_SHORT).show();
                                                 Intent intent = getIntent();
                                                 finish();
                                                 overridePendingTransition(R.anim.slide_right, R.anim.push_right);
@@ -526,21 +497,23 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
             }
         }
 
-        // Restore broken action bar title when returning from ContactUsFragment
-        if (currentFragment instanceof ContactUsFragment) {
-            getSupportActionBar().setTitle(((ContactUsFragment) currentFragment).mTitleBarActionToRestore);
+        if (currentFragment instanceof FragmentWithActionBarRestorer) {
+            ((FragmentWithActionBarRestorer) currentFragment).restoreActionBar();
         }
+    }
 
-        // Restore broken action bar title when returning to HomePageTabbedFragment (e.g. from DataLoggerFragment)
-        currentFragment = getSupportFragmentManager().findFragmentById(R.id.container);
-        if (currentFragment instanceof HomePageTabbedFragment) {
-            Utils.setUpActionBar(this, R.string.profile_scan_fragment);
+    private void disconnectDeviceIfConnected() {
+        if (BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTED ||
+                BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTING ||
+                BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_DISCONNECTING) {
+            BluetoothLeService.disconnect();
         }
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         Logger.e("onNavigationDrawerItemSelected " + position);
+
         /**
          * Update the main content by replacing fragments with user selected
          * option
@@ -550,11 +523,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                 /**
                  * BLE Devices
                  */
-                if (BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTED ||
-                        BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTING ||
-                        BluetoothLeService.getConnectionState() == BluetoothLeService.STATE_DISCONNECTING) {
-                    BluetoothLeService.disconnect();
-                }
+                disconnectDeviceIfConnected();
                 Intent intent = getIntent();
                 finish();
                 overridePendingTransition(R.anim.slide_left, R.anim.push_left);
@@ -573,10 +542,17 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                  */
                 Utils.replaceFragment(this, new SettingsFragment(), Constants.FRAGMENT_TAG_SETTINGS);
                 break;
+            case NavigationDrawerFragment.ItemPosition.DATA_LOGGER:
+                /**
+                 * Data Logger
+                 */
+                DataLoggerFragment dataloggerfragment = new DataLoggerFragment();
+                dataloggerfragment.storeActionBar(getSupportActionBar());
+                Utils.moveToFragment(this, dataloggerfragment, Constants.FRAGMENT_DATA_LOGER_TAG, true);
+                break;
             default:
                 break;
         }
-
     }
 
     // Get intent, action and MIME type
@@ -616,7 +592,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                 if (mAttachment == null) {
                     Logger.e("Cannot access mail attachment");
                 } else {
-                    if (fileExists(mAttachmentFileName, rootDir)) {
+                    if (Utils.fileExists(mAttachmentFileName, rootDir)) {
                         copyFileFromMailAttachment_override();
                     } else {
                         try {
@@ -678,7 +654,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
             tmp.write(buffer, 0, bytes);
         tmp.close();
         mAttachment.close();
-        Toast.makeText(this, getResources().getString(R.string.toast_file_copied), Toast.LENGTH_SHORT).show();
+        ToastUtils.makeText(R.string.toast_file_copied, Toast.LENGTH_SHORT);
     }
 
     private void copyFileFromFileSystem() {
@@ -697,7 +673,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
 
         final File targetLocation = new File(Utils.getApplicationDataDirectory(getApplicationContext()) + File.separator + sourceFileName);
 
-        if (fileExists(sourceFileName, rootDir)) {
+        if (Utils.fileExists(sourceFileName, rootDir)) {
             copyFileFromFileSystem_override(sourceLocation, targetLocation);
         } else {
             try {
@@ -742,25 +718,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
 
     private void copyFileFromFileSystem_new(File sourceLocation, File targetLocation) throws IOException {
         copyDirectory(sourceLocation, targetLocation);
-        Toast.makeText(this, getResources().getString(R.string.toast_file_copied), Toast.LENGTH_SHORT).show();
-    }
-
-    /*
-     * Checks whether a file exists in the folder specified
-     */
-    public boolean fileExists(String name, File file) {
-        File[] list = file.listFiles();
-        if (list != null) { // Might be null on Android M and above when not granted Storage permission
-            for (File fil : list) {
-                if (fil.isDirectory()) {
-                    fileExists(name, fil);
-                } else if (name.equalsIgnoreCase(fil.getName())) {
-                    Logger.e("File>>" + fil.getName());
-                    return true;
-                }
-            }
-        }
-        return false;
+        ToastUtils.makeText(R.string.toast_file_copied, Toast.LENGTH_SHORT);
     }
 
     // If targetLocation does not exist, it will be created.
@@ -795,7 +753,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 HomePageActivity.this);
         builder.setMessage(
-                getResources().getString(R.string.alert_message_exit))
+                        getResources().getString(R.string.alert_message_exit))
                 .setCancelable(false)
                 .setTitle(getResources().getString(R.string.app_name))
                 .setPositiveButton(
@@ -849,8 +807,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
 
                 final String filepath =
                         Utils.getApplicationDataDirectory(getApplicationContext())
-                        + File.separator
-                        + getString(R.string.screenshot_file_name);
+                                + File.separator
+                                + getString(R.string.screenshot_file_name);
 
                 final File shareFile = new File(filepath);
                 if (shareFile.exists()) {
@@ -876,26 +834,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
             case R.id.clearcache:
                 showWarningInfo();
                 return true;
-            case R.id.log:
-                // DataLogger
-                String pathToLogFile =
-                        Utils.getApplicationDataDirectory(getApplicationContext())
-                        + File.separator
-                        + Utils.GetDate()
-                        + ".txt";
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.DATA_LOGGER_FILE_NAME, pathToLogFile);
-                bundle.putBoolean(Constants.DATA_LOGGER_FLAG, false);
-                /**
-                 * Adding new fragment DataLoggerFragment to the view
-                 */
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                DataLoggerFragment dataloggerfragment = new DataLoggerFragment();
-                dataloggerfragment.setArguments(bundle);
-                fragmentManager.beginTransaction()
-                        .add(R.id.container, dataloggerfragment)
-                        .addToBackStack(null).commit();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -908,17 +846,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                 .setTitle(getString(R.string.alert_title_clear_cache))
                 .setCancelable(false)
                 .setPositiveButton(getString(
-                        R.string.alert_message_exit_ok),
+                                R.string.alert_message_exit_ok),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();
-                                if (BluetoothLeService.mBluetoothGatt != null) {
-                                    BluetoothLeService.refreshDeviceCache(BluetoothLeService.mBluetoothGatt);
-                                }
+                                BluetoothLeService.refreshConnectedDeviceCache();
                                 BluetoothLeService.disconnect();
-                                Toast.makeText(getBaseContext(),
-                                        getString(R.string.alert_message_bluetooth_disconnect),
-                                        Toast.LENGTH_SHORT).show();
+                                ToastUtils.makeText(R.string.alert_message_bluetooth_disconnect, Toast.LENGTH_SHORT);
                                 Intent homePage = getIntent();
                                 finish();
                                 overridePendingTransition(R.anim.slide_right, R.anim.push_right);

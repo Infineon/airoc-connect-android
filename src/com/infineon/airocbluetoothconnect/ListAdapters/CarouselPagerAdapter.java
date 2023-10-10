@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -42,10 +42,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.CommonFragments.CarouselFragment;
 import com.infineon.airocbluetoothconnect.CommonFragments.ProfileControlFragment;
-import com.infineon.airocbluetoothconnect.CommonUtils.CarouselLinearLayout;
+import com.infineon.airocbluetoothconnect.CommonUtils.CarouselLayout;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
 import com.infineon.airocbluetoothconnect.CommonUtils.UUIDDatabase;
 import com.infineon.airocbluetoothconnect.HomePageActivity;
@@ -65,8 +64,8 @@ public class CarouselPagerAdapter extends FragmentPagerAdapter implements
     /**
      * CarouselLinearLayout variables for animation
      */
-    private CarouselLinearLayout mCurrentCarouselLinearLayout = null;
-    private CarouselLinearLayout mNextCarouselLinearLayout = null;
+    private CarouselLayout mCurrentCarouselLayout = null;
+    private CarouselLayout mNextCarouselLayout = null;
     private HomePageActivity mContext;
     private ProfileControlFragment mContainerFragment;
     private FragmentManager mFragmentManager;
@@ -87,12 +86,7 @@ public class CarouselPagerAdapter extends FragmentPagerAdapter implements
 
     @Override
     public Fragment getItem(int position) {
-        // Make the first pager bigger than others
-        if (position == ProfileControlFragment.FIRST_PAGE) {
-            mScale = ProfileControlFragment.BIG_SCALE;
-        } else {
-            mScale = ProfileControlFragment.SMALL_SCALE;
-        }
+        mScale = ProfileControlFragment.SMALL_SCALE;
         position = position % ProfileControlFragment.mPages;
         HashMap<String, BluetoothGattService> item = mCurrentServiceData
                 .get(position);
@@ -143,15 +137,6 @@ public class CarouselPagerAdapter extends FragmentPagerAdapter implements
                 || uuid.equals(UUIDDatabase.UUID_ANALOG_TEMPERATURE_SERVICE)) {
             name = mContext.getResources().getString(R.string.sen_hub);
         }
-        if (uuid.equals(UUIDDatabase.UUID_HID_SERVICE)) {
-            String connectedDeviceName = BluetoothLeService.getBluetoothDeviceName();
-            String remoteName = mContext.getString(R.string.rdk_emulator_view);
-            if (connectedDeviceName.indexOf(remoteName) != -1) {
-                name = mContext.getResources().getString(R.string.rdk_emulator_view);
-                imageId = R.drawable.emulator;
-            }
-
-        }
         Fragment curFragment = CarouselFragment.create(imageId,
                 mScale, name, uuid.toString(), bgs);
         return curFragment;
@@ -173,13 +158,13 @@ public class CarouselPagerAdapter extends FragmentPagerAdapter implements
         if (positionOffset >= 0f && positionOffset <= 1f) {
             if (position < getCount() - 1) {
                 try {
-                    mCurrentCarouselLinearLayout = getRootView(position);
-                    mNextCarouselLinearLayout = getRootView(position + 1);
-                    mCurrentCarouselLinearLayout
+                    mCurrentCarouselLayout = getRootView(position);
+                    mNextCarouselLayout = getRootView(position + 1);
+                    mCurrentCarouselLayout
                             .setScaleBoth(ProfileControlFragment.BIG_SCALE
                                     - ProfileControlFragment.DIFF_SCALE
                                     * positionOffset);
-                    mNextCarouselLinearLayout
+                    mNextCarouselLayout
                             .setScaleBoth(ProfileControlFragment.SMALL_SCALE
                                     + ProfileControlFragment.DIFF_SCALE
                                     * positionOffset);
@@ -201,10 +186,10 @@ public class CarouselPagerAdapter extends FragmentPagerAdapter implements
     public void onPageScrollStateChanged(int state) {
     }
 
-    private CarouselLinearLayout getRootView(int position) {
-        CarouselLinearLayout ly;
+    private CarouselLayout getRootView(int position) {
+        CarouselLayout ly;
         try {
-            ly = (CarouselLinearLayout) mFragmentManager
+            ly = (CarouselLayout) mFragmentManager
                     .findFragmentByTag(this.getFragmentTag(position)).getView()
                     .findViewById(R.id.root);
         } catch (Exception e) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -50,9 +50,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -87,7 +84,6 @@ public class HeartRateService extends Fragment {
     private TextView mDataFieldEnergyExpended;
     private TextView mDataFieldRRInterval;
     private TextView mDataFieldBodySensorLocation;
-    private ImageView mHeartView;
 
     // GATT service and characteristics
     private static BluetoothGattService mService;
@@ -110,7 +106,7 @@ public class HeartRateService extends Fragment {
     /**
      * BroadcastReceiver for receiving the GATT server status
      */
-    private BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mGattUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
@@ -201,11 +197,8 @@ public class HeartRateService extends Fragment {
         mDataFieldEnergyExpended = rootView.findViewById(R.id.heart_rate_ee);
         mDataFieldRRInterval = rootView.findViewById(R.id.heart_rate_rr);
         mDataFieldBodySensorLocation = rootView.findViewById(R.id.hrm_sensor_location);
-        mHeartView = rootView.findViewById(R.id.heart_icon);
         mProgressDialog = new ProgressDialog(getActivity());
         setHasOptionsMenu(true);
-        Animation pulse = AnimationUtils.loadAnimation(getActivity(), R.anim.pulse);
-        mHeartView.startAnimation(pulse);
         // Setting up chart
         setupChart(rootView);
         getGattData();
@@ -296,7 +289,8 @@ public class HeartRateService extends Fragment {
      * Method to get required characteristics from service
      */
     void getGattData() {
-        List<BluetoothGattCharacteristic> characteristics = mService.getCharacteristics();
+        List<BluetoothGattCharacteristic> characteristics = Utils.getServiceCharacteristics(mService);
+
         for (BluetoothGattCharacteristic c : characteristics) {
             String uuid = c.getUuid().toString();
             if (uuid.equalsIgnoreCase(GattAttributes.BODY_SENSOR_LOCATION)) {
@@ -314,11 +308,9 @@ public class HeartRateService extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(true);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -344,8 +336,8 @@ public class HeartRateService extends Fragment {
      * @param parent
      */
     private void setupChart(View parent) {
-        /**
-         * Setting graph titles
+        /*
+          Setting graph titles
          */
         String graphTitle = getResources().getString(R.string.hrm_graph_label);
         String graphXAxis = getResources().getString(R.string.health_temperature_time);
@@ -362,7 +354,7 @@ public class HeartRateService extends Fragment {
 
         // Creating XYSeriesRenderer to customize
         XYSeriesRenderer renderer = new XYSeriesRenderer();
-        renderer.setColor(getResources().getColor(R.color.main_bg_color));
+        renderer.setColor(getResources().getColor(R.color.primary, getContext().getTheme()));
         renderer.setPointStyle(PointStyle.CIRCLE);
         renderer.setFillPoints(true);
         renderer.setLineWidth(3);
@@ -436,7 +428,7 @@ public class HeartRateService extends Fragment {
         multiRenderer.addSeriesRenderer(renderer);
 
         // Getting a reference to LinearLayout of the MainActivity Layout
-        mGraphLayoutParent = (LinearLayout) parent.findViewById(R.id.chart_container);
+        mGraphLayoutParent = parent.findViewById(R.id.chart_container);
 
         mChart = ChartUtils.getLineChartView(getActivity(), dataset, multiRenderer);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -53,6 +53,7 @@ import androidx.fragment.app.Fragment;
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
 import com.google.android.material.tabs.TabLayout;
@@ -81,7 +82,7 @@ public class HomePageTabbedFragment extends FragmentWithPermissionCheck {
         View rootView = inflater.inflate(R.layout.fragment_home_page_tabbed, container, false);
 
         // Give the TabLayout the ViewPager
-        tabLayout = rootView.findViewById(R.id.tablayout);
+        tabLayout = rootView.findViewById(R.id.tabLayout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -170,10 +171,7 @@ public class HomePageTabbedFragment extends FragmentWithPermissionCheck {
         if (requestCode == REQUEST_ENABLE_BT) {
             // Make sure the request was successful
             if (resultCode == Activity.RESULT_OK) {
-                Toast.makeText(
-                        getActivity(),
-                        getResources().getString(R.string.device_bluetooth_on),
-                        Toast.LENGTH_SHORT).show();
+                ToastUtils.makeText(R.string.device_bluetooth_on, Toast.LENGTH_SHORT);
                 if (Utils.getBooleanSharedPreference(getActivity(), Constants.PREF_UNPAIR_ON_DISCONNECT)) {
                     boolean unpaired = false;
                     try {
@@ -208,8 +206,7 @@ public class HomePageTabbedFragment extends FragmentWithPermissionCheck {
     private void checkBleSupportAndInitialize() {
         // Use this check to determine whether BLE is supported on the device.
         if (false == getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Toast.makeText(getActivity(), R.string.device_ble_not_supported, Toast.LENGTH_SHORT).show();
-            getActivity().finish();
+            ToastUtils.makeText(R.string.device_ble_not_supported, Toast.LENGTH_LONG);
         }
         // Initializes a Bluetooth adapter.
         final BluetoothManager bluetoothManager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
@@ -217,8 +214,8 @@ public class HomePageTabbedFragment extends FragmentWithPermissionCheck {
 
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
-            Toast.makeText(getActivity(), R.string.device_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
-            getActivity().finish();
+            Logger.e("Device does not support Bluetooth");
+            ToastUtils.makeText(R.string.device_bluetooth_not_supported, Toast.LENGTH_LONG);
         }
     }
 
@@ -229,7 +226,7 @@ public class HomePageTabbedFragment extends FragmentWithPermissionCheck {
          * to grant permission to enable it.
          */
         if (permissionManager.isBluetoothPermissionGranted()) {
-            if (!mBluetoothAdapter.isEnabled()) {
+            if (mBluetoothAdapter != null && !mBluetoothAdapter.isEnabled()) {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
                 return false;

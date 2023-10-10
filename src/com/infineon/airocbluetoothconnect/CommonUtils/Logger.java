@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -34,10 +34,7 @@
 package com.infineon.airocbluetoothconnect.CommonUtils;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
-
-import com.infineon.airocbluetoothconnect.R;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -208,7 +205,7 @@ public class Logger {
                 e.printStackTrace();
             }
         }
-        message = Utils.GetTimeandDate() + message;
+        message = Utils.GetTimeAndDate() + message;
         try {
             OutputStreamWriter writer = new OutputStreamWriter(
                     new FileOutputStream(mDataLoggerFile, true),

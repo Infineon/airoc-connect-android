@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -71,6 +71,7 @@ import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.DecimalTextWatcher;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
 
@@ -208,8 +209,8 @@ public class CSCService extends Fragment {
             public void onClick(View v) {
                 Button button = (Button) v;
                 String buttonText = button.getText().toString();
-                String startText = getResources().getString(R.string.blood_pressure_start_btn);
-                String stopText = getResources().getString(R.string.blood_pressure_stop_btn);
+                String startText = getResources().getString(R.string.button_start);
+                String stopText = getResources().getString(R.string.button_stop);
                 mWeightString = mWeightEditText.getText().toString();
                 mRadiusString = mRadiusEditText.getText().toString();
                 try {
@@ -222,36 +223,36 @@ public class CSCService extends Fragment {
 
                 //Weight Entered validation
                 if ((mWeightString.equalsIgnoreCase("") || mWeightString.equalsIgnoreCase(".")) && buttonText.equalsIgnoreCase(startText)) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.csc_weight_toast_empty), Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.csc_weight_toast_empty, Toast.LENGTH_SHORT);
                     mCaloriesBurnt.setText("0.00");
                 }
 
                 if ((mWeightString.equalsIgnoreCase("0.")
                         || mWeightString.equalsIgnoreCase("0")) && buttonText.equalsIgnoreCase(startText)) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.csc_weight_toast_zero), Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.csc_weight_toast_zero, Toast.LENGTH_SHORT);
                 }
 
                 if (mWeightInt < WEIGHT_ONE && mWeightInt > ZERO && buttonText.equalsIgnoreCase(startText)) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.csc_weight_toast_zero), Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.csc_weight_toast_zero, Toast.LENGTH_SHORT);
                     mCaloriesBurnt.setText("0.00");
                 }
 
                 //Radius Entered Validation
                 if ((mRadiusString.equalsIgnoreCase("") || mRadiusString.equalsIgnoreCase(".")) && buttonText.equalsIgnoreCase(startText)) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.csc_radius_toast_empty), Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.csc_radius_toast_empty, Toast.LENGTH_SHORT);
                 }
 
                 if ((mRadiusString.equalsIgnoreCase("0.")
                         || mRadiusString.equalsIgnoreCase("0")) && buttonText.equalsIgnoreCase(startText)) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.csc_radius_toast_less), Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.csc_radius_toast_less, Toast.LENGTH_SHORT);
                 }
 
                 if (mRadiusInt > ZERO && mRadiusInt < MINIMUM_RADIUS && buttonText.equalsIgnoreCase(startText)) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.csc_radius_toast_less), Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.csc_radius_toast_less, Toast.LENGTH_SHORT);
                 }
 
                 if ((mRadiusInt > MAXIMUM_RADIUS && buttonText.equalsIgnoreCase(startText))) {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.csc_radius_toast_greater), Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.csc_radius_toast_greater, Toast.LENGTH_SHORT);
                 }
 
                 if (mWeightInt <= MAX_WEIGHT) {
@@ -280,7 +281,7 @@ public class CSCService extends Fragment {
                     }
                 } else {
                     if (buttonText.equalsIgnoreCase(startText)) {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.csc_weight_toast_greater), Toast.LENGTH_SHORT).show();
+                        ToastUtils.makeText(R.string.csc_weight_toast_greater, Toast.LENGTH_SHORT);
                         button.setText(stopText);
                         mCaloriesBurnt.setText("0.00");
                         mWeightEditText.setEnabled(false);
@@ -430,7 +431,7 @@ public class CSCService extends Fragment {
      * Method to get required characteristics from service
      */
     void getGattData() {
-        List<BluetoothGattCharacteristic> characteristics = mService.getCharacteristics();
+        List<BluetoothGattCharacteristic> characteristics = Utils.getServiceCharacteristics(mService);
         for (BluetoothGattCharacteristic characteristic : characteristics) {
             String uuid = characteristic.getUuid().toString();
             if (uuid.equalsIgnoreCase(GattAttributes.CSC_MEASUREMENT)) {
@@ -444,11 +445,9 @@ public class CSCService extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(true);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -492,7 +491,7 @@ public class CSCService extends Fragment {
 
         // Creating XYSeriesRenderer to customize
         XYSeriesRenderer mRenderer = new XYSeriesRenderer();
-        mRenderer.setColor(getResources().getColor(R.color.main_bg_color));
+        mRenderer.setColor(getResources().getColor(R.color.primary, getContext().getTheme()));
         mRenderer.setPointStyle(PointStyle.CIRCLE);
         mRenderer.setFillPoints(true);
         mRenderer.setLineWidth(5);

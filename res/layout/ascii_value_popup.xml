@@ -3,41 +3,34 @@
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent">
+    android:background="@color/background"
+    android:padding="@dimen/padding_default">
 
     <RelativeLayout
         android:id="@+id/relativetop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/broder"
-        android:focusableInTouchMode="true"
-        android:padding="5dp">
+        android:focusableInTouchMode="true">
 
         <TextView
             android:id="@+id/txtheading"
+            style="@style/Infineon.TextView.Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:text="@string/gatt_details_ascii_popup_heading"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:text="@string/gatt_details_ascii_popup_heading" />
 
         <EditText
             android:id="@+id/ascii_edittext_text"
+            style="@style/Infineon.EditText.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtheading"
             android:layout_centerHorizontal="true"
-            android:layout_margin="5dp"
-            android:background="@drawable/broder"
-            android:minHeight="35dp"
-            android:padding="2dp"
             android:singleLine="true">
-            <requestFocus/>
 
+            <requestFocus />
         </EditText>
 
         <LinearLayout
@@ -46,31 +39,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ascii_edittext_text"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="10dp">
 
             <Button
                 android:id="@+id/txtcancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_button_selector"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/gatt_details_popup_cancel"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@drawable/border_button_text_selecter" />
+                android:text="@string/button_cancel" />
 
             <Button
                 android:id="@+id/txtok"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/border_button_selector"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/gatt_details_popup_ok"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@drawable/border_button_text_selecter" />
+                android:text="@string/button_ok" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

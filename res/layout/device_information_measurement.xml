@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:clickable="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:id="@+id/parent_dev_info"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -19,8 +18,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_manufacturer_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -29,15 +26,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,8 +40,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_model_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -56,16 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
-
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,8 +61,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_serial_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -83,16 +69,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
-
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -100,8 +82,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_hardware_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -110,14 +90,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
+            android:padding="5dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,8 +103,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_firmware_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
+
             android:textStyle="bold" />
 
         <TextView
@@ -135,15 +112,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -151,8 +125,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_software_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -161,16 +133,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
-
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -178,8 +146,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_system_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -188,16 +154,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
-
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -205,8 +167,6 @@
             android:layout_weight="1"
             android:gravity="left"
             android:text="@string/div_regulatory_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -215,16 +175,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
-
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
-
+            android:background="@color/primary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -232,8 +188,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/div_pnp_name"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small"
             android:textStyle="bold" />
 
         <TextView
@@ -243,15 +197,12 @@
             android:layout_gravity="start"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="5dp"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/textsize_very_small" />
-
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/actionbar_bg_color" />
+            android:background="@color/primary" />
     </LinearLayout>
 
 </ScrollView>

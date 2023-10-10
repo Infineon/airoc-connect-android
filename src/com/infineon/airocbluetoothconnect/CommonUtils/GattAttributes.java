@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -47,9 +47,8 @@ public class GattAttributes {
     public static final HashMap<UUID, Integer> attributesImageMap = new HashMap<>();
     public static final HashMap<UUID, Integer> attributesCapSenseImageMap = new HashMap<>();
     public static final HashMap<UUID, String> attributesCapSense = new HashMap<>();
-    private static HashMap<String, String> descriptorAttributes = new HashMap<>();
-    private static HashMap<UUID, String> attributesUUID = new HashMap<>();
-    private static HashMap<Integer, String> rdkAttributesUUID = new HashMap<>();
+    private static final HashMap<String, String> descriptorAttributes = new HashMap<>();
+    private static final HashMap<UUID, String> attributesUUID = new HashMap<>();
     /**
      * Services
      */
@@ -73,7 +72,6 @@ public class GattAttributes {
     public static final String CSC_SERVICE = "00001816-0000-1000-8000-00805f9b34fb";
     public static final String HUMAN_INTERFACE_DEVICE_SERVICE = "00001812-0000-1000-8000-00805f9b34fb";
     public static final String SCAN_PARAMETERS_SERVICE = "00001813-0000-1000-8000-00805f9b34fb";
-    // public static final String OTA_UPDATE_SERVICE = "00060000-0000-1000-8000-00805f9b34fb";
     public static final String OTA_UPDATE_SERVICE = "00060000-f8ce-11e4-abf4-0002a5d5c51b";
     /**
      * Unused service UUIDS
@@ -198,7 +196,6 @@ public class GattAttributes {
     /**
      * OTA Characteristic
      */
-    //public static final String OTA_CHARACTERISTIC = "00060001-0000-1000-8000-00805F9B34fb";
     public static final String OTA_CHARACTERISTIC = "00060001-f8ce-11e4-abf4-0002a5d5c51b";
     /**
      * Descriptor UUID's
@@ -215,7 +212,6 @@ public class GattAttributes {
     public static final String ENVIRONMENTAL_SENSING_CONFIGURATION = "0000290B-0000-1000-8000-00805f9b34fb";
     public static final String ENVIRONMENTAL_SENSING_MEASUREMENT = "0000290C-0000-1000-8000-00805f9b34fb";
     public static final String ENVIRONMENTAL_SENSING_TRIGGER_SETTING = "0000290D-0000-1000-8000-00805f9b34fb";
-    public static final String HEALTH_THERMO_SERVICE = "00001809-0000-1000-8000-00805f9b34fb";
     public static final String BOND_MANAGEMENT_SERVICE = "0000181e-0000-1000-8000-00805f9b34fb";
     public static final String HEART_RATE_CONTROL_POINT = "00002a39-0000-1000-8000-00805f9b34fb";
     public static final String GLUCOSE_MEASUREMENT_CONTEXT = "00002a34-0000-1000-8000-00805f9b34fb";
@@ -338,19 +334,6 @@ public class GattAttributes {
     public static final String WEIGHT_SCALE_FEATURE = "00002a9e-0000-1000-8000-00805f9b34fb";
     public static final String WIND_CHILL = "00002a7-0000-1000-8000-00805f9b34fb";
 
-    // Wearable Demo
-    public static final String WEARABLE_DEMO_SERVICE = "000d0000-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_SERVICE = "000a0000-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_FEATURE_CHARACTERISTIC = "000a0001-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_DATA_CHARACTERISTIC = "000a0002-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_CONTROL_CHARACTERISTIC = "000a0003-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_LIFETIME_STEPS_CHARACTERISTIC = "000a0003-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_STEPS_GOAL_CHARACTERISTIC = "000d0003-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_CALORIES_GOAL_CHARACTERISTIC = "000d0007-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_FITNESS_TRACKER_CMD_CHARACTERISTIC = "000d0006-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_DURATION_GOAL_CHARACTERISTIC = "000d0008-f8ce-11e4-abf4-0002a5d5c51b";
-    public static final String WEARABLE_MOTION_DISTANCE_GOAL_CHARACTERISTIC = "000d0009-f8ce-11e4-abf4-0002a5d5c51b";
-
     static {
         // Services.
         attributesUUID.put(UUIDDatabase.UUID_HEART_RATE_SERVICE, "Heart Rate Service");
@@ -363,8 +346,8 @@ public class GattAttributes {
         attributesUUID.put(UUIDDatabase.UUID_IMMEDIATE_ALERT_SERVICE, "Immediate Alert");
         attributesUUID.put(UUIDDatabase.UUID_LINK_LOSS_SERVICE, "Link Loss");
         attributesUUID.put(UUIDDatabase.UUID_TRANSMISSION_POWER_SERVICE, "Tx Power");
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, "CapSense Service");
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, "CapSense Service");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, "CAPSENSE™ Service");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, "CAPSENSE™ Service");
         attributesUUID.put(UUIDDatabase.UUID_RGB_LED_SERVICE, "RGB LED Service");
         attributesUUID.put(UUIDDatabase.UUID_RGB_LED_SERVICE_CUSTOM, "RGB LED Service");
         attributesUUID.put(UUIDDatabase.UUID_GLUCOSE_SERVICE, "Glucose Service");
@@ -422,7 +405,7 @@ public class GattAttributes {
         attributesUUID.put(UUIDDatabase.UUID_MANUFACTURER_NAME, "Manufacturer Name String");
         attributesUUID.put(UUIDDatabase.UUID_PNP_ID, "PnP ID");
         attributesUUID.put(UUIDDatabase.UUID_REGULATORY_CERTIFICATION_DATA_LIST,
-                "REGULATORY_CERTIFICATION_DATA_LIST 11073-20601 Regulatory Certification Data List");
+                "IEEE 11073-20601 Regulatory Certification Data List");
 
         // Battery service characteristics
         attributesUUID.put(UUIDDatabase.UUID_BATTERY_LEVEL, "Battery Level");
@@ -432,12 +415,12 @@ public class GattAttributes {
         attributesUUID.put(UUIDDatabase.UUID_TRANSMISSION_POWER_LEVEL, "Tx Power Level");
 
         // Capsense Characteristics
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS, "CapSense Button");
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY, "CapSense Proximity");
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SLIDER, "CapSense Slider");
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM, "CapSense Button");
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM, "CapSense Proximity");
-        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM, "CapSense Slider");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS, "CAPSENSE™ Button");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY, "CAPSENSE™ Proximity");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SLIDER, "CAPSENSE™ Slider");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM, "CAPSENSE™ Button");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM, "CAPSENSE™ Proximity");
+        attributesUUID.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM, "CAPSENSE™ Slider");
 
         // RGB Characteristics
         attributesUUID.put(UUIDDatabase.UUID_RGB_LED, "RGB LED");
@@ -525,7 +508,6 @@ public class GattAttributes {
         attributesUUID.put(UUIDDatabase.UUID_APPARENT_WIND_SPEED, "Apparent Wind Speed");
         attributesUUID.put(UUIDDatabase.UUID_APPEARANCE, "Appearance");
         attributesUUID.put(UUIDDatabase.UUID_BAROMETRIC_PRESSURE_TREND, "Barometric pressure Trend");
-        attributesUUID.put(UUIDDatabase.UUID_BLOOD_PRESSURE_MEASUREMENT, "Blood Pressure Measurement");
         attributesUUID.put(UUIDDatabase.UUID_BODY_COMPOSITION_FEATURE, "Body Composition Feature");
         attributesUUID.put(UUIDDatabase.UUID_BODY_COMPOSITION_MEASUREMENT, "Body Composition Measurement");
         attributesUUID.put(UUIDDatabase.UUID_BOND_MANAGEMENT_CONTROL_POINT, "Bond Management Control Point");
@@ -558,12 +540,8 @@ public class GattAttributes {
         attributesUUID.put(UUIDDatabase.UUID_EXACT_TIME_256, "Exact Time 256");
         attributesUUID.put(UUIDDatabase.UUID_FAT_BURN_HEART_RATE_LOWER_LIMIT, "Fat Burn Heart Rate lower Limit");
         attributesUUID.put(UUIDDatabase.UUID_FAT_BURN_HEART_RATE_UPPER_LIMIT, "Fat Burn Heart Rate Upper Limit");
-        attributesUUID.put(UUIDDatabase.UUID_FIRMWARE_REVISION, "Firmware Revision String");
         attributesUUID.put(UUIDDatabase.UUID_FIVE_ZONE_HEART_RATE_LIMITS, "Five Zone Heart Rate Limits");
-        attributesUUID.put(UUIDDatabase.UUID_MANUFACTURER_NAME, "Manufacturer Name String");
         attributesUUID.put(UUIDDatabase.UUID_GENDER, "Gender");
-        attributesUUID.put(UUIDDatabase.UUID_GLUCOSE_FEATURE, "Glucose Feature");
-        attributesUUID.put(UUIDDatabase.UUID_GLUCOSE_MEASUREMENT, "Glucose Measurement");
         attributesUUID.put(UUIDDatabase.UUID_HEART_RATE_MAX, "Heart Rate Max");
         attributesUUID.put(UUIDDatabase.UUID_HEAT_INDEX, "Heat Index");
         attributesUUID.put(UUIDDatabase.UUID_HEIGHT, "Height");
@@ -581,7 +559,6 @@ public class GattAttributes {
         attributesUUID.put(UUIDDatabase.UUID_MAGNETIC_FLUX_DENSITY_2D, "Magentic Flux Density 2D");
         attributesUUID.put(UUIDDatabase.UUID_MAGNETIC_FLUX_DENSITY_3D, "Magentic Flux Density 3D");
         attributesUUID.put(UUIDDatabase.UUID_MAXIMUM_RECOMMENDED_HEART_RATE, "Maximum Recommended Heart Rate");
-        attributesUUID.put(UUIDDatabase.UUID_MODEL_NUMBER, "Model Number String");
         attributesUUID.put(UUIDDatabase.UUID_NEW_ALERT, "New Alert");
         attributesUUID.put(UUIDDatabase.UUID_NAVIGATION, "Navigation");
         attributesUUID.put(UUIDDatabase.UUID_PERIPHERAL_PREFERRED_CONNECTION_PARAMETERS, "Peripheral Preferred Connection Parameters");
@@ -606,97 +583,56 @@ public class GattAttributes {
         attributesUUID.put(UUIDDatabase.UUID_ENVIRONMENTAL_SENSING_MEASUREMENT, "Environmental Sensing Measurement");
         attributesUUID.put(UUIDDatabase.UUID_ENVIRONMENTAL_SENSING_TRIGGER_SETTING, "Environmental Sensing Trigger Setting");
 
-        // Wearable Solution Demo
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_DEMO_SERVICE, "Wearable Demo");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_SERVICE, "Motion Sensor");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_FEATURE_CHARACTERISTIC, "Feature");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_DATA_CHARACTERISTIC, "Data");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_CONTROL_CHARACTERISTIC, "Control");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_LIFETIME_STEPS_CHARACTERISTIC, "Lifetime Steps");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_STEPS_GOAL_CHARACTERISTIC, "Steps Goal");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_CALORIES_GOAL_CHARACTERISTIC, "Calories Goal");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_FITNESS_TRACKER_CMD_CHARACTERISTIC, "Fitness Tracker Cmd");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_DURATION_GOAL_CHARACTERISTIC, "Duration Goal");
-        attributesUUID.put(UUIDDatabase.UUID_WEARABLE_MOTION_DISTANCE_GOAL_CHARACTERISTIC, "Distance Goal");
-
-        //RDK Report Attributes
-        rdkAttributesUUID.put(0, "Report Mouse");
-        rdkAttributesUUID.put(1, "Report Keyboard");
-        rdkAttributesUUID.put(2, "Report Multimedia");
-        rdkAttributesUUID.put(3, "Report Power");
-        rdkAttributesUUID.put(4, "Report Audio Control");
-        rdkAttributesUUID.put(5, "Report Audio Data");
-
         // Services Image Mapping.
-        attributesImageMap.put(UUIDDatabase.UUID_HEART_RATE_SERVICE, R.drawable.heart_rate);
-        attributesImageMap.put(UUIDDatabase.UUID_HEALTH_THERMOMETER_SERVICE,
-                R.drawable.thermometer_carousel);
-        attributesImageMap.put(UUIDDatabase.UUID_GENERIC_ACCESS_SERVICE,// "00001800-0000-1000-8000-00805f9b34fb",
-                R.drawable.gatt_db_dark_blue);
-        attributesImageMap.put(UUIDDatabase.UUID_GENERIC_ATTRIBUTE_SERVICE,// "00001801-0000-1000-8000-00805f9b34fb",
-                R.drawable.gatt_db_dark_blue);
-        attributesImageMap.put(UUIDDatabase.UUID_DEVICE_INFORMATION_SERVICE,// "0000180a-0000-1000-8000-00805f9b34fb",
-                R.drawable.device_info);
-        attributesImageMap.put(UUIDDatabase.UUID_BATTERY_SERVICE,// "0000180f-0000-1000-8000-00805f9b34fb",
-                R.drawable.battery);
+        attributesImageMap.put(UUIDDatabase.UUID_HEART_RATE_SERVICE, R.drawable.carousel_heart_rate);
+        attributesImageMap.put(UUIDDatabase.UUID_HEALTH_THERMOMETER_SERVICE, R.drawable.carousel_health_thermometer);
+        attributesImageMap.put(UUIDDatabase.UUID_GENERIC_ACCESS_SERVICE, R.drawable.carousel_gatt_db); // "00001800-0000-1000-8000-00805f9b34fb",
+        attributesImageMap.put(UUIDDatabase.UUID_GENERIC_ATTRIBUTE_SERVICE, R.drawable.carousel_gatt_db); // "00001801-0000-1000-8000-00805f9b34fb",
+        attributesImageMap.put(UUIDDatabase.UUID_DEVICE_INFORMATION_SERVICE, R.drawable.carousel_device_information); // "0000180a-0000-1000-8000-00805f9b34fb",
+        attributesImageMap.put(UUIDDatabase.UUID_BATTERY_SERVICE, R.drawable.carousel_battery); // "0000180f-0000-1000-8000-00805f9b34fb",
 
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, R.drawable.capsense);
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER, R.drawable.capsense_slider);
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY, R.drawable.capsense_slider);
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS, R.drawable.capsense_buttons);
-        attributesImageMap.put(UUIDDatabase.UUID_RGB_LED_SERVICE, R.drawable.rgb_led);
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, R.drawable.capsense);
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM, R.drawable.capsense_slider);
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM, R.drawable.capsense_slider);
-        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM, R.drawable.capsense_buttons);
-        attributesImageMap.put(UUIDDatabase.UUID_RGB_LED_SERVICE_CUSTOM, R.drawable.rgb_led);
-        attributesImageMap.put(UUIDDatabase.UUID_IMMEDIATE_ALERT_SERVICE, R.drawable.find_me);
-        attributesImageMap.put(UUIDDatabase.UUID_LINK_LOSS_SERVICE, R.drawable.proximity);
-        attributesImageMap.put(UUIDDatabase.UUID_TRANSMISSION_POWER_SERVICE, R.drawable.proximity);
-        attributesImageMap.put(UUIDDatabase.UUID_GLUCOSE_SERVICE, R.drawable.glucose);
-        attributesImageMap.put(UUIDDatabase.UUID_BLOOD_PRESSURE_SERVICE,
-                R.drawable.blood_pressure);
-        attributesImageMap.put(UUIDDatabase.UUID_RSC_SERVICE, R.drawable.rsc);
-        attributesImageMap.put(UUIDDatabase.UUID_CSC_SERVICE, R.drawable.cpc);
-        attributesImageMap.put(UUIDDatabase.UUID_BAROMETER_SERVICE, R.drawable.sensor_hub);
-        // Wearable Demo
-        attributesImageMap.put(UUIDDatabase.UUID_WEARABLE_DEMO_SERVICE, R.drawable.wearable_demo);
-        attributesImageMap.put(UUIDDatabase.UUID_WEARABLE_MOTION_SERVICE, R.drawable.wearable_motion_sensor);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, R.drawable.carousel_capsense);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER, R.drawable.carousel_capsense_slider);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY, R.drawable.carousel_capsense_slider);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS, R.drawable.carousel_capsense_buttons);
+        attributesImageMap.put(UUIDDatabase.UUID_RGB_LED_SERVICE, R.drawable.carousel_rgb_led);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, R.drawable.carousel_capsense);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM, R.drawable.carousel_capsense_slider);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM, R.drawable.carousel_capsense_slider);
+        attributesImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM, R.drawable.carousel_capsense_buttons);
+        attributesImageMap.put(UUIDDatabase.UUID_RGB_LED_SERVICE_CUSTOM, R.drawable.carousel_rgb_led);
+        attributesImageMap.put(UUIDDatabase.UUID_IMMEDIATE_ALERT_SERVICE, R.drawable.carousel_find_me);
+        attributesImageMap.put(UUIDDatabase.UUID_LINK_LOSS_SERVICE, R.drawable.carousel_proximity);
+        attributesImageMap.put(UUIDDatabase.UUID_TRANSMISSION_POWER_SERVICE, R.drawable.carousel_proximity);
+        attributesImageMap.put(UUIDDatabase.UUID_GLUCOSE_SERVICE, R.drawable.carousel_glucose);
+        attributesImageMap.put(UUIDDatabase.UUID_BLOOD_PRESSURE_SERVICE, R.drawable.carousel_blood_pressure);
+        attributesImageMap.put(UUIDDatabase.UUID_RSC_SERVICE, R.drawable.carousel_running_speed_and_cadence);
+        attributesImageMap.put(UUIDDatabase.UUID_CSC_SERVICE, R.drawable.carousel_cycling_speed_and_cadence);
+        attributesImageMap.put(UUIDDatabase.UUID_BAROMETER_SERVICE, R.drawable.carousel_sensor_hub);
 
         // CapSense Image Mapping
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, R.drawable.capsense);
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY,
-                R.drawable.capsense_proimity);
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER,
-                R.drawable.capsense_slider);
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS,
-                R.drawable.capsense_buttons);
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, R.drawable.capsense);
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM,
-                R.drawable.capsense_proimity);
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM,
-                R.drawable.capsense_slider);
-        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM,
-                R.drawable.capsense_buttons);
-        //RDK
-        attributesImageMap.put(UUIDDatabase.UUID_HID_SERVICE,
-                R.drawable.unknown);
-        //OTA_FU
-        attributesImageMap.put(UUIDDatabase.UUID_OTA_UPDATE_SERVICE,
-                R.drawable.otafu);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, R.drawable.carousel_capsense);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY, R.drawable.carousel_capsense_proximity);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER, R.drawable.carousel_capsense_slider);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS, R.drawable.carousel_capsense_buttons);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, R.drawable.carousel_capsense);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM, R.drawable.carousel_capsense_proximity);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM, R.drawable.carousel_capsense_slider);
+        attributesCapSenseImageMap.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM, R.drawable.carousel_capsense_buttons);
 
-        // Capsense Characteristics
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, "CapSense Services");
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, "CapSense Services");
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS, "CapSense Button");
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM, "CapSense Button");
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY, "CapSense Proximity");
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM, "CapSense Proximity");
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SLIDER, "CapSense Slider");
-        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM, "CapSense Slider");
+        attributesImageMap.put(UUIDDatabase.UUID_HID_SERVICE, R.drawable.carousel_unknown);
+        attributesImageMap.put(UUIDDatabase.UUID_OTA_UPDATE_SERVICE, R.drawable.carousel_bootloader);
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SERVICE, "CAPSENSE™ Services");
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM, "CAPSENSE™ Services");
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS, "CAPSENSE™ Button");
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_BUTTONS_CUSTOM, "CAPSENSE™ Button");
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY, "CAPSENSE™ Proximity");
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_PROXIMITY_CUSTOM, "CAPSENSE™ Proximity");
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SLIDER, "CAPSENSE™ Slider");
+        attributesCapSense.put(UUIDDatabase.UUID_CAPSENSE_SLIDER_CUSTOM, "CAPSENSE™ Slider");
 
-        /**
-         * Descriptor key value mapping
+        /*
+          Descriptor key value mapping
          */
         descriptorAttributes.put("0", "Reserved For Future Use");
         descriptorAttributes.put("1", "Boolean");
@@ -718,11 +654,11 @@ public class GattAttributes {
         descriptorAttributes.put("17", "signed 48-bit integer");
         descriptorAttributes.put("18", "signed 64-bit integer");
         descriptorAttributes.put("19", "signed 128-bit integer");
-        descriptorAttributes.put("20", "REGULATORY_CERTIFICATION_DATA_LIST-754 32-bit floating point");
-        descriptorAttributes.put("21", "REGULATORY_CERTIFICATION_DATA_LIST-754 64-bit floating point");
-        descriptorAttributes.put("22", "REGULATORY_CERTIFICATION_DATA_LIST-11073 16-bit SFLOAT");
-        descriptorAttributes.put("23", "REGULATORY_CERTIFICATION_DATA_LIST-11073 32-bit FLOAT");
-        descriptorAttributes.put("24", "REGULATORY_CERTIFICATION_DATA_LIST-20601 format");
+        descriptorAttributes.put("20", "IEEE-754 32-bit floating point");
+        descriptorAttributes.put("21", "IEEE-754 64-bit floating point");
+        descriptorAttributes.put("22", "IEEE-11073 16-bit SFLOAT");
+        descriptorAttributes.put("23", "IEEE-11073 32-bit FLOAT");
+        descriptorAttributes.put("24", "IEEE-20601 format");
         descriptorAttributes.put("25", "UTF-8 string");
         descriptorAttributes.put("26", "UTF-16 string");
         descriptorAttributes.put("27", "Opaque Structure");
@@ -734,14 +670,9 @@ public class GattAttributes {
         return name == null ? defaultName : name;
     }
 
-    public static String lookupReferenceRDK(int instanceid, String defaultName) {
-        String name = rdkAttributesUUID.get(instanceid);
-        return name == null ? defaultName : name;
-    }
-
     public static int lookupImage(UUID uuid) {
         int imageId = attributesImageMap.get(uuid) != null ? attributesImageMap
-                .get(uuid) : R.drawable.unknown;
+                .get(uuid) : R.drawable.carousel_unknown;
         return imageId;
     }
 
@@ -752,7 +683,7 @@ public class GattAttributes {
 
     public static int lookupImageCapSense(UUID uuid) {
         int imageId = attributesCapSenseImageMap.get(uuid) != null ? attributesCapSenseImageMap
-                .get(uuid) : R.drawable.unknown;
+                .get(uuid) : R.drawable.carousel_unknown;
         return imageId;
     }
 

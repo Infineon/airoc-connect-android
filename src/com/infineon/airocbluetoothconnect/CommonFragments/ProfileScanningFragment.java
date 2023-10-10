@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -79,6 +79,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.HomePageActivity;
 import com.infineon.airocbluetoothconnect.R;
@@ -89,29 +90,29 @@ import java.util.Map;
 
 public class ProfileScanningFragment extends FragmentWithPermissionCheck implements View.OnClickListener {
 
-    //Delay Time out
+    // Connection delay
     private static final long DELAY_MILLIS = 500;
 
     // Stops scanning after 2 seconds.
     private static final long SCAN_TIMEOUT = 2000;
     private boolean mScanning;
-    private Handler mScanTimeOutHandler = new Handler(Looper.getMainLooper());
-    private Runnable mScanTimeOutRunnable = new Runnable() {
+    private final Handler mScanTimeOutHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mScanTimeOutRunnable = new Runnable() {
         @Override
         public void run() {
             BluetoothLeScanner scanner = getScanner();
             if (scanner != null && getBluetoothAdapter().isEnabled()) {
                 mScanning = false;
                 stopScan();
-                mSwipeLayout.setRefreshing(false);
             }
+            mSwipeLayout.setRefreshing(false);
         }
     };
 
     // Connection time out after 10 seconds.
     private static final long CONNECTION_TIMEOUT = 10000;
-    private Handler mConnectTimeOutHandler = new Handler(Looper.getMainLooper());
-    private Runnable mConnectTimeOutRunnable = new Runnable() {
+    private final Handler mConnectTimeOutHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mConnectTimeOutRunnable = new Runnable() {
         @Override
         public void run() {
             Logger.e("PSF: connect: connection time out");
@@ -119,9 +120,9 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
             BluetoothLeService.disconnect();
             dismissProgressDialog();
             if (getActivity() != null) {
-                Toast.makeText(getActivity(), R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT).show();
+                ToastUtils.makeText(R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT);
                 clearDeviceList();
-                scanDevice(true);
+                setScanningState(true);
             }
         }
     };
@@ -152,9 +153,9 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
     private View mLocationDisabledAlertView;
     private Button mLocationEnableButton;
     private Button mLocationMoreButton;
-    
-    private Handler mShowKeyboardHandler = new Handler(Looper.getMainLooper());
-    private Runnable mShowKeyboardRunnable = new Runnable() {
+
+    private final Handler mShowKeyboardHandler = new Handler(Looper.getMainLooper());
+    private final Runnable mShowKeyboardRunnable = new Runnable() {
         @Override
         public void run() {
             View view = getActivity().getCurrentFocus();
@@ -169,7 +170,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
      * Call back for BLE Scan
      * This call back is called when a BLE device is found near by.
      */
-    private ScanCallback mScanCallback = new ScanCallback() {
+    private final ScanCallback mScanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, final ScanResult result) {
             if (callbackType != ScanSettings.CALLBACK_TYPE_ALL_MATCHES) {
@@ -214,14 +215,14 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
                 updateWithNewFragment();
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 Logger.d("PSF: connect: BluetoothLeService.ACTION_GATT_DISCONNECTED");
-                /**
-                 * Disconnect event.When the connect timer is ON, reconnect the device
-                 * else showToast disconnect message
+                /*
+                  Disconnect event.When the connect timer is ON, reconnect the device
+                  else showToast disconnect message
                  */
                 if (mConnectTimerON) {
-                    BluetoothLeService.reconnect();
+                    BluetoothLeService.reconnectLastDevice();
                 } else {
-                    Toast.makeText(getActivity(), R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT);
                 }
             } else if (LocationManager.PROVIDERS_CHANGED_ACTION.equals(action)) {
                 Logger.d("PSF: location: LocationManager.PROVIDERS_CHANGED_ACTION");
@@ -233,7 +234,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
     /**
      * TextWatcher for filtering the list devices
      */
-    private TextWatcher mTextWatcher = new TextWatcher() {
+    private final TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             mDeviceListAdapter.getFilter().filter(s.toString());
@@ -264,7 +265,6 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
         mLocationMoreButton.setOnClickListener(this);
         mDevRssiValues = new HashMap<>();
         mSwipeLayout = rootView.findViewById(R.id.swipe_container);
-        mSwipeLayout.setColorScheme(R.color.dark_blue, R.color.medium_blue, R.color.light_blue, R.color.faint_blue);
         mDeviceListView = rootView.findViewById(R.id.listView_profiles);
         mDeviceListAdapter = new DeviceListAdapter();
         mDeviceListView.setAdapter(mDeviceListAdapter);
@@ -277,28 +277,27 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
 
         prepareDeviceList();
 
-        /**
-         * Swipe listener,initiate a new scan on refresh. Stop the swipe refresh
-         * after 5 seconds
+        /*
+          Swipe listener,initiate a new scan on refresh. Stop the swipe refresh
+          after 5 seconds
          */
-        mSwipeLayout
-                .setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        mSearchMenuItem.collapseActionView();
-                        permissionManager.resetPermissionsCanBeAsked();
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSearchMenuItem.collapseActionView();
+                permissionManager.resetLocationAndBtPermissionsCanBeAsked();
 
-                        if (false == mScanning) {
-                            // Prepare list view and initiate scanning
-                            clearDeviceList();
-                            scanDevice(true);
-                        }
-                    }
-                });
+                if (!mScanning) {
+                    // Prepare list view and initiate scanning
+                    clearDeviceList();
+                    setScanningState(true);
+                }
+            }
+        });
 
-        /**
-         * Creating the dataLogger file and
-         * updating the dataLogger history
+        /*
+          Creating the dataLogger file and
+          updating the dataLogger history
          */
         Logger.createDataLoggerFile(getActivity());
         mDeviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -307,7 +306,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
                 if (mDeviceListAdapter.getCount() > 0) {
                     final BluetoothDevice device = mDeviceListAdapter.getDevice(position);
                     if (device != null) {
-                        scanDevice(false);
+                        setScanningState(false);
                         connectDevice(device);
                     }
                 }
@@ -324,7 +323,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 int topRowVerticalPosition = (mDeviceListView == null || mDeviceListView.getChildCount() == 0) ? 0 : mDeviceListView.getChildAt(0).getTop();
-                boolean newScrollEnabled = (firstVisibleItem == 0 && topRowVerticalPosition >= 0) ? true : false;
+                boolean newScrollEnabled = firstVisibleItem == 0 && topRowVerticalPosition >= 0;
                 if (mSwipeLayout != null && scrollEnabled != newScrollEnabled) {
                     // Start refreshing....
                     mSwipeLayout.setEnabled(newScrollEnabled);
@@ -346,10 +345,13 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
     public void onResume() {
         super.onResume();
         Utils.debug("PSF: lifecycle: onResume", this, getActivity());
-        if (getBluetoothAdapter().isEnabled()) {
+        BluetoothAdapter bluetoothAdapter = getBluetoothAdapter();
+        if (bluetoothAdapter != null && bluetoothAdapter.isEnabled()) {
             prepareDeviceList();
         }
         checkLocationEnabled();
+
+        permissionManager.checkAndRequestNotificationPermission();
         Logger.d("PSF: connect: registering mGattConnectReceiver");
         BluetoothLeService.registerBroadcastReceiver(getActivity(), mGattConnectReceiver, Utils.makeGattUpdateIntentFilter());
     }
@@ -372,7 +374,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
     @Override
     public void onDestroy() {
         Utils.debug("PSF: lifecycle: onDestroy", this, getActivity());
-        scanDevice(false);
+        setScanningState(false);
         clearDeviceList();
         mSwipeLayout.setRefreshing(false);
 
@@ -444,18 +446,15 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
             case R.id.location_more:
                 final AlertDialog alert[] = {null};
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.alert_message_location_required_title)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(final DialogInterface dialog, final int id) {
-                                CheckBox checkBox = alert[0].findViewById(R.id.dont_ask_again);
-                                if (checkBox.isChecked()) {
-                                    Utils.setBooleanSharedPreference(getActivity(), Constants.PREF_LOCATION_REQUIRED_DONT_ASK_AGAIN, true);
-                                    mLocationDisabledAlertView.setVisibility(View.GONE);
-                                }
-                            }
-                        })
-                        .setView(R.layout.dialog_location_required)
-                        .setCancelable(false);
+                builder.setTitle(R.string.alert_message_location_required_title).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        CheckBox checkBox = alert[0].findViewById(R.id.dont_ask_again);
+                        if (checkBox.isChecked()) {
+                            Utils.setBooleanSharedPreference(getActivity(), Constants.PREF_LOCATION_REQUIRED_DONT_ASK_AGAIN, true);
+                            mLocationDisabledAlertView.setVisibility(View.GONE);
+                        }
+                    }
+                }).setView(R.layout.dialog_location_required).setCancelable(false);
                 alert[0] = builder.show();
                 break;
             default:
@@ -474,7 +473,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
      * connection is 10 seconds. After 10 seconds it will disconnect if not
      * connected and initiate scan once more
      *
-     * @param device
+     * @param device : remote bluetooth device to connect
      */
     private void connectDevice(BluetoothDevice device) {
         mDeviceAddress = device.getAddress();
@@ -510,14 +509,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
     }
 
     private void showConnectionInProgressInfo(String deviceName, String deviceAddress) {
-        mProgressDialog.setMessage(getResources().getString(
-                R.string.alert_message_connect)
-                + "\n"
-                + deviceName
-                + "\n"
-                + deviceAddress
-                + "\n"
-                + getResources().getString(R.string.alert_message_wait));
+        mProgressDialog.setMessage(getResources().getString(R.string.alert_message_connect) + "\n" + deviceName + "\n" + deviceAddress + "\n" + getResources().getString(R.string.alert_message_wait));
         showProgressDialog();
     }
 
@@ -538,36 +530,43 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
      * Method to scan BLE Devices. The status of the scan will be detected in
      * the BluetoothAdapter.LeScanCallback
      *
-     * @param enable
+     * @param enable :
+     *               true to start scanning, if not started already
+     *               false to stop scanning, if we are scanning now
      */
-    private void scanDevice(final boolean enable) {
-        BluetoothLeScanner scanner = getScanner();
-        if (scanner != null && getBluetoothAdapter().isEnabled()) {
+    private void setScanningState(final boolean enable) {
+        // Stop scanning
+        if (!enable) {
+            cancelScanTimer();
+            mScanning = false;
+            mSwipeLayout.setRefreshing(false);
+            stopScan();
+            return;
+        }
 
-            boolean permissionsGranted = permissionManager.checkAndRequestAllPermissions();
+        // Scanning not possible
+        if (getScanner() == null) {
+            mSwipeLayout.setRefreshing(false);
+            return;
+        }
 
-            if (permissionsGranted) {
-                if (enable) {
-                    if (false == mScanning) {
-                        startScanTimer();
-                        mScanning = true;
-                        mSwipeLayout.setRefreshing(true);
-                        startScan();
-                    }
-                } else {
-                    cancelScanTimer();
-                    mScanning = false;
-                    mSwipeLayout.setRefreshing(false);
-                    stopScan();
-                }
-            } else {
-                mSwipeLayout.setRefreshing(false);
-            }
+        // Insufficient permissions
+        if (!permissionManager.checkAndRequestPrimaryPermissions()) {
+            mSwipeLayout.setRefreshing(false);
+            return;
+        }
+
+        // Start scanning if we aren't scanning at the moment
+        if (!mScanning) {
+            startScanTimer();
+            mScanning = true;
+            mSwipeLayout.setRefreshing(true);
+            startScan();
         }
     }
 
     private BluetoothLeScanner getScanner() {
-        permissionManager.checkAndRequestAllPermissions();
+        permissionManager.checkAndRequestPrimaryPermissions();
         BluetoothAdapter bluetoothAdapter = getBluetoothAdapter();
         if (bluetoothAdapter == null) {
             Logger.e("PSF: getScanner: cannot get BluetoothAdapter");
@@ -634,19 +633,19 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
         // Prepare list view and initiate scanning
         mDeviceListAdapter = new DeviceListAdapter();
         mDeviceListView.setAdapter(mDeviceListAdapter);
-        scanDevice(true);
+        setScanningState(true);
     }
 
     private void pairDevice(BluetoothDevice device) {
         boolean success = BluetoothLeService.pairDevice(device);
-        if (false == success) {
+        if (!success) {
             dismissProgressDialog();
         }
     }
 
     private void unpairDevice(BluetoothDevice device) {
         boolean success = BluetoothLeService.unpairDevice(device);
-        if (false == success) {
+        if (!success) {
             dismissProgressDialog();
         }
     }
@@ -655,10 +654,10 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
         // Since Marshmallow access to Location Service is required for BLE scan
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             boolean dontAskAgain = Utils.getBooleanSharedPreference(getActivity(), Constants.PREF_LOCATION_REQUIRED_DONT_ASK_AGAIN);
-            if (false == dontAskAgain) {
+            if (!dontAskAgain) {
                 LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 //                if (!lm.isLocationEnabled()) { // Available in API 28
-                if ((false == lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) && (false == lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
+                if ((!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) && (!lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
                     mLocationDisabledAlertView.setVisibility(View.VISIBLE);
                 } else {
                     mLocationDisabledAlertView.setVisibility(View.GONE);
@@ -697,22 +696,22 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
      */
     private class DeviceListAdapter extends BaseAdapter implements Filterable {
 
-        private LayoutInflater mInflator;
+        private final LayoutInflater mInflater;
         private int mRssiValue;
-        private ItemFilter mFilter = new ItemFilter();
+        private final ItemFilter mFilter = new ItemFilter();
 
         public DeviceListAdapter() {
             super();
             mDevices = new ArrayList<>();
             mFilteredDevices = new ArrayList<>();
-            mInflator = getActivity().getLayoutInflater();
+            mInflater = getActivity().getLayoutInflater();
         }
 
         private void addDevice(BluetoothDevice device, int rssi) {
             this.mRssiValue = rssi;
             // New device found
             mDevRssiValues.put(device.getAddress(), rssi);
-            if (false == mDevices.contains(device)) {
+            if (!mDevices.contains(device)) {
                 mDevices.add(device);
             }
         }
@@ -721,7 +720,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
             this.mRssiValue = rssi;
             // New device found
             mDevRssiValues.put(device.getAddress(), rssi);
-            if (false == mFilteredDevices.contains(device)) {
+            if (!mFilteredDevices.contains(device)) {
                 mFilteredDevices.add(device);
             }
         }
@@ -733,7 +732,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
         /**
          * Getter method to get the Bluetooth device
          *
-         * @param position
+         * @param position : index of device in list or filtered list
          * @return BluetoothDevice
          */
         public BluetoothDevice getDevice(int position) {
@@ -772,7 +771,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
             final ViewHolder viewHolder;
             // General ListView optimization code.
             if (view == null) {
-                view = mInflator.inflate(R.layout.listitem_device, viewGroup, false);
+                view = mInflater.inflate(R.layout.listitem_device, viewGroup, false);
                 viewHolder = new ViewHolder();
                 viewHolder.deviceAddress = view.findViewById(R.id.device_address);
                 viewHolder.deviceName = view.findViewById(R.id.device_name);
@@ -783,31 +782,38 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
                 viewHolder = (ViewHolder) view.getTag();
             }
 
-            /**
-             * Setting the name and the RSSI of the BluetoothDevice. provided it
-             * is a valid one
+            /*
+              Setting the name and the RSSI of the BluetoothDevice. provided it
+              is a valid one
              */
             final ArrayList<BluetoothDevice> devices = mFilteringActive ? mFilteredDevices : mDevices;
             final BluetoothDevice device = devices.get(position);
             final String deviceName = device.getName();
+            final String deviceAddress = device.getAddress();
+
+            // Set Address
+            viewHolder.deviceAddress.setText(deviceAddress);
+
+            // Set RSSI
+            if (mDevRssiValues.containsKey(deviceAddress)) {
+                viewHolder.deviceRssi.setText(String.valueOf(mDevRssiValues.get(deviceAddress)));
+            }
+
+            // Set Name and Bond state
             if (deviceName != null && deviceName.length() > 0) {
+                viewHolder.deviceName.setText(deviceName);
+
                 try {
-                    viewHolder.deviceName.setText(deviceName);
-                    viewHolder.deviceAddress.setText(device.getAddress());
-                    byte rssi = (byte) mDevRssiValues.get(device.getAddress()).intValue();
-                    if (rssi != 0) {
-                        viewHolder.deviceRssi.setText(String.valueOf(rssi));
-                    }
                     String pairStatus = (device.getBondState() == BluetoothDevice.BOND_BONDED) ? getActivity().getResources().getString(R.string.bluetooth_pair) : getActivity().getResources().getString(R.string.bluetooth_unpair);
                     viewHolder.pairStatus.setText(pairStatus);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             } else {
                 viewHolder.deviceName.setText(DEVICE_NAME_UNKNOWN);
-                viewHolder.deviceName.setSelected(true);
-                viewHolder.deviceAddress.setText(device.getAddress());
             }
+
             viewHolder.pairStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -866,6 +872,7 @@ public class ProfileScanningFragment extends FragmentWithPermissionCheck impleme
                 notifyDataSetChanged(); // notifies the data with new filtered values
             }
         }
+
     }
 
     private static BluetoothAdapter getBluetoothAdapter() {

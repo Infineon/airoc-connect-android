@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -281,10 +281,9 @@ public class Constants {
      */
     public static final int FIRST_BITMASK = 0x01;
     /**
-     * OTA and RDK Disable flags
+     * OTA flags
      */
     public static final boolean OTA_ENABLED = true;
-    public static final boolean RDK_ENABLED = true;
     public static final boolean GMS_ENABLED = true;
     /**
      * Fragment Tags
@@ -295,6 +294,7 @@ public class Constants {
     public static String ABOUT_FRAGMENT_TAG = "About";
     public static String GLUCOSE_ADDITIONAL_FRAGMENT_TAG = "glucose additional tag";
     public static String DATALOGER_HISTORY = "Data Logger";
+    public static String FRAGMENT_DATA_LOGER_TAG = "Data Logger tag";
     public static String PROFILE_CONTROL_FRAGMENT_TAG = "Services";
     public static String SERVICE_DISCOVERY_FRAGMENT_TAG = "Services_discovery";
     public static String FRAGMENT_TAG_SETTINGS = "Settings";
@@ -303,8 +303,8 @@ public class Constants {
     /**
      * DataLogger constants
      */
-    public static String DATA_LOGGER_FILE_NAME = "file name";
-    public static String DATA_LOGGER_FLAG = "Data Logger Flag";
+    public static String DATA_LOGGER_FILE_PATH = "file name";
+    public static String DATA_LOGGER_SHOW_HISTORY_FILES_FLAG = "Data Logger Flag";
 
     /**
      * Glucose Bundle constants

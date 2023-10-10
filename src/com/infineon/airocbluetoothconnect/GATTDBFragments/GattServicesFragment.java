@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -56,11 +56,12 @@ import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeServi
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
+import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.CommonUtils.UUIDDatabase;
 import com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp;
 import com.infineon.airocbluetoothconnect.ListAdapters.GattServiceListAdapter;
 import com.infineon.airocbluetoothconnect.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,7 +107,7 @@ public class GattServicesFragment extends Fragment {
         mBackButton.setVisibility(View.GONE);
 
         // Getting the service data from the application
-        mGattServiceData = mApplication.getGattServiceMasterData();
+        mGattServiceData = mApplication.getGattDbParser().getGattServiceMasterData();
 
         // Preparing list data
         // GAP and GATT attributes are not displayed
@@ -131,11 +132,10 @@ public class GattServicesFragment extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
                                     long arg3) {
                 mService = mModifiedServiceData.get(pos).get("UUID");
-                mGattCharacteristics = mService.getCharacteristics();
+                mGattCharacteristics = Utils.getServiceCharacteristics(mService);
                 String selectedServiceName = GattAttributes.lookupUUID(
                         mService.getUuid(),
-                        getResources().getString(
-                                R.string.profile_control_unknown_service));
+                        mService.getUuid().toString());
 
                 mApplication.setGattCharacteristics(mGattCharacteristics);
 
@@ -171,11 +171,9 @@ public class GattServicesFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -184,57 +182,8 @@ public class GattServicesFragment extends Fragment {
         Logger.e("Enabled characteristic size-->" + BluetoothLeService.mEnabledCharacteristics.size());
         if(BluetoothLeService.mEnabledCharacteristics.size() > 0){
             BluetoothLeService.disableAllEnabledCharacteristics();
-            Toast.makeText(getActivity(), getResources().
-                            getString(R.string.profile_control_stop_both_notify_indicate_toast),
-                    Toast.LENGTH_SHORT).show();
+            ToastUtils.makeText(R.string.profile_control_stop_both_notify_indicate_toast, Toast.LENGTH_SHORT);
         }
         super.onDestroy();
     }
-
-//    private void stopAllEnabledNotifications() {
-//        List<BluetoothGattService> bluetoothGattServices = BluetoothLeService.
-//                getSupportedGattServices();
-//        for (int count = 0; count < bluetoothGattServices.size(); count++) {
-//            List<BluetoothGattCharacteristic> bluetoothGattCharacteristics = bluetoothGattServices.
-//                    get(count).getCharacteristics();
-//            for (int pos = 0; pos < bluetoothGattCharacteristics.size(); pos++) {
-//                BluetoothGattCharacteristic bluetoothGattCharacteristic =
-//                        bluetoothGattCharacteristics.get(pos);
-//                BluetoothLeService.setCharacteristicNotification(bluetoothGattCharacteristic,
-//                        false, true);
-//                if (android.os.Build.VERSION.SDK_INT < 21) {
-//                    // only for below lollipop devices.
-//                    // Delay needed to handle each charachersitic.
-//                    Logger.e("Kitkat device");
-//                    try {
-//                        Thread.sleep(100);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//            }
-//        }
-//    }
-
-//    private class stopAllNotifications extends AsyncTask<String, Boolean, String> {
-//        @Override
-//        protected void onPreExecute() {
-//            Logger.e("onPreExecute");
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            stopAllEnabledNotifications();
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            Logger.e("onPostExecute");
-//            super.onPostExecute(s);
-//        }
-//    }
-
 }

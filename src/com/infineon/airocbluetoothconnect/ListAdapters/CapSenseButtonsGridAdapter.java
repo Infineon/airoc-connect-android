@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -94,9 +94,8 @@ public class CapSenseButtonsGridAdapter extends
         } else {
             holder = (ViewHolder) itemView.getTag();
         }
-        /**
-         * Setting the ImageResource and title using the data model.
-         */
+
+        // Setting the ImageResource and title using the data model.
         CapSenseButtonsGridModel item = mData.get(position);
         if (item != null) {
             holder.imgItem.setImageResource(item.getImage());
@@ -110,16 +109,16 @@ public class CapSenseButtonsGridAdapter extends
         if (position > 7) {
             int k = 1 << position - 8;
             if ((status16bit & k) > 0) {
-                holder.imgItem.setImageResource(R.drawable.green_color_btn);
+                holder.imgItem.setColorFilter(getContext().getColor(R.color.primary));
             } else {
-                holder.imgItem.setImageResource(R.drawable.capsense_btn_bg);
+                holder.imgItem.setColorFilter(getContext().getColor(R.color.accent));
             }
         } else {
             int k = 1 << position;
             if ((status8bit & k) > 0) {
-                holder.imgItem.setImageResource(R.drawable.green_color_btn);
+                holder.imgItem.setColorFilter(getContext().getColor(R.color.accent));
             } else {
-                holder.imgItem.setImageResource(R.drawable.capsense_btn_bg);
+                holder.imgItem.setColorFilter(getContext().getColor(R.color.primary));
             }
         }
 

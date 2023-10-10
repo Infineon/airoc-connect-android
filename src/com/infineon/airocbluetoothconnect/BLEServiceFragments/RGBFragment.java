@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -170,31 +170,6 @@ public class RGBFragment extends Fragment {
         setHasOptionsMenu(true);
         return mRootView;
     }
-
-//    private void getColorPickerInitialPosition() {
-//        ViewTreeObserver observer = mColorPicker.getViewTreeObserver();
-//        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                mColorPicker.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                int[] locations = new int[2];
-//                mColorPicker.getLocationOnScreen(locations);
-//                int x = locations[0];
-//                int y = locations[1];
-//                if (x < mBitmap.getWidth() && y < mBitmap.getHeight()) {
-//                    int p = mBitmap.getPixel(x, y);
-//                    int rgb = getRGB(p);
-//                    if (rgb != 0) {
-//                        mRed = Color.red(p);
-//                        mGreen = Color.green(p);
-//                        mBlue = Color.blue(p);
-//                        Logger.i(Utils.formatForRootLocale("RGB: 0x%02x%02x%02x", mRed, mGreen, mBlue));
-//                        updateUI();
-//                    }
-//                }
-//            }
-//        });
-//    }
 
     private void updateColorPickerPosition() {
         float x = getWidth() * mRgbCanvas.getMeasuredWidth();
@@ -381,11 +356,9 @@ public class RGBFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -1,79 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/parent"
+    android:background="@color/background"
     android:clickable="true"
-    android:background="@color/white">
+    android:orientation="vertical"
+    android:padding="@dimen/padding_default">
 
     <LinearLayout
         android:id="@+id/linkloss_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="05dp"
-        android:paddingRight="05dp"
-        android:paddingTop="10dp"
         android:visibility="gone">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/find_linkloss"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/find_textsize" />
+            android:text="@string/find_linkloss" />
 
         <com.infineon.airocbluetoothconnect.CommonUtils.CustomSpinner
             android:id="@+id/linkloss_spinner"
             android:layout_width="0dp"
-            android:prompt="@string/find_spinner_prompt"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:prompt="@string/find_spinner_prompt" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/actionbar_bg_color" />
+        android:background="@color/primary" />
 
     <LinearLayout
         android:id="@+id/immalert_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="05dp"
-        android:paddingRight="05dp"
-        android:paddingTop="10dp"
         android:visibility="gone">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/find_immediate_alert"
-            android:textColor="@color/actionbar_bg_color"
-            android:textSize="@dimen/find_textsize" />
+            android:text="@string/find_immediate_alert" />
 
         <com.infineon.airocbluetoothconnect.CommonUtils.CustomSpinner
             android:id="@+id/immediate_spinner"
             android:layout_width="0dp"
-            android:prompt="@string/find_spinner_prompt"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:prompt="@string/find_spinner_prompt" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/actionbar_bg_color" />
+        android:background="@color/primary" />
 
     <LinearLayout
         android:id="@+id/transmission_layout"
@@ -81,36 +68,29 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="@dimen/padding_default"
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/medium_icon"
+            android:layout_height="@dimen/medium_icon"
             android:layout_gravity="center"
-            android:padding="10dp"
             android:contentDescription="@string/image_bluetooth_logo"
-            android:src="@drawable/blutooth_icon" />
+            android:src="@drawable/icon_bluetooth"
+            app:tint="@color/accent" />
 
         <TextView
             android:id="@+id/findme_tx_power_txt"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="@dimen/textsize_small"
-            android:textStyle="bold"
-            android:textColor="@color/main_bg_color"
             android:gravity="end" />
 
         <TextView
             android:id="@+id/findme_tx_power_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="@dimen/textsize_very_small"
-            android:textColor="@color/main_bg_color"
-            android:text="@string/device_signal_strength_unit"
-            android:gravity="start" />
+            android:gravity="start"
+            android:text="@string/device_signal_strength_unit" />
     </LinearLayout>
 
     <RelativeLayout
@@ -127,7 +107,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/image_transmission_background_circle_logo"
-            android:src="@drawable/find_me_blue_circle" />
+            android:src="@drawable/find_me_blue_circle"
+            app:tint="@color/accent" />
 
         <ImageView
             android:id="@+id/findme_tx_power_img"
@@ -136,7 +117,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/image_transmission_foreground_circle_logo"
-            android:src="@drawable/white_circle2" />
+            android:src="@drawable/white_circle2"
+            app:tint="@color/background" />
     </RelativeLayout>
 
 </LinearLayout>

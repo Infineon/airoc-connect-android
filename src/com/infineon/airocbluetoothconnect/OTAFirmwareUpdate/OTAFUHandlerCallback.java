@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -34,17 +34,16 @@
 package com.infineon.airocbluetoothconnect.OTAFirmwareUpdate;
 
 import android.content.Context;
-import androidx.core.app.NotificationCompat;
 
 public interface OTAFUHandlerCallback {
 
-    public void showErrorDialogMessage(String errorMessage, final boolean stayOnPage);
+    void showErrorDialogMessage(String errorMessage, final boolean stayOnPage);
 
-    public boolean isSecondFileUpdateNeeded();
+    boolean isSecondFileUpdateNeeded();
 
-    public String saveAndReturnDeviceAddress();
+    String saveAndReturnDeviceAddress();
 
-    public void setFileUpgradeStarted(boolean status);
+    void setFileUpgradeStarted(boolean status);
 
-    public void generatePendingNotification(Context context);
+    void generatePendingNotification(Context context);
 }

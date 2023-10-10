@@ -3,87 +3,59 @@
     android:id="@+id/parent_ota_type"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     android:clickable="true"
     android:orientation="vertical"
+    android:padding="@dimen/padding_default"
     android:scrollbars="none">
 
     <TextView
         android:id="@+id/textView"
+        style="@style/Infineon.TextView.Header"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/ota_list"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/main_bg_color"
-        android:textSize="@dimen/find_textsize"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content"
+        android:text="@string/ota_list" />
 
-    <Button
-        android:id="@+id/ota_app_download"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/padding_child_ten"
-        android:layout_weight="1"
-        android:background="@drawable/ota_list_selector"
-        android:gravity="center"
-        android:padding="@dimen/padding_child_ten"
-        android:text="@string/ota_list_app_download"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@drawable/ota_text_selecter"
-        android:textSize="@dimen/textsize_tiny" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/ota_app_stack_comb"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/padding_child_ten"
-        android:layout_weight="1"
-        android:background="@drawable/ota_list_selector"
-        android:gravity="center"
-        android:padding="@dimen/padding_child_ten"
-        android:text="@string/ota_list_app_stack_down_comb"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@drawable/ota_text_selecter"
-        android:textSize="@dimen/textsize_tiny" />
+        <Button
+            android:id="@+id/ota_app_download"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/ota_list_app_download" />
 
-    <Button
-        android:id="@+id/ota_app_stack_seperate"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/padding_child_ten"
-        android:layout_weight="1"
-        android:background="@drawable/ota_list_selector"
-        android:gravity="center"
-        android:padding="@dimen/padding_child_ten"
-        android:text="@string/ota_list_app_stack_down_sep"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@drawable/ota_text_selecter"
-        android:textSize="@dimen/textsize_tiny" />
+        <Button
+            android:id="@+id/ota_app_stack_comb"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/ota_list_app_stack_down_comb" />
+
+        <Button
+            android:id="@+id/ota_app_stack_seperate"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/ota_list_app_stack_down_sep" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/file_status"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:padding="10dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/main_bg_color"
-        android:textSize="@dimen/textsize_tiny"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_default"
+        android:gravity="center"
+        android:text="STATUS_PLACEHOLDER"
+        android:textSize="@dimen/text_size_small" />
 
     <RelativeLayout
         android:id="@+id/progress_bar_top_rel_lay"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:padding="10dp"
+        android:layout_height="70dp"
+        android:paddingHorizontal="5dp"
+        android:paddingTop="@dimen/padding_default"
         android:visibility="invisible">
 
         <com.infineon.airocbluetoothconnect.CommonUtils.TextProgressBar
@@ -91,6 +63,10 @@
             style="@style/CustomProgressBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:visibility="visible" />
 
         <TextView
@@ -98,23 +74,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="70dp"
+            android:paddingStart="@dimen/padding_default"
+            android:paddingEnd="50dp"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/main_bg_color" />
+            android:text="OTA_FILE1_NAME_PLACEHOLDER"
+            android:textSize="@dimen/text_size_small" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/progress_bar_bottom_rel_lay"
         style="@style/CustomProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:padding="10dp"
+        android:layout_height="70dp"
+        android:paddingHorizontal="5dp"
+        android:paddingTop="@dimen/padding_default"
         android:visibility="invisible">
 
         <com.infineon.airocbluetoothconnect.CommonUtils.TextProgressBar
@@ -122,31 +99,39 @@
             style="@style/CustomProgressBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:visibility="visible" />
 
         <TextView
             android:id="@+id/upgrade_progress_bar_bottom_filename"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:gravity="start|center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="70dp"
+            android:paddingStart="@dimen/padding_default"
+            android:paddingEnd="50dp"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/main_bg_color" />
+            android:text="OTA_FILE2_NAME_PLACEHOLDER"
+            android:textSize="@dimen/text_size_small" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/stop_upgrade_button"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="@drawable/button_selector"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/padding_default"
         android:text="@string/ota_stop"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/textsize_very_small"
         android:visibility="invisible" />
 </LinearLayout>

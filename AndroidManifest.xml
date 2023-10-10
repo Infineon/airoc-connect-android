@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.infineon.airocbluetoothconnect"
-    >
+    package="com.infineon.airocbluetoothconnect">
 
     <!--
     Declare this required feature if you want to make the app available to BLE-capable
@@ -23,14 +22,14 @@
     <!-- Needed to communicates with already-paired Bluetooth devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!-- Needed to copy cyacd/cyacd2 files from external storage to application folder -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- Needed for Android 13 and further versions to send OTA progress notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!--
     Apps that target Android 10 (API level 29) can still request the requestLegacyExternalStorage attribute.
@@ -69,7 +68,8 @@
         <receiver
             android:name=".BLEStatusReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="com.example.bluetooth.le.ACTION_GATT_DISCONNECTED" />
             </intent-filter>
@@ -78,29 +78,26 @@
         <activity
             android:name="com.infineon.airocbluetoothconnect.SplashPageActivity"
             android:configChanges="orientation|screenSize"
+            android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
         </activity>
 
-        <!--NOTE: android:launchMode changed from "singleTask" to "standard" to allow creation of new instances of HPA (instead of reusing existing ones)
-        for startActivity with flags Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK-->
+        <!--NOTE: android:launchMode changed from "standard" to "singleTask" to resolve PRODTOOLS-10517-->
         <activity
             android:name="com.infineon.airocbluetoothconnect.HomePageActivity"
             android:configChanges="orientation|screenSize"
-            android:launchMode="standard"
+            android:exported="true"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="true">
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable"></meta-data>
+                android:resource="@xml/searchable" />
             <!-- For email attachments -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -165,15 +162,13 @@
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".HomePageActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".DataLoggerFragments.DataLoggerHistoryList"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".HomePageActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

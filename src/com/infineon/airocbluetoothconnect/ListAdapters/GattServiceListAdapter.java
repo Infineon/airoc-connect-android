@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -96,8 +96,7 @@ public class GattServiceListAdapter extends BaseAdapter {
         BluetoothGattService bgs = item.get("UUID");
         String name = GattAttributes.lookupUUID(
                 bgs.getUuid(),
-                mContext.getResources().getString(
-                        R.string.profile_control_unknown_service));
+                bgs.getUuid().toString());
 
 
         viewHolder.serviceName.setText(name);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -33,6 +33,8 @@
 
 package com.infineon.airocbluetoothconnect.GATTDBFragments;
 
+import static com.infineon.airocbluetoothconnect.CommonUtils.Utils.getApplicationCharacteristics;
+
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -55,11 +57,11 @@ import androidx.fragment.app.FragmentManager;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
-import com.infineon.airocbluetoothconnect.CommonUtils.UUIDDatabase;
 import com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp;
 import com.infineon.airocbluetoothconnect.ListAdapters.GattCharacteriscticsListAdapter;
 import com.infineon.airocbluetoothconnect.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -113,7 +115,7 @@ public class GattCharacteristicsFragment extends Fragment {
             }
         });
         // Getting the GATT characteristics from application
-        mGattCharacteristics = mApplication.getGattCharacteristics();
+        mGattCharacteristics = getApplicationCharacteristics(mApplication);
 
         // Getting the selected service from the arguments
         Bundle bundle = this.getArguments();
@@ -140,10 +142,6 @@ public class GattCharacteristicsFragment extends Fragment {
                 String characteristicuuid = mGattCharacteristics.get(pos).getUuid().toString();
                 String characteristicsname = GattAttributes.lookupUUID(mGattCharacteristics.get(pos).getUuid(),
                         characteristicuuid);
-                //Report Reference lookup based on InstanceId
-                if (mGattCharacteristics.get(pos).getUuid().equals(UUIDDatabase.UUID_REPORT)) {
-                    characteristicsname = GattAttributes.lookupReferenceRDK(mGattCharacteristics.get(pos).getInstanceId(), characteristicsname);
-                }
 
                 /**
                  * Passing the characteristic details to GattDetailsFragment and
@@ -171,11 +169,9 @@ public class GattCharacteristicsFragment extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -41,8 +41,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.graphics.Paint;
+import android.graphics.Canvas;
 
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
+
+import com.infineon.airocbluetoothconnect.R;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

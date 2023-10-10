@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -227,9 +227,7 @@ public class BatteryInformationService extends Fragment {
                 mReadCharacteristic = gattCharacteristic;
                 mNotifyCharacteristic = gattCharacteristic;
 
-                /**
-                 * Checking the various GattCharacteristics and listing in the ListView
-                 */
+                // Checking the various GattCharacteristics and listing in the ListView
                 if (checkCharacteristicsPropertyPresence(gattCharacteristic.getProperties(),
                         BluetoothGattCharacteristic.PROPERTY_READ)) {
                     mReadButton.setVisibility(View.VISIBLE);
@@ -295,11 +293,9 @@ public class BatteryInformationService extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

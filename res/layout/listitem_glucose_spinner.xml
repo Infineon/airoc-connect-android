@@ -16,23 +16,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:padding="@dimen/padding_child_ten">
+    android:layout_gravity="center">
 
     <TextView
         android:id="@+id/record_sequence_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="11"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:text="11" />
 
     <TextView
         android:id="@+id/dash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/record_sequence_no"
-        android:text=" - "
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:paddingHorizontal="2dp"
+        android:text=" - "/>
 
     <TextView
         android:id="@+id/record_time"
@@ -40,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/dash"
         android:singleLine="true"
-        android:text="27 Jul 2014, 20:33:46"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+        android:text="27 Jul 2014, 20:33:46" />
 
     <TextView
         android:id="@+id/comma"
@@ -49,8 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/record_time"
         android:text=", "
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:paddingHorizontal="2dp"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/record_time_offset"
@@ -58,7 +56,6 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/comma"
         android:singleLine="true"
-        android:text="11min"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:text="11min" />
 
 </RelativeLayout>

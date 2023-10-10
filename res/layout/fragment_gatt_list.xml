@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:clickable="true"
-    android:background="@color/white" >
+    android:padding="@dimen/padding_default">
 
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true">
 
         <TextView
             android:id="@+id/txtservices"
+            style="@style/Infineon.TextView.Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/gatt_services_heading"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_bg_color"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:text="@string/gatt_services_heading" />
 
         <ImageView
             android:id="@+id/imgback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/app_name"
-            android:padding="10dp"
-            android:src="@drawable/back_btn" />
+            android:padding="@dimen/padding_default"
+            android:src="@drawable/icon_back"
+            app:tint="@color/primary" />
+
     </RelativeLayout>
 
     <ListView
@@ -46,7 +43,6 @@
         android:layout_margin="5dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp"
-        android:padding="5dp" >
-    </ListView>
+        android:padding="5dp" />
 
 </RelativeLayout>

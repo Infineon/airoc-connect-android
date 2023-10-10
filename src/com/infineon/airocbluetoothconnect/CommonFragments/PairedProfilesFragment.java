@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -68,6 +68,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.HomePageActivity;
 import com.infineon.airocbluetoothconnect.R;
@@ -91,7 +92,7 @@ public class PairedProfilesFragment extends FragmentWithPermissionCheck {
             BluetoothLeService.disconnect();
             dismissProgressDialog();
             if (getActivity() != null) {
-                Toast.makeText(getActivity(), R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT).show();
+                ToastUtils.makeText(R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT);
                 getBondedDevices();
             }
         }
@@ -153,9 +154,9 @@ public class PairedProfilesFragment extends FragmentWithPermissionCheck {
                  * else showToast disconnect message
                  */
                 if (mConnectTimerON) {
-                    BluetoothLeService.reconnect();
+                    BluetoothLeService.reconnectLastDevice();
                 } else {
-                    Toast.makeText(getActivity(), R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT).show();
+                    ToastUtils.makeText(R.string.profile_cannot_connect_message, Toast.LENGTH_SHORT);
                 }
             } else if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
                 getBondedDevices();
@@ -191,8 +192,6 @@ public class PairedProfilesFragment extends FragmentWithPermissionCheck {
 
         View rootView = inflater.inflate(R.layout.fragment_profile_scan, container, false);
         mSwipeLayout = rootView.findViewById(R.id.swipe_container);
-        mSwipeLayout.setColorScheme(R.color.dark_blue, R.color.medium_blue, R.color.light_blue, R.color.faint_blue);
-
         mDeviceListView = rootView.findViewById(R.id.listView_profiles);
         mDeviceListAdapter = new DeviceListAdapter();
         mDeviceListView.setAdapter(mDeviceListAdapter);
@@ -269,9 +268,12 @@ public class PairedProfilesFragment extends FragmentWithPermissionCheck {
     public void onResume() {
         super.onResume();
         Utils.debug("PPF: lifecycle: onResume", this, getActivity());
-        if (getBluetoothAdapter().isEnabled()) {
+
+        BluetoothAdapter bluetoothAdapter = getBluetoothAdapter();
+        if (bluetoothAdapter != null && bluetoothAdapter.isEnabled()) {
             prepareDeviceList();
         }
+
         Logger.d("PPF: connect: registering mGattConnectReceiver");
         BluetoothLeService.registerBroadcastReceiver(getActivity(), mGattConnectReceiver, Utils.makeGattUpdateIntentFilter());
     }
@@ -438,15 +440,24 @@ public class PairedProfilesFragment extends FragmentWithPermissionCheck {
 
     private void getBondedDevices() {
         mDeviceListAdapter.clear();
-        if(permissionManager.isBluetoothPermissionGranted()) {
-            Set<BluetoothDevice> bondedDevices = getBluetoothAdapter().getBondedDevices();
-            if (bondedDevices != null) {
-                for (BluetoothDevice device : bondedDevices) {
-                    mDeviceListAdapter.addDevice(device);
-                }
-            }
-            notifyDeviceListUpdated();
+
+        if (!permissionManager.isBluetoothPermissionGranted()) {
+            return;
         }
+
+        BluetoothAdapter bluetoothAdapter = getBluetoothAdapter();
+        if (bluetoothAdapter == null) {
+            return;
+        }
+
+        Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
+        if (bondedDevices == null) {
+            return;
+        }
+        for (BluetoothDevice device : bondedDevices) {
+            mDeviceListAdapter.addDevice(device);
+        }
+        notifyDeviceListUpdated();
     }
 
     private void startConnectTimer() {
@@ -659,6 +670,7 @@ public class PairedProfilesFragment extends FragmentWithPermissionCheck {
                 notifyDataSetChanged(); // notifies the data with new filtered values
             }
         }
+
     }
 
     private static BluetoothAdapter getBluetoothAdapter() {

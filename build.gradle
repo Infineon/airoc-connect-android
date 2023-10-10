@@ -1,23 +1,21 @@
 def appName = "AIROC™ Bluetooth® Connect App"
-def appVersion = "1.4.0"
+def appVersion = "1.5.0"
 
 apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
         google()
     }
 }
@@ -29,14 +27,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
-
-//	  testImplementation 'junit:junit:4.12'
-//	  androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//	  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -59,17 +53,13 @@ android {
     }
     defaultConfig {
         minSdkVersion 28
-        targetSdkVersion 31
+        targetSdkVersion 33
 
-        // BUILD_NUMBER is set by build.sh
+        // Get BUILD_NUMBER from environment if possible. 1 is the least possible build number
         def buildNumber = "${System.getenv('BUILD_NUMBER') ?: 1}".toInteger()
         def version = "${appVersion}.${buildNumber}"
         versionName "$version"
         versionCode buildNumber
-
-        // Remove non-ascii characters and spaces
-        def appNameAscii = appName.replaceAll("\\P{Print}", "").replaceAll(" ", "_");
-        setProperty("archivesBaseName", "${appNameAscii}_${version}")
     }
     buildTypes {
         release {

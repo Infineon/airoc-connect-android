@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -43,10 +43,10 @@ import android.widget.TextView;
 
 import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
-import com.infineon.airocbluetoothconnect.CommonUtils.UUIDDatabase;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,14 +85,14 @@ public class GattCharacteriscticsListAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         // General ListView optimization code.
         if (view == null) {
-            LayoutInflater mInflator = (LayoutInflater) mContext
+            LayoutInflater mInflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = mInflator.inflate(R.layout.gattdb_characteristics_list_item,
+            view = mInflater.inflate(R.layout.gattdb_characteristic_list_item,
                     viewGroup, false);
             viewHolder = new ViewHolder();
             viewHolder.serviceName = (TextView) view
                     .findViewById(R.id.txtservicename);
-            viewHolder.propertyName = (TextView) view
+            viewHolder.supportedProperties = (TextView) view
                     .findViewById(R.id.txtstatus);
             view.setTag(viewHolder);
         } else {
@@ -103,51 +103,24 @@ public class GattCharacteriscticsListAdapter extends BaseAdapter {
 
         String name = GattAttributes.lookupUUID(item.getUuid(), Utils.getUuidShort(item.getUuid().toString()));
 
-        //Report Reference lookup based on InstanceId
-        if (item.getUuid().equals(UUIDDatabase.UUID_REPORT)) {
-            name = GattAttributes.lookupReferenceRDK(item.getInstanceId(), name);
-        }
-
         viewHolder.serviceName.setText(name);
-        String properties;
-        String read = null, write = null, notify = null;
-
-        /**
-         * Checking the various GattCharacteristics and listing in the ListView
-         */
+        List<String> supportedProps = new ArrayList<>();
         if (BluetoothLeService.isPropertySupported(item, BluetoothGattCharacteristic.PROPERTY_READ)) {
-            read = mContext.getString(R.string.gatt_services_read);
+            supportedProps.add(mContext.getString(R.string.gatt_services_read));
         }
         if (BluetoothLeService.isPropertySupported(item, BluetoothGattCharacteristic.PROPERTY_WRITE | BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE)) {
-            write = mContext.getString(R.string.gatt_services_write);
+            supportedProps.add(mContext.getString(R.string.gatt_services_write));
         }
         if (BluetoothLeService.isPropertySupported(item, BluetoothGattCharacteristic.PROPERTY_NOTIFY)) {
-            notify = mContext.getString(R.string.gatt_services_notify);
+            supportedProps.add(mContext.getString(R.string.gatt_services_notify));
         }
         if (BluetoothLeService.isPropertySupported(item, BluetoothGattCharacteristic.PROPERTY_INDICATE)) {
-            notify = mContext.getString(R.string.gatt_services_indicate);
+            supportedProps.add(mContext.getString(R.string.gatt_services_indicate));
         }
-        // Handling multiple properties listing in the ListView
-        if (read != null) {
-            properties = read;
-            if (write != null) {
-                properties = properties + " & " + write;
-            }
-            if (notify != null) {
-                properties = properties + " & " + notify;
-            }
-        } else {
-            if (write != null) {
-                properties = write;
 
-                if (notify != null) {
-                    properties = properties + " & " + notify;
-                }
-            } else {
-                properties = notify;
-            }
-        }
-        viewHolder.propertyName.setText(properties);
+        String placeholderText = String.join(" & ", supportedProps);
+        viewHolder.supportedProperties.setText(placeholderText);
+
         return view;
     }
 
@@ -155,7 +128,7 @@ public class GattCharacteriscticsListAdapter extends BaseAdapter {
      * Holder class for the ListView variable
      */
     class ViewHolder {
-        TextView serviceName, propertyName;
+        TextView serviceName, supportedProperties;
 
     }
 }

@@ -2,24 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_border_primary_color"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:background="@drawable/list_bg_small"
-    android:paddingRight="20dp"
-    android:paddingLeft="20dp">
+    android:orientation="horizontal">
 
-
-        <TextView
-            android:id="@+id/txtservicename"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:focusable="false"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_bg_color"
-            android:textSize="20sp" />
+    <TextView
+        android:id="@+id/txtservicename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="false"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true" />
 
 </LinearLayout>

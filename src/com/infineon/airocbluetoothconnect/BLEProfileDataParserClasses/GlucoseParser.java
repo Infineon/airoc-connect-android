@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -34,7 +34,6 @@
 package com.infineon.airocbluetoothconnect.BLEProfileDataParserClasses;
 
 import android.bluetooth.BluetoothGattCharacteristic;
-import android.os.Handler;
 import android.os.Parcel;
 import android.util.SparseArray;
 
@@ -295,17 +294,19 @@ public class GlucoseParser {
                     Logger.e("RESPONSE_SUCCESS");
                     break;
                 case RESPONSE_NO_RECORDS_FOUND:
-                    Logger.e("RESPONSE_SUCCESS");
+                    Logger.e("RESPONSE_NO_RECORDS_FOUND");
                     break;
                 case RESPONSE_OP_CODE_NOT_SUPPORTED:
-                    Logger.e("RESPONSE_SUCCESS");
+                    Logger.e("RESPONSE_OP_CODE_NOT_SUPPORTED");
                     break;
                 case RESPONSE_PROCEDURE_NOT_COMPLETED:
-                    Logger.e("RESPONSE_SUCCESS");
+                    Logger.e("RESPONSE_PROCEDURE_NOT_COMPLETED");
+                    break;
                 case RESPONSE_ABORT_UNSUCCESSFUL:
-                    Logger.e("RESPONSE_SUCCESS");
+                    Logger.e("RESPONSE_ABORT_UNSUCCESSFUL");
+                    break;
                 default:
-                    Logger.e("RESPONSE_UNKOWN");
+                    Logger.e("RESPONSE_UNKNOWN");
                     break;
             }
         }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/white"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@color/background"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_default">
 
     <LinearLayout
         android:id="@+id/chart_container"
@@ -16,7 +17,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/csc_cadence_graph_title" />
@@ -27,337 +28,271 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/parent_csc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
+
+            android:gravity="center|top"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/weight_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/weight_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="end|center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/rsc_weight" />
+
+                        <EditText
+                            android:id="@+id/weight_data"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:digits="0123456789."
+                            android:inputType="numberDecimal" />
+
+                        <TextView
+                            android:id="@+id/weight_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            android:text="@string/rsc_weight_unit" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/radius_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="end|center_vertical"
+                            android:maxLines="1"
+                            android:text="@string/csc_radius" />
+
+                        <EditText
+                            android:id="@+id/radius_data"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:digits="0123456789."
+                            android:inputType="numberDecimal" />
+
+                        <TextView
+                            android:id="@+id/radius_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            android:singleLine="true"
+                            android:text="@string/csc_radius_unit" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <Button
+                    android:id="@+id/start_stop_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_default"
+                    android:text="@string/button_start" />
+
                 <LinearLayout
+                    android:id="@+id/time_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/padding_default">
 
                     <TextView
-                        android:id="@+id/weight_title"
+                        android:id="@+id/time_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        android:padding="10dp"
-                        android:text="@string/rsc_weight"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_medium" />
+                        android:text="@string/rsc_time" />
 
-                    <EditText
-                        android:id="@+id/weight_data"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789."
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_medium"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/weight_unit"
+                    <Chronometer
+                        android:id="@+id/time_counter"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/rsc_weight_unit"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_medium" />
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:gravity="center" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/radius_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        android:padding="10dp"
-                        android:text="@string/csc_radius"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_medium" />
-
-                    <EditText
-                        android:id="@+id/radius_data"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789."
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_medium"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/radius_unit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:singleLine="true"
-                        android:text="@string/csc_radius_unit"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_medium" />
                 </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/lining"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/actionbar_bg_color" />
-
-            <Button
-                android:id="@+id/start_stop_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@drawable/button_selector"
-                android:paddingEnd="50dp"
-                android:paddingStart="50dp"
-                android:text="@string/blood_pressure_start_btn"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/textsize_very_small">
-
-            </Button>
 
             <LinearLayout
-                android:id="@+id/time_layout"
+                android:id="@+id/parent_csc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/time_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:padding="10dp"
-                    android:text="@string/rsc_time"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-
-                <Chronometer
-                    android:id="@+id/time_counter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_very_small" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/scroll_csc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <TextView
-                    android:id="@+id/lining2"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_alignParentTop="true"
-                    android:background="@color/actionbar_bg_color" />
+                    android:background="@color/primary" />
 
                 <LinearLayout
-                    android:id="@+id/cycling_layout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center|center_vertical"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="25dp"
-                        android:layout_marginTop="25dp"
-                        android:gravity="center|center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingTop="@dimen/padding_default">
 
                         <ImageView
                             android:id="@+id/cycling_icon"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_width="@dimen/big_icon"
+                            android:layout_height="@dimen/big_icon"
+                            android:layout_marginRight="@dimen/padding_default"
                             android:contentDescription="@string/image_hrm_measurement_heart"
-                            android:src="@drawable/cycle" />
+                            android:src="@drawable/icon_cycle"
+                            app:tint="@color/accent" />
 
-                        <TextView
-                            android:id="@+id/cycling_distance"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:padding="10dp"
-                            android:singleLine="true"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="@dimen/textsize_small"
-                            android:textStyle="bold" />
+                            android:gravity="left"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/distance_unit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="end|bottom"
-                            android:padding="10dp"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="@dimen/textsize_small" />
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cycling_distance_parameter_name" />
 
-                    <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="center"-->
-                    <!--android:paddingBottom="20dp"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:text="@string/csc_total_distance"-->
-                    <!--android:textColor="@color/main_bg_color"-->
-                    <!--android:textSize="@dimen/textsize_very_small" />-->
-                </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical">
 
-                <LinearLayout
-                    android:id="@+id/cadence_calorie_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cycling_layout"
-                    android:layout_margin="10dp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
+                                <TextView
+                                    style="@style/Infineon.TextView.ValueStyle"
+                                    android:id="@+id/cycling_distance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:contentDescription="@string/image_hrm_ee_icon"
-                            android:src="@drawable/flame" />
-
-                        <TextView
-                            android:id="@+id/calories_burnt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="end"
-                            android:maxLines="1"
-                            android:padding="10dp"
-                            android:text="_"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="@dimen/textsize_very_small"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="start"
-                            android:text="@string/hrm_ee_unit"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="@dimen/textsize_very_small" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/rsc_calories"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="15sp" />
+                                <TextView
+                                    android:id="@+id/distance_unit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:text="m" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:gravity="center"
+                        android:paddingTop="@dimen/padding_default">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:contentDescription="@string/image_hrm_rr_icon"
-                            android:src="@drawable/cadence" />
+                            android:layout_width="@dimen/big_icon"
+                            android:layout_height="@dimen/medium_icon"
+                            android:layout_marginEnd="@dimen/padding_default"
+                            android:src="@drawable/flame"
+                            app:tint="@color/accent" />
 
-                        <TextView
-                            android:id="@+id/cadence"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="end"
-                            android:maxLines="1"
-                            android:padding="10dp"
-                            android:text="_"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="@dimen/textsize_very_small"
-                            android:textStyle="bold" />
+                            android:gravity="left"
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/rsc_calories" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/Infineon.TextView.ValueStyle"
+                                    android:id="@+id/calories_burnt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:text="@string/hrm_ee_unit" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/padding_default">
+
+                        <ImageView
+                            android:layout_width="@dimen/big_icon"
+                            android:layout_height="@dimen/medium_icon"
+                            android:layout_marginEnd="@dimen/padding_default"
+                            android:src="@drawable/icon_cadence"
+                            app:tint="@color/accent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="start"
-                            android:text="@string/csc_cadence_unit"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="@dimen/textsize_very_small" />
+                            android:gravity="left"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="@string/csc_cadence"
-                            android:textColor="@color/main_bg_color"
-                            android:textSize="15sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/csc_cadence" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/Infineon.TextView.ValueStyle"
+                                    android:id="@+id/cadence"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left"
+                                    android:text="@string/csc_cadence_unit" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
-
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

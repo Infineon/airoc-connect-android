@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -250,7 +250,7 @@ public class HealthTemperatureService extends Fragment {
      */
     private void getGattData() {
         mTemperatureMeasurementCharacteristic = mTemperatureTypeCharacteristic = null;
-        List<BluetoothGattCharacteristic> characteristics = mService.getCharacteristics();
+        List<BluetoothGattCharacteristic> characteristics = Utils.getServiceCharacteristics(mService);
         for (BluetoothGattCharacteristic c : characteristics) {
             String uuid = c.getUuid().toString();
             if (uuid.equalsIgnoreCase(GattAttributes.TEMPERATURE_TYPE)) {
@@ -272,11 +272,9 @@ public class HealthTemperatureService extends Fragment {
             actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         }
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(true);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -320,7 +318,7 @@ public class HealthTemperatureService extends Fragment {
 
         // Creating XYSeriesRenderer to customize
         XYSeriesRenderer renderer = new XYSeriesRenderer();
-        renderer.setColor(getResources().getColor(R.color.main_bg_color));
+        renderer.setColor(getResources().getColor(R.color.primary, getContext().getTheme()));
         renderer.setPointStyle(PointStyle.CIRCLE);
         renderer.setFillPoints(true);
         renderer.setLineWidth(5);

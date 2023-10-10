@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -39,10 +39,8 @@ import android.content.Context;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
 import com.infineon.airocbluetoothconnect.R;
-import com.infineon.airocbluetoothconnect.RDKEmulatorView.ReportAttributes;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -119,24 +117,6 @@ public class DescriptorParser {
         return broadcastStatus;
     }
 
-    public static ArrayList<String> getReportReference(BluetoothGattDescriptor descriptor) {
-        ArrayList<String> reportReferencevalues = new ArrayList<String>(2);
-        byte[] array = descriptor.getValue();
-        String reportReferenceID = ReportAttributes.REPORT_REF_ID;
-        String reportType = ReportAttributes.REPORT_TYPE;
-        if (array != null && array.length == 2) {
-            reportReferenceID = ReportAttributes.lookupReportReferenceID("" + array[0]);
-            reportType = ReportAttributes.lookupReportReferenceType("" + array[1]);
-            reportReferencevalues.add(reportReferenceID);
-            reportReferencevalues.add(reportType);
-        } else if (array != null && array.length == 1) {
-            reportReferenceID = ReportAttributes.lookupReportReferenceID("" + array[0]);
-            reportReferencevalues.add(reportReferenceID);
-            reportReferencevalues.add(reportType);
-        }
-        return reportReferencevalues;
-    }
-
     public static String getCharacteristicPresentationFormat(BluetoothGattDescriptor descriptor, Context context) {
         String value = "";
         String formatKey = String.valueOf(descriptor.getValue()[0]);
@@ -149,14 +129,18 @@ public class DescriptorParser {
         if (namespaceValue.equalsIgnoreCase("1")) {
             namespaceValue = context.getResources().getString(R.string.descriptor_bluetoothSIGAssignedNo);
         } else {
-            namespaceValue = context.getResources().getString(R.string.descriptor_reservedforFutureUse);;
+            namespaceValue = context.getResources().getString(R.string.descriptor_reservedforFutureUse);
         }
         String descriptionValue = String.valueOf(descriptor.getValue()[5]);
-        value = context.getResources().getString(R.string.descriptor_format) +  "\n" +
-                context.getResources().getString(R.string.exponent) + exponentValue + "\n" +
-                context.getResources().getString(R.string.unit) + unitValue + "\n" +
-                context.getResources().getString(R.string.namespace) + namespaceValue + "\n" +
-                context.getResources().getString(R.string.description) + descriptionValue;
+
+        value = String.join("\n",
+                String.format("%s = %s", context.getResources().getString(R.string.descriptor_format), formatValue),
+                String.format("%s = %s", context.getResources().getString(R.string.exponent), exponentValue),
+                String.format("%s = %s", context.getResources().getString(R.string.unit), unitValue),
+                String.format("%s = %s", context.getResources().getString(R.string.namespace), namespaceValue),
+                String.format("%s = %s", context.getResources().getString(R.string.description), descriptionValue)
+        );
+
         return value;
     }
 }

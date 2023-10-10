@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/white"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@color/background"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_default">
 
     <LinearLayout
         android:id="@+id/chart_container"
         android:layout_width="match_parent"
         android:layout_height="300dip"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_default"
         android:visibility="gone">
 
         <TextView
@@ -27,194 +29,214 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/parent_hrm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
+            android:layout_gravity="top"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:weightSum="2">
 
-                <ImageView
-                    android:id="@+id/heart_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/image_hrm_measurement_heart"
-                    android:padding="10dp"
-                    android:src="@drawable/heart" />
-
-                <TextView
-                    android:id="@+id/hrm_heartrate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="end|center_vertical"
-                    android:padding="10dp"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/textsize_30sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/hrm_heartrate_unit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:gravity="start|center_vertical"
-                    android:padding="10dp"
-                    android:text="@string/hrm_data_unit"
-                    android:textColor="@color/main_bg_color"
-                    android:textSize="@dimen/hrm_measurement_heart_rate_unit_size" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/hrm_sensor_location"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/find_textsize" />
+                        android:gravity="center|end"
+                        android:text="@string/hrm_sensor_location" />
 
                     <TextView
                         android:id="@+id/hrm_sensor_location"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:layout_weight="1" />
+                </TableRow>
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="@string/hrm_sensor_contact"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/find_textsize" />
+                        android:gravity="center|end"
+                        android:text="@string/hrm_sensor_contact" />
 
                     <TextView
                         android:id="@+id/hrm_sensor_contact"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_weight="1" />
+                </TableRow>
+            </TableLayout>
 
             <LinearLayout
+                android:id="@+id/parent_csc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/primary" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:contentDescription="@string/image_hrm_ee_icon"
-                        android:src="@drawable/flame" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="@string/hrm_ee_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_15sp" />
+                        android:paddingTop="@dimen/padding_default">
 
-                    <TextView
-                        android:id="@+id/heart_rate_ee"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:id="@+id/heart_icon"
+                            android:layout_width="@dimen/big_icon"
+                            android:layout_height="@dimen/big_icon"
+                            android:layout_marginEnd="@dimen/padding_default"
+                            android:contentDescription="@string/image_hrm_measurement_heart"
+                            android:src="@drawable/icon_heart"
+                            app:tint="@color/accent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/heart_rate_parameter_name" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/Infineon.TextView.ValueStyle"
+                                    android:id="@+id/hrm_heartrate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical|left" />
+
+                                <TextView
+                                    android:id="@+id/hrm_heartrate_unit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="start|center_vertical"
+                                    android:text="@string/hrm_data_unit" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="end"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_15sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:contentDescription="@string/image_hrm_rr_icon"
-                        android:src="@drawable/hand_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:text="@string/hrm_rr_unit_text"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_15sp" />
+                        android:paddingTop="@dimen/padding_default">
 
-                    <TextView
-                        android:id="@+id/heart_rate_rr"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="@dimen/big_icon"
+                            android:layout_height="@dimen/big_icon"
+                            android:layout_marginEnd="@dimen/padding_default"
+                            android:src="@drawable/flame"
+                            app:tint="@color/accent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/hrm_ee_text" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/Infineon.TextView.ValueStyle"
+                                    android:id="@+id/heart_rate_ee"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical|left" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/unit_kcal" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="end"
-                        android:maxLines="9"
-                        android:lines="3"
-                        android:textColor="@color/main_bg_color"
-                        android:textSize="@dimen/textsize_15sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_vertical"
+                        android:paddingTop="@dimen/padding_default">
+
+                        <ImageView
+                            android:layout_width="@dimen/big_icon"
+                            android:layout_height="@dimen/big_icon"
+                            android:layout_marginEnd="@dimen/padding_default"
+                            android:src="@drawable/icon_pulse"
+                            app:tint="@color/accent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/hrm_rr_unit_text" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    style="@style/Infineon.TextView.ValueStyle"
+                                    android:id="@+id/heart_rate_rr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical|left"
+                                    android:lines="3"
+                                    android:maxLines="9" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/unit_ms" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

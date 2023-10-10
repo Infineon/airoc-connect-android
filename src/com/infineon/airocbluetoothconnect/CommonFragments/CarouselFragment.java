@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -42,13 +42,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.infineon.airocbluetoothconnect.BLEConnectionServices.BluetoothLeService;
+import com.infineon.airocbluetoothconnect.AIROCBluetoothConnectApp;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.BatteryInformationService;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.BloodPressureService;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.CSCService;
@@ -61,17 +61,14 @@ import com.infineon.airocbluetoothconnect.BLEServiceFragments.HeartRateService;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.RGBFragment;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.RSCService;
 import com.infineon.airocbluetoothconnect.BLEServiceFragments.SensorHubService;
-import com.infineon.airocbluetoothconnect.CommonUtils.CarouselLinearLayout;
+import com.infineon.airocbluetoothconnect.CommonUtils.CarouselLayout;
 import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
+import com.infineon.airocbluetoothconnect.CommonUtils.GattDbParser;
 import com.infineon.airocbluetoothconnect.CommonUtils.UUIDDatabase;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.GATTDBFragments.GattServicesFragment;
 import com.infineon.airocbluetoothconnect.OTAFirmwareUpdate.OTAFirmwareUpgradeFragment;
 import com.infineon.airocbluetoothconnect.R;
-import com.infineon.airocbluetoothconnect.RDKEmulatorView.RemoteControlEmulatorFragment;
-import com.infineon.airocbluetoothconnect.wearable.demo.DemoFragment;
-import com.infineon.airocbluetoothconnect.wearable.location.LocationFragment;
-import com.infineon.airocbluetoothconnect.wearable.motion.MotionFragment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -84,7 +81,7 @@ public class CarouselFragment extends Fragment {
     /**
      * Argument keys passed between fragments
      */
-    private final static String EXTRA_FRAG_POS = "com.infineon.airocbluetoothconnect.fragments.CarouselFragment.EXTRA_FRAG_POS";
+    private final static String EXTRA_FRAG_IMG_ID = "com.infineon.airocbluetoothconnect.fragments.CarouselFragment.EXTRA_FRAG_POS";
     private final static String EXTRA_FRAG_SCALE = "com.infineon.airocbluetoothconnect.fragments.CarouselFragment.EXTRA_FRAG_SCALE";
     private final static String EXTRA_FRAG_NAME = "com.infineon.airocbluetoothconnect.fragments.CarouselFragment.EXTRA_FRAG_NAME";
     private final static String EXTRA_FRAG_UUID = "com.infineon.airocbluetoothconnect.fragments.CarouselFragment.EXTRA_FRAG_UUID";
@@ -115,19 +112,19 @@ public class CarouselFragment extends Fragment {
     /**
      * CarouselView Image is actually a button
      */
-    private Button mCarouselButton;
+    private ImageButton mCarouselButton;
 
     /**
      * Fragment new Instance creation with arguments
      *
-     * @param pos
+     * @param imageId
      * @param scale
      * @param name
      * @param uuid
      * @param service
      * @return CarouselFragment
      */
-    public static Fragment create(int pos,
+    public static Fragment create(int imageId,
                                   float scale, String name, String uuid, BluetoothGattService service) {
         CarouselFragment mFragment = new CarouselFragment();
         if (service.getInstanceId() > 0) {
@@ -135,7 +132,7 @@ public class CarouselFragment extends Fragment {
         }
         mBleHashMap.put(uuid, service);
         Bundle mBundle = new Bundle();
-        mBundle.putInt(EXTRA_FRAG_POS, pos);
+        mBundle.putInt(EXTRA_FRAG_IMG_ID, imageId);
         mBundle.putFloat(EXTRA_FRAG_SCALE, scale);
         mBundle.putString(EXTRA_FRAG_NAME, name);
         mBundle.putString(EXTRA_FRAG_UUID, uuid);
@@ -149,7 +146,7 @@ public class CarouselFragment extends Fragment {
         View rootView = inflater.inflate(
                 R.layout.carousel_fragment_item, container, false);
 
-        final int pos = this.getArguments().getInt(EXTRA_FRAG_POS);
+        final int backgroundResourceId = this.getArguments().getInt(EXTRA_FRAG_IMG_ID);
         final String mName = this.getArguments().getString(EXTRA_FRAG_NAME);
         final String mUuid = this.getArguments().getString(EXTRA_FRAG_UUID);
 
@@ -159,20 +156,36 @@ public class CarouselFragment extends Fragment {
         if (mName.equalsIgnoreCase(getResources().getString(
                 R.string.profile_control_unknown_service))) {
             mService = mBleHashMap.get(mUuid);
-            mCurrentUUID = mService.getUuid();
-
-            TextView mTvUUID = (TextView) rootView.findViewById(R.id.text_uuid);
-            mTvUUID.setText(Utils.getUuidShort(mCurrentUUID.toString()));
+            if(mService != null) {
+                mCurrentUUID = mService.getUuid();
+                TextView mTvUUID = (TextView) rootView.findViewById(R.id.text_uuid);
+                mTvUUID.setText(Utils.getUuidShort(mCurrentUUID.toString()));
+            }
+            else {
+                String currentUUID = "(Service unavailable)";
+                TextView mTvUUID = (TextView) rootView.findViewById(R.id.text_uuid);
+                mTvUUID.setText(currentUUID);
+            }
         }
 
-        mCarouselButton = (Button) rootView.findViewById(R.id.content);
-        mCarouselButton.setBackgroundResource(pos);
+        mCarouselButton = (ImageButton) rootView.findViewById(R.id.content);
+        mCarouselButton.setImageResource(backgroundResourceId);
+
+        AIROCBluetoothConnectApp application = (AIROCBluetoothConnectApp) getActivity().getApplication();
+        GattDbParser gattDbParser = application.getGattDbParser();
+
         mCarouselButton.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // Getting the Mapped service from the UUID
                 mService = mBleHashMap.get(mUuid);
+                if (mService == null)
+                {
+                    showWarningMessage();
+                    return;
+                }
+
                 mCurrentUUID = mService.getUuid();
 
                 // Heart Rate
@@ -197,19 +210,19 @@ public class CarouselFragment extends Fragment {
                 }
                 // Find Me
                 else if (mService.getUuid().equals(UUIDDatabase.UUID_IMMEDIATE_ALERT_SERVICE)) {
-                    FindMeService findMeFragment = FindMeService.create(mService, ServiceDiscoveryFragment.mGattServiceFindMeData, mName);
+                    FindMeService findMeFragment = FindMeService.create(mService, gattDbParser.getGattServiceFindMeData(), mName);
                     displayView(findMeFragment, getResources().getString(R.string.findme_fragment));
                 }
                 // Proximity
                 else if (mService.getUuid().equals(UUIDDatabase.UUID_LINK_LOSS_SERVICE)
                         || mService.getUuid().equals(UUIDDatabase.UUID_TRANSMISSION_POWER_SERVICE)) {
-                    FindMeService findMeFragment = FindMeService.create(mService, ServiceDiscoveryFragment.mGattServiceProximityData, mName);
+                    FindMeService findMeFragment = FindMeService.create(mService, gattDbParser.getGattServiceProximityData(), mName);
                     displayView(findMeFragment, getResources().getString(R.string.proximity_fragment));
                 }
                 // CapSense
                 else if (mService.getUuid().equals(UUIDDatabase.UUID_CAPSENSE_SERVICE)
                         || mService.getUuid().equals(UUIDDatabase.UUID_CAPSENSE_SERVICE_CUSTOM)) {
-                    List<BluetoothGattCharacteristic> capsenseCharacteristics = mService.getCharacteristics();
+                    List<BluetoothGattCharacteristic> capsenseCharacteristics = Utils.getServiceCharacteristics(mService);
                     CapsenseService capsenseFragment = CapsenseService.create(mService, capsenseCharacteristics.size());
                     displayView(capsenseFragment, getResources().getString(R.string.capsense));
                 }
@@ -251,23 +264,8 @@ public class CarouselFragment extends Fragment {
                 }
                 // Barometer(SensorHub) Service
                 else if (mService.getUuid().equals(UUIDDatabase.UUID_BAROMETER_SERVICE)) {
-                    SensorHubService sensorHubFragment = SensorHubService.create(mService, ServiceDiscoveryFragment.mGattServiceSensorHubData);
+                    SensorHubService sensorHubFragment = SensorHubService.create(mService, gattDbParser.getGattServiceSensorHubData());
                     displayView(sensorHubFragment, getResources().getString(R.string.sen_hub));
-                }
-                // HID Remote Control Emulator
-                else if (mService.getUuid().equals(UUIDDatabase.UUID_HID_SERVICE)) {
-                    String connectedDeviceName = BluetoothLeService.getBluetoothDeviceName();
-                    String remoteName = getResources().getString(R.string.rdk_emulator_view);
-                    if (connectedDeviceName.indexOf(remoteName) != -1) {
-                        if (Constants.RDK_ENABLED) {
-                            RemoteControlEmulatorFragment remoteControlEmulatorFragment = RemoteControlEmulatorFragment.create(mService);
-                            displayView(remoteControlEmulatorFragment, getResources().getString(R.string.rdk_emulator_view));
-                        } else {
-                            showWarningMessage();
-                        }
-                    } else {
-                        showWarningMessage();
-                    }
                 }
                 // OTA Firmware Update
                 else if (mService.getUuid().equals(UUIDDatabase.UUID_OTA_UPDATE_SERVICE)) {
@@ -277,23 +275,13 @@ public class CarouselFragment extends Fragment {
                     } else {
                         showWarningMessage();
                     }
-                    // Wearable Solution Demo
-                } else if (mService.getUuid().equals(UUIDDatabase.UUID_WEARABLE_DEMO_SERVICE)) {
-                    DemoFragment demoFragment = DemoFragment.create();
-                    displayView(demoFragment, DemoFragment.TAG);
-                } else if (mService.getUuid().equals(UUIDDatabase.UUID_WEARABLE_MOTION_SERVICE)) {
-                    MotionFragment motionFragment = new MotionFragment();
-                    displayView(motionFragment, MotionFragment.TAG);
-                } else if (mService.getUuid().equals(UUIDDatabase.UUID_LOCATION_NAVIGATION_SERVICE)) {
-                    LocationFragment locationFragment = LocationFragment.create();
-                    displayView(locationFragment, LocationFragment.TAG);
                 } else {
                     showWarningMessage();
                 }
             }
         });
         float scale = getArguments().getFloat(EXTRA_FRAG_SCALE);
-        CarouselLinearLayout root = rootView.findViewById(R.id.root);
+        CarouselLayout root = rootView.findViewById(R.id.root);
         root.setScaleBoth(scale);
         return rootView;
     }

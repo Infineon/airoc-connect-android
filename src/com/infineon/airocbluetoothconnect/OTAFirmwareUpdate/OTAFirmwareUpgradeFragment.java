@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -65,6 +65,7 @@ import com.infineon.airocbluetoothconnect.CommonUtils.Constants;
 import com.infineon.airocbluetoothconnect.CommonUtils.GattAttributes;
 import com.infineon.airocbluetoothconnect.CommonUtils.Logger;
 import com.infineon.airocbluetoothconnect.CommonUtils.TextProgressBar;
+import com.infineon.airocbluetoothconnect.CommonUtils.ToastUtils;
 import com.infineon.airocbluetoothconnect.CommonUtils.Utils;
 import com.infineon.airocbluetoothconnect.R;
 
@@ -189,7 +190,6 @@ public class OTAFirmwareUpgradeFragment extends Fragment implements View.OnClick
                                     if (!stayOnPage) {
                                         BluetoothLeService.disconnect();
                                         BluetoothLeService.unpairDevice(device);
-                                        Toast.makeText(getActivity(), getResources().getString(R.string.alert_message_bluetooth_disconnect), Toast.LENGTH_SHORT).show();
                                         Intent intent = getActivity().getIntent();
                                         getActivity().finish();
                                         getActivity().overridePendingTransition(R.anim.slide_right, R.anim.push_right);
@@ -330,8 +330,7 @@ public class OTAFirmwareUpgradeFragment extends Fragment implements View.OnClick
                 updateGUI(APP_AND_STACK_SEPARATE);
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(getActivity(), getResources().
-                    getString(R.string.toast_selection_cancelled), Toast.LENGTH_SHORT).show();
+            ToastUtils.makeText(R.string.toast_selection_cancelled, Toast.LENGTH_SHORT);
         }
     }
 
@@ -578,7 +577,6 @@ public class OTAFirmwareUpgradeFragment extends Fragment implements View.OnClick
 
                                     BluetoothLeService.disconnect();
                                     BluetoothLeService.unpairDevice(device);
-                                    Toast.makeText(getActivity(), getResources().getString(R.string.alert_message_bluetooth_disconnect), Toast.LENGTH_SHORT).show();
                                     Intent intent = getActivity().getIntent();
                                     getActivity().finish();
                                     getActivity().overridePendingTransition(R.anim.slide_right, R.anim.push_right);
@@ -685,11 +683,9 @@ public class OTAFirmwareUpgradeFragment extends Fragment implements View.OnClick
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

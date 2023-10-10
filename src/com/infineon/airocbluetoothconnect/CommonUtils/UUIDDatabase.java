@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -232,10 +232,6 @@ public class UUIDDatabase {
             .fromString(GattAttributes.TEMPERATURE_READING);
     public final static UUID UUID_TEMPERATURE_SENSOR_SCAN_INTERVAL = UUID
             .fromString(GattAttributes.TEMPERATURE_SENSOR_SCAN_INTERVAL);
-
-    /**
-     * RDK related UUID
-     */
     public final static UUID UUID_REPORT = UUID
             .fromString(GattAttributes.REPORT);
 
@@ -497,28 +493,4 @@ public class UUIDDatabase {
             .fromString(GattAttributes.ENVIRONMENTAL_SENSING_MEASUREMENT);
     public final static UUID UUID_ENVIRONMENTAL_SENSING_TRIGGER_SETTING = UUID
             .fromString(GattAttributes.ENVIRONMENTAL_SENSING_TRIGGER_SETTING);
-
-    // Wearable Solution Demo
-    public static final UUID UUID_WEARABLE_DEMO_SERVICE = UUID
-            .fromString(GattAttributes.WEARABLE_DEMO_SERVICE);
-    public static final UUID UUID_WEARABLE_MOTION_SERVICE = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_SERVICE);
-    public static final UUID UUID_WEARABLE_MOTION_FEATURE_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_FEATURE_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_DATA_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_DATA_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_CONTROL_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_CONTROL_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_LIFETIME_STEPS_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_LIFETIME_STEPS_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_STEPS_GOAL_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_STEPS_GOAL_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_CALORIES_GOAL_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_CALORIES_GOAL_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_FITNESS_TRACKER_CMD_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_FITNESS_TRACKER_CMD_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_DURATION_GOAL_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_DURATION_GOAL_CHARACTERISTIC);
-    public static final UUID UUID_WEARABLE_MOTION_DISTANCE_GOAL_CHARACTERISTIC = UUID
-            .fromString(GattAttributes.WEARABLE_MOTION_DISTANCE_GOAL_CHARACTERISTIC);
 }

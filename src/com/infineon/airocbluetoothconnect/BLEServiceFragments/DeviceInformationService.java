@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -213,10 +213,8 @@ public class DeviceInformationService extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         graph.setVisible(false);
-        log.setVisible(true);
         search.setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -230,7 +228,7 @@ public class DeviceInformationService extends Fragment {
 
     private void collectReadCharacteristics() {
         mReadCharacteristics.clear();
-        List<BluetoothGattCharacteristic> characteristics = mService.getCharacteristics();
+        List<BluetoothGattCharacteristic> characteristics = Utils.getServiceCharacteristics(mService);
         for (BluetoothGattCharacteristic characteristic : characteristics) {
             UUID uuid = characteristic.getUuid();
             if (uuid.equals(UUIDDatabase.UUID_MANUFACTURER_NAME)

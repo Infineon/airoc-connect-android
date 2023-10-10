@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -368,7 +368,7 @@ public class GlucoseService extends Fragment implements View.OnClickListener {
         BluetoothLeService.mGlucoseCharacteristics = new ArrayList<>();
         BluetoothLeService.mEnabledCharacteristics = new ArrayList<>();
         BluetoothLeService.mDisableEnabledCharacteristicsFlag = false;
-        List<BluetoothGattCharacteristic> characteristics = mService.getCharacteristics();
+        List<BluetoothGattCharacteristic> characteristics = Utils.getServiceCharacteristics(mService);
         for (BluetoothGattCharacteristic characteristic : characteristics) {
             UUID uuid = characteristic.getUuid();
             if (uuid.equals(UUIDDatabase.UUID_RECORD_ACCESS_CONTROL_POINT)
@@ -397,11 +397,9 @@ public class GlucoseService extends Fragment implements View.OnClickListener {
         menu.clear();
         inflater.inflate(R.menu.global, menu);
         MenuItem graph = menu.findItem(R.id.graph);
-        MenuItem log = menu.findItem(R.id.log);
         MenuItem search = menu.findItem(R.id.search);
         search.setVisible(false);
         graph.setVisible(false);
-        log.setVisible(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

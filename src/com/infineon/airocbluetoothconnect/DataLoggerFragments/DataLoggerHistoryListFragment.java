@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2022, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -34,7 +34,6 @@
 package com.infineon.airocbluetoothconnect.DataLoggerFragments;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,10 +144,9 @@ public class DataLoggerHistoryListFragment extends Fragment {
                 String path = mDataLoggerArrayList.get(pos).getFilePath();
                 Logger.i("Selected file path" + mDataLoggerArrayList.get(pos).getFilePath());
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.DATA_LOGGER_FILE_NAME, path);
-                bundle.putBoolean(Constants.DATA_LOGGER_FLAG, true);
+                bundle.putString(Constants.DATA_LOGGER_FILE_PATH, path);
+                bundle.putBoolean(Constants.DATA_LOGGER_SHOW_HISTORY_FILES_FLAG, true);
                 FragmentManager fragmentManager = getFragmentManager();
-                Fragment currentFragment = fragmentManager.findFragmentById(R.id.container);
                 DataLoggerFragment dataloggerfragment = new DataLoggerFragment();
                 dataloggerfragment.setArguments(bundle);
                 fragmentManager.beginTransaction()

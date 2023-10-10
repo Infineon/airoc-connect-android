@@ -4,7 +4,6 @@
     <string name="dl_commaseparator">" , "</string>
 
     <!--Connection logs-->
-    <string name="dl_connection_status"> Connection status </string>
     <string name="dl_connection_request"> Connection request sent </string>
     <string name="dl_connection_established"> Connection established </string>
     <string name="dl_connection_establishing"> Connection establishing </string>
@@ -27,7 +26,6 @@
     <string name="dl_characteristic_start_notification"> Start notification request sent </string>
     <string name="dl_characteristic_start_indication"> Start indication request sent </string>
     <string name="dl_characteristic_notification_response"> Notification received with value </string>
-    <string name="dl_characteristic_indication_response"> Indication received with value </string>
     <string name="dl_characteristic_stop_notification"> Stop notification request sent </string>
     <string name="dl_characteristic_stop_indication"> Stop indication request sent </string>
     <string name="dl_characteristic_read_request"> Read request sent </string>
