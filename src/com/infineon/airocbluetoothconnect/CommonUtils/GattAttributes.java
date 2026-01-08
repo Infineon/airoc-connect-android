@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2025, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -235,7 +235,7 @@ public class GattAttributes {
     public static final String ALERT_STATUS = "00002a3F-0000-1000-8000-00805f9b34fb";
     public static final String ANAEROBIC_HEART_RATE_LOWER_LIMIT = "00002a81-0000-1000-8000-00805f9b34fb";
     public static final String ANAEROBIC_HEART_RATE_UPPER_LIMIT = "00002a82-0000-1000-8000-00805f9b34fb";
-    public static final String ANAEROBIC_THRESHOLD = "00002aA83-0000-1000-8000-00805f9b34fb";
+    public static final String ANAEROBIC_THRESHOLD = "00002a83-0000-1000-8000-00805f9b34fb";
     public static final String APPARENT_WIND_DIRECTION = "00002a73-0000-1000-8000-00805f9b34fb";
     public static final String APPARENT_WIND_SPEED = "00002a72-0000-1000-8000-00805f9b34fb";
     public static final String APPEARANCE = "00002a01-0000-1000-8000-00805f9b34fb";

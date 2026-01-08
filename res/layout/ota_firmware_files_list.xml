@@ -1,145 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/parent_ota_files"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:clickable="true"
-    android:orientation="vertical"
-    android:padding="@dimen/padding_default"
-    android:scrollbars="none"
-    android:weightSum="1.0">
+    android:background="@color/primary"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:id="@+id/security_key_section"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_default"
+        android:scrollbars="none"
+        android:weightSum="1.0">
+
+        <LinearLayout
+            android:id="@+id/security_key_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/security_key_required"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/ota_security_key_required"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/security_key_hex_prefix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="@string/ota_security_key_required_hex_prefix"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <EditText
+                    android:id="@+id/security_key"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:digits="0123456789ABCDEF"
+                    android:gravity="start"
+                    android:hint="@string/ota_security_key_hint"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="12"
+                    android:paddingStart="0dp"
+                    android:textColorHint="@color/hint_text" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/active_app_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/active_app_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/ota_active_application" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/active_app"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/primary" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/heading_2"
+            style="@style/Infineon.TextView.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:focusedByDefault="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="@string/ota_file_list">
+
+            <requestFocus />
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/primary" />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1.0"
+            android:divider="@color/primary"
+            android:dividerHeight="1dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
             android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/security_key_required"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/ota_security_key_required"
-                android:textSize="@dimen/text_size_medium" />
-
-            <TextView
-                android:id="@+id/security_key_hex_prefix"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/ota_security_key_required_hex_prefix"
-                android:padding="0dp"
-                android:gravity="center"
-                android:textSize="@dimen/text_size_medium"/>
-
-            <EditText
-                android:hint="@string/ota_security_key_hint"
-                android:textColorHint="@color/hint_text"
-                android:id="@+id/security_key"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <Button
+                android:id="@+id/upgrade_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:digits="0123456789ABCDEF"
-                android:paddingStart="0dp"
-                android:gravity="start"
-                android:inputType="textCapCharacters"
-                android:maxLength="12" />
+                android:text="@string/ota_upgrade"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/ota_next"
+                android:visibility="visible" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/primary" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/active_app_section"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+</FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/active_app_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/ota_active_application" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/active_app"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/primary" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/heading_2"
-        style="@style/Infineon.TextView.Header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:focusedByDefault="true"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:text="@string/ota_file_list">
-
-        <requestFocus />
-    </TextView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/primary" />
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1.0"
-        android:divider="@color/primary"
-        android:dividerHeight="1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/upgrade_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="@string/ota_upgrade"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/next_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="@string/ota_next"
-            android:visibility="visible" />
-    </LinearLayout>
-</LinearLayout>

@@ -185,7 +185,7 @@
     <string name="glucose_btn_clear">Clear</string>
 
     <!-- About Fragment elements -->
-    <string name="copyright_text">Copyright © 2014–2023, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation. All rights reserved. Other names and brands may be claimed as property of their respective owners.\n\nFor End User License Agreement, Open Source Licenses Used, and app’s User Guide refer to the <a href="https://www.infineon.com/cms/en/design-support/tools/utilities/wireless-connectivity/airoc-bluetooth-connect-app-mobile-app/">AIROC™ Bluetooth® Connect App Website</a></string>
+    <string name="copyright_text">Copyright © 2014–2025, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation. All rights reserved. Other names and brands may be claimed as property of their respective owners.\n\nFor End User License Agreement, Open Source Licenses Used, and app’s User Guide refer to the <a href="https://www.infineon.com/cms/en/design-support/tools/utilities/wireless-connectivity/airoc-bluetooth-connect-app-mobile-app/">AIROC™ Bluetooth® Connect App Website</a></string>
 
     <!-- Contact Fragment elements -->
     <string name="cypress_semiconductors_address">Infineon Service Center (call us: +49 89 234 65555)</string>

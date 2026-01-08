@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2025, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -49,6 +49,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -510,6 +511,11 @@ public class BluetoothLeService extends Service {
         }
 
         @Override
+        public void onServiceChanged(BluetoothGatt gatt) {
+            super.onServiceChanged(gatt);
+            mBluetoothGatt.discoverServices();
+        }
+        @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             String serviceUUID = characteristic.getService().getUuid().toString();
             String serviceName = GattAttributes.lookupUUID(characteristic.getService().getUuid(), serviceUUID);
@@ -527,12 +533,6 @@ public class BluetoothLeService extends Service {
             Logger.dataLog(dataLog);
 
             broadcastNotifyUpdate(characteristic);
-        }
-
-        @Override
-        public void onServiceChanged(BluetoothGatt gatt) {
-            super.onServiceChanged(gatt);
-            mBluetoothGatt.discoverServices();
         }
 
         @Override
@@ -572,7 +572,12 @@ public class BluetoothLeService extends Service {
         LocalBroadcastManager.getInstance(context).registerReceiver(receiver, filter);
 
         // Registering receiver as a GLOBAL receiver
-        context.registerReceiver(receiver, filter);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED);
+        } else {
+            context.registerReceiver(receiver, filter);
+        }
     }
 
     public static void unregisterBroadcastReceiver(Context context, BroadcastReceiver receiver) {
@@ -1382,7 +1387,7 @@ public class BluetoothLeService extends Service {
         String descriptorName = GattAttributes.lookupUUID(UUIDDatabase.UUID_CLIENT_CHARACTERISTIC_CONFIG, descriptorUUID);
 
         if (characteristic.getDescriptor(UUID.fromString(GattAttributes.CLIENT_CHARACTERISTIC_CONFIG)) != null) {
-            if (enabled == true) {
+            if (enabled) {
                 BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(GattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
                 mBluetoothGatt.writeDescriptor(descriptor);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2025, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -563,6 +563,7 @@ public class Utils {
         ActionBar actionBar = context.getSupportActionBar();
         actionBar.setIcon(new ColorDrawable(context.getResources().getColor(android.R.color.transparent)));
         actionBar.setTitle(titleId);
+
     }
 
     /**

@@ -1,15 +1,16 @@
 def appName = "AIROC™ Bluetooth® Connect App"
-def appVersion = "1.5.0"
+def appVersion = "1.5.1"
 
 apply plugin: 'com.android.application'
 
 buildscript {
+    ext.kotlin_version = '1.8.0-Beta'
     repositories {
         mavenCentral()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.10.1'
     }
 }
 
@@ -23,14 +24,13 @@ allprojects {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/achartengine-1.0.0.jar')
-
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation "androidx.constraintlayout:constraintlayout:2.2.1"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }
 
 android {
-    compileSdkVersion 33
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -52,9 +52,11 @@ android {
         release.setRoot('build-types/release')
     }
     defaultConfig {
+        namespace "com.infineon.airocbluetoothconnect"
+        compileSdkVersion 34
         minSdkVersion 28
-        targetSdkVersion 33
-
+        targetSdkVersion 35
+        applicationId "com.infineon.airocbluetoothconnect"
         // Get BUILD_NUMBER from environment if possible. 1 is the least possible build number
         def buildNumber = "${System.getenv('BUILD_NUMBER') ?: 1}".toInteger()
         def version = "${appVersion}.${buildNumber}"
@@ -67,5 +69,10 @@ android {
         }
     }
     productFlavors {
+    }
+    buildFeatures {
+        renderScript true
+        aidl true
+        buildConfig true
     }
 }

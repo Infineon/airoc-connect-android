@@ -1,13 +1,8 @@
-# AIROC™ Bluetooth® Connect App 1.5.0 for Android
+# AIROC™ Bluetooth® Connect App 1.5.1 for Android
 For details, refer to [README.md](./README.md).
 
 ## Version info
-* Updated the app visual appearance
-* Replaced most of raster drawables with vector drawables
-* Removed obsolete legacy source code
-* Fixed the "The RSSI value does not display for Unknown Devices" issue
-* Updated the app to handle Service Changed notifications
-* Fixed minor bugs and improved the app general stability
+* Minor issue fixes and improvements.
 
 ## More information in:
 * [AIROC™ Bluetooth® Connect App README.md](./README.md)
@@ -16,4 +11,4 @@ For details, refer to [README.md](./README.md).
 * [Infineon](http://www.infineon.com)
 
 ---
-© 2022-2023, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation.
+© 2022-2025, Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation.

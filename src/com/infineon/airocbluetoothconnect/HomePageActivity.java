@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2025, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -800,7 +800,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationDra
                 // Share
                 HomePageActivity.mContainerView.invalidate();
                 View rootView = getWindow().getDecorView().getRootView();
-
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.setType("image/*");

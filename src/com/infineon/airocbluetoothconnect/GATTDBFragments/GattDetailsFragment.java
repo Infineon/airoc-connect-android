@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * Copyright 2014-2025, Cypress Semiconductor Corporation (an Infineon company) or
  * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
  *
  * This software, including source code, documentation and related
@@ -719,7 +719,7 @@ public class GattDetailsFragment extends Fragment implements DialogListener, OnC
                     }
                 }
             } else if (action.equals(BluetoothLeService.ACTION_GATT_CHARACTERISTIC_ERROR)) {
-                if (extras.containsKey(Constants.EXTRA_CHARACTERISTIC_ERROR_MESSAGE)) {
+                if (extras != null && extras.containsKey(Constants.EXTRA_CHARACTERISTIC_ERROR_MESSAGE)) {
                     String errorMessage = extras.getString(Constants.EXTRA_CHARACTERISTIC_ERROR_MESSAGE);
                     displayAlertWithMessage(errorMessage);
                     mAsciiValue.setText("");
